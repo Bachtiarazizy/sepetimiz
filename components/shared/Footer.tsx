@@ -62,8 +62,8 @@ const Footer = () => {
           <div className="text-center sm:text-left grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:col-span-2">
             {footerLinks.map((section) => (
               <div key={section.title} className="flex flex-col">
-                <h4 className="font-semibold">{section.title}</h4>
-                <ul className="flex flex-col mt-6 space-y-3 text-sm">
+                <h4 className="font-semibold mt-6">{section.title}</h4>
+                <ul className="flex flex-col mt-3 md:mt-6 space-y-3 text-sm">
                   {section.links.map((link, index) =>
                     typeof link === "string" ? (
                       <li key={index}>{link}</li>
