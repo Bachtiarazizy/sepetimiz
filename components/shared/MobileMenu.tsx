@@ -8,6 +8,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { NavLinks } from "@/constant";
+import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs/components";
 
 export function MobileMenu() {
   const location = usePathname();
@@ -28,7 +29,7 @@ export function MobileMenu() {
           <Menu className="w-4 h-4" />
         </Button>
       </SheetTrigger>
-      <SheetContent onMouseLeave={handleMouseLeave}>
+      <SheetContent className="flex flex-col justify-between" onMouseLeave={handleMouseLeave}>
         <div className="mt-5 flex px-2 space-y-1 flex-col">
           {NavLinks.map((item) => (
             <div key={item.id} className="relative">
@@ -55,6 +56,14 @@ export function MobileMenu() {
               )}
             </div>
           ))}
+        </div>
+        <div className="flex flex-col mt-4 space-y-2">
+          <Button asChild>
+            <LoginLink>Login</LoginLink>
+          </Button>
+          <Button variant="secondary" asChild>
+            <RegisterLink>Register</RegisterLink>
+          </Button>
         </div>
       </SheetContent>
     </Sheet>
