@@ -14,7 +14,7 @@ interface iAppProps {
 
 export function ProductCard({ images, id, price, description, name }: iAppProps) {
   return (
-    <div className="rounded-lg style={{ minHeight: '400px' }}">
+    <div className="rounded-lg">
       <Carousel className="w-full mx-auto">
         <CarouselContent>
           {images.map((item, index) => (
