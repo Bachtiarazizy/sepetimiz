@@ -1,3 +1,4 @@
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -14,7 +15,7 @@ interface iAppProps {
 
 export function ProductCard({ images, id, price, description, name }: iAppProps) {
   return (
-    <div className="rounded-lg">
+    <div className="rounded-lg h-full flex flex-col">
       <Carousel className="w-full mx-auto">
         <CarouselContent>
           {images.map((item, index) => (
@@ -31,10 +32,10 @@ export function ProductCard({ images, id, price, description, name }: iAppProps)
 
       <div className="flex justify-between items-center mt-2">
         <h1 className="font-semibold text-xl">{name}</h1>
-        <h3 className="inline-flex items-center rounded-md bg-primary/10 px-2 py-1 text-xs font-medium text-primary ring-1 ring-inset  ring-primary/10">{price}</h3>
+        <h3 className="inline-flex items-center rounded-md bg-primary/10 px-2 py-1 text-xs font-medium text-primary ring-1 ring-inset ring-primary/10">{price}</h3>
       </div>
 
-      <p className="text-gray-600 line-clamp-2 text-sm mt-2">{description}</p>
+      <p className="text-gray-600 line-clamp-2 text-sm mt-2 flex-grow">{description}</p>
 
       <Button asChild className="w-full mt-5">
         <Link href={`/product/${id}`}>Learn More!</Link>
@@ -45,7 +46,7 @@ export function ProductCard({ images, id, price, description, name }: iAppProps)
 
 export function LoadingProductCard() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col h-full">
       <Skeleton className="w-full h-[230px]" />
       <div className="flex flex-col mt-2 gap-y-2">
         <Skeleton className="h-4 w-full" />
