@@ -24,7 +24,7 @@ async function getData({ category }: iAppProps) {
           id: true,
           images: true,
         },
-        take: 3,
+        take: 4,
       });
 
       return {
@@ -45,7 +45,7 @@ async function getData({ category }: iAppProps) {
         orderBy: {
           createdAt: "desc",
         },
-        take: 3,
+        take: 4,
       });
 
       return {
@@ -66,7 +66,7 @@ async function getData({ category }: iAppProps) {
           description: true,
           images: true,
         },
-        take: 3,
+        take: 4,
       });
 
       return {
@@ -87,7 +87,7 @@ async function getData({ category }: iAppProps) {
           description: true,
           images: true,
         },
-        take: 3,
+        take: 4,
       });
 
       return {
@@ -108,7 +108,7 @@ async function getData({ category }: iAppProps) {
           description: true,
           images: true,
         },
-        take: 3,
+        take: 4,
       });
 
       return {
@@ -129,7 +129,7 @@ async function getData({ category }: iAppProps) {
           description: true,
           images: true,
         },
-        take: 3,
+        take: 4,
       });
 
       return {
