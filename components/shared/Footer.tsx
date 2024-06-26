@@ -10,13 +10,13 @@ const Footer = () => {
           <div className="gap-6">
             <div className="flex justify-center sm:justify-start">
               <Link href="/">
-                <h1 className="text-2xl font-semibold ">
+                <h1 className="text-xl lg:text-2xl font-semibold text-gray-700 dark:text-gray-100 ">
                   Sepetimiz<span className="text-primary"></span>
                 </h1>
               </Link>
             </div>
 
-            <p className="mt-6 text-center sm:text-left">
+            <p className="text-gray-700 dark:text-gray-100 mt-6 text-center sm:text-left font-semibold text-sm lg:text-base">
               Your ultimate destination for discovering and supporting Indonesian students in Turkey. Experience Link seamless e-commerce platform showcasing diverse products and services crafted by talented students pursuing their dreams
               abroad.
             </p>

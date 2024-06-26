@@ -46,7 +46,7 @@ const Marketing = () => {
             </div>
           </div>
           <Link href="/sell-products" passHref>
-            <button className="mt-8 bg-indigo-600 px-12 py-3 text-sm font-medium text-white rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-yellow-400 transition">Post a Product Now</button>
+            <button className="mt-8 bg-indigo-600 px-8 py-3 text-sm font-medium text-white rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-yellow-400 transition">Post a Product Now</button>
           </Link>
         </div>
       </div>

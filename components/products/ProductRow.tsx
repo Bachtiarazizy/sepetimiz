@@ -45,7 +45,7 @@ async function getData({ category }: iAppProps) {
         orderBy: {
           createdAt: "desc",
         },
-        take: 4,
+        take: 6,
       });
 
       return {
@@ -157,19 +157,19 @@ export function ProductRow({ category }: iAppProps) {
 async function LoadRows({ category }: iAppProps) {
   const data = await getData({ category: category });
   return (
-    <>
-      <div className="flex flex-row justify-between">
-        <h2 className="text-2xl font-extrabold tracking-tighter">{data.title}</h2>
+    <main className="my-10">
+      <div className="flex flex-row justify-between mb-8 items-center">
+        <h2 className="text-lg sm:text-lg md:text-xl lg:text-2xl font-extrabold tracking-tighter ">{data.title}</h2>
         <Link href={data.link} className="text-sm font-medium text-primary hover:text-primary/90">
           All Products <span>&rarr;</span>
         </Link>
       </div>
-      <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-4 mt-4 gap-10">
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 gap-y-8 gap-5 sm:gap-5 md:gap-8 lg:gap-9 mt-4 mx-auto">
         {data.data.map((product) => (
           <ProductCard images={product.images} key={product.id} id={product.id} name={product.name} price={product.price} description={product.description} />
         ))}
       </div>
-    </>
+    </main>
   );
 }
 

@@ -19,7 +19,7 @@ const Banner = () => {
                 <p className="hidden text-white/90 sm:mt-4 sm:block">Stay updated with our newest additions and explore the most recent innovations and offerings in the market. Be the first to discover what's new!</p>
                 <div className="mt-4 md:mt-8">
                   <Link href="products">
-                    <Button className="transition hover:bg-opacity-75">Browse New Arrivals</Button>
+                    <Button className="transition hover:bg-opacity-75 text-sm">Browse New Arrivals</Button>
                   </Link>
                 </div>
               </div>
