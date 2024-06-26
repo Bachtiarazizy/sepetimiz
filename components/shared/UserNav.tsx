@@ -39,7 +39,7 @@ export function UserNav({ email, firstName, lastName, userImage }: iAppProps) {
             <Link href="/Dashboard">Dashboard</Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href="/settings">Settings</Link>
+            <Link href="Dashboard/settings">Settings</Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />

@@ -18,7 +18,7 @@ export default async function Navbar() {
         <Link href="/">
           <div className="text-2xl font-semibold flex flex-row items-center gap-2">
             <ShoppingBag />
-            Sepetimiz
+            <span className="text-base md:text-xl">Sepetimiz</span>
           </div>
         </Link>
       </div>

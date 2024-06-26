@@ -28,7 +28,6 @@ export default async function SellRoute() {
   const data = await getData(user.id);
   return (
     <section className="max-w-7xl mx-auto px-4 md:px-8 mb-14">
-      <h1 className="text-4xl font-bold text-center text-gray-900 dark:text-gray-100">Sell Your Product</h1>
       <Card>
         <Form />
       </Card>

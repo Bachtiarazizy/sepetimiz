@@ -3,7 +3,7 @@ import React from "react";
 
 const DashboardFooter = () => {
   return (
-    <div className="mt-12 border-t border-gray-100 pt-6">
+    <div className="mt-12 border-t border-gray-100 pt-6 shadow-sm">
       {" "}
       <div className="text-center sm:flex sm:justify-between sm:text-left">
         {" "}

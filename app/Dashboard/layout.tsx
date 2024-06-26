@@ -1,6 +1,6 @@
 import DashboardNav from "./_components/dashboardNav";
 import DashboardFooter from "./_components/dashboardFooter";
-import { DashboardHeader } from "./_components/DashboardHeader";
+import DashboardHeader from "./_components/DashboardHeader";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -12,6 +12,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <DashboardNav />
       </div>
       <main className="md:pl-56 pt-[80px] h-full">{children}</main>
+      <DashboardFooter />
     </div>
   );
 }
