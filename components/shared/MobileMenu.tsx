@@ -8,7 +8,8 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { NavLinks } from "@/constant";
-import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs/components";
+import { LoginLink, LogoutLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs/components";
+import { ModeToggle } from "../provider/ModeToggle";
 
 export function MobileMenu() {
   const location = usePathname();
@@ -31,6 +32,7 @@ export function MobileMenu() {
       </SheetTrigger>
       <SheetContent className="flex flex-col justify-between" onMouseLeave={handleMouseLeave}>
         <div className="mt-5 flex px-2 space-y-1 flex-col">
+          <ModeToggle />
           {NavLinks.map((item) => (
             <div key={item.id} className="relative">
               {item.dropdown ? (

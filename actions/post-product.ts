@@ -19,12 +19,7 @@ const productSchema = z.object({
   price: z.string().min(1, { message: "The Price has to be bigger then 1" }),
   description: z.string().min(10, { message: "Description is required" }),
   images: z.array(z.string(), { message: "Images are required" }),
-});
-
-const userSettingsSchema = z.object({
-  firstName: z.string().min(3, { message: "Minimum length of 3 required" }).or(z.literal("")).optional(),
-
-  lastName: z.string().min(3, { message: "Minimum length of 3 required" }).or(z.literal("")).optional(),
+  SellerPhone: z.string().min(10, { message: "Phone is required" }),
 });
 
 export async function SellProduct(prevState: any, formData: FormData) {
@@ -41,6 +36,7 @@ export async function SellProduct(prevState: any, formData: FormData) {
     price: formData.get("price"),
     description: formData.get("description"),
     images: JSON.parse(formData.get("images") as string),
+    SellerPhone: formData.get("SellerPhone"),
   });
 
   if (!validateFields.success) {
@@ -60,6 +56,7 @@ export async function SellProduct(prevState: any, formData: FormData) {
       description: validateFields.data.description,
       price: validateFields.data.price,
       images: validateFields.data.images,
+      SellerPhone: validateFields.data.SellerPhone,
       userId: user.id,
     },
   });

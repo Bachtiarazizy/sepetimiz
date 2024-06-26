@@ -7,6 +7,7 @@ import Footer from "@/components/shared/Footer";
 import { extractRouterConfig } from "uploadthing/server";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { ourFileRouter } from "./api/uploadthing/core";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -21,9 +22,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={cn("bg-background min-h-screen font-sans flex flex-col antialiased", inter.variable)}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
-          <Navbar />
           <main>{children}</main>
-          <Footer />
+          <Toaster richColors theme="light" closeButton />
         </ThemeProvider>
       </body>
     </html>

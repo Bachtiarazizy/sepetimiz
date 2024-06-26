@@ -48,6 +48,11 @@ export default function SellForm() {
           <Input placeholder="29$" type="string" name="price" required min={1} />
           {state?.errors?.["price"]?.[0] && <p className="text-destructive">{state?.errors?.["price"]?.[0]}</p>}
         </div>
+        <div className="flex flex-col gap-y-2">
+          <Label>Whatsapp number</Label>
+          <Input placeholder="0544 255 2550" type="string" name="SellerPhone" required min={1} />
+          {state?.errors?.["SellerPhone"]?.[0] && <p className="text-destructive">{state?.errors?.["SellerPhone"]?.[0]}</p>}
+        </div>
 
         <div className="flex flex-col gap-y-2">
           <Label>Small Summary</Label>

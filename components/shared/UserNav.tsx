@@ -7,11 +7,12 @@ import { unstable_noStore as noStore } from "next/cache";
 
 interface iAppProps {
   email: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   userImage: string | undefined;
 }
 
-export function UserNav({ email, name, userImage }: iAppProps) {
+export function UserNav({ email, firstName, lastName, userImage }: iAppProps) {
   noStore();
   return (
     <DropdownMenu>
@@ -19,27 +20,26 @@ export function UserNav({ email, name, userImage }: iAppProps) {
         <Button variant="ghost" className="relative h-10 w-10 rounded-full">
           <Avatar className="h-10 w-10">
             <AvatarImage src={userImage} alt="User Image" />
-            <AvatarFallback>{name.slice(0, 3)}</AvatarFallback>
+            <AvatarFallback>{firstName.slice(0, 3)}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{name}</p>
+            <p className="text-sm font-medium leading-none">
+              {firstName} {lastName}
+            </p>
             <p className="text-xs leading-none text-muted-foreground">{email}</p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href="/sell-products">Sell your Product</Link>
+            <Link href="/Dashboard">Dashboard</Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
             <Link href="/settings">Settings</Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem asChild>
-            <Link href="my-products">My Products</Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />

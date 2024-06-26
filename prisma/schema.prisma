@@ -21,6 +21,8 @@ model User {
   lastName              String
   profileImage          String
 
+  isVerified Boolean @default(true)
+  verification      VerificationData[]
   Product Product[]
 }
 
@@ -32,10 +34,24 @@ model Product {
   description      String
   images           String[]
   category         CategoryTypes
+  SellerPhone      String?
 
+  updatedAt DateTime @default(now())
   createdAt DateTime @default(now())
   User      User?    @relation(fields: [userId], references: [id])
   userId    String?
+}
+
+model VerificationData {
+  id               String        @id @default(uuid())
+  userId           String
+  user             User?         @relation(fields: [userId], references: [id])  
+  email            String
+  address          String     
+  photoUrl         String
+  identityDocument String
+  studentId        String
+  phoneNumber      String
 }
 
 enum CategoryTypes {

@@ -13,7 +13,7 @@ export const NavLinks = [
       { id: 4, name: "exchange", href: "/products/exchanges" },
     ],
   },
-  { href: "/sell-products", id: 3, name: "Sell Your Product" },
+  { href: "/Dashboard/sell-products", id: 3, name: "Sell Your Product" },
   { href: "/customer-service", id: 4, name: "Customer Service" },
 ];
 

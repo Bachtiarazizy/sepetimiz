@@ -61,8 +61,9 @@ export default async function CategoryPage({ params }: { params: { category: str
   noStore();
   const data = await getData(params.category);
   return (
-    <section className="max-w-7xl mx-auto px-4 md:px-8">
-      <div className="grid grid-cols-1 lg:grid-cols-3 sm:grid-cols-2 gap-10 mt-4">
+    <section className="w-full  mx-auto px-4 md:px-8">
+      <h1 className="text-4xl font-bold text-center text-gray-900 dark:text-gray-100">{params.category}</h1>
+      <div className="grid grid-cols-3 lg:grid-cols-6 sm:grid-cols-5 gap-10 mt-4">
         {data.map((product) => (
           <ProductCard key={product.id} images={product.images} price={product.price} name={product.name} id={product.id} description={product.description} />
         ))}
