@@ -4,7 +4,6 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import Image from "next/image";
 import prisma from "@/lib/db";
 import Link from "next/link"; // Correct Link import from next/link
-import Slider from "react-slick"; // Assuming you use react-slick or carousel
 
 async function getData(id: string) {
   const data = await prisma.product.findUnique({
@@ -32,29 +31,25 @@ async function getData(id: string) {
 }
 
 export default async function ProductPage({ params }: { params: { id: string } }) {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
   noStore();
   const data = await getData(params.id);
 
   return (
     <section className="mx-auto px-4 lg:mt-10 max-w-7xl lg:px-8 lg:grid lg:grid-rows-1 lg:grid-cols-7 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
-      <div className="max-w-md mx-auto">
-        <Slider {...settings}>
+      <Carousel className="lg:row-end-1 lg:col-span-4">
+        <div>
           {data?.images.map((item, index) => (
-            <div key={index} className="px-2">
+            <CarouselItem key={index}>
               <div className="aspect-w-4 aspect-h-3 rounded-lg bg-gray-100 overflow-hidden">
-                <Image src={item} alt={`Image ${index}`} layout="fill" objectFit="cover" className="rounded-lg" />
+                <Image src={item} alt={`Image ${index}`} fill className="object-cover w-full h-full rounded-lg" />
               </div>
-            </div>
+            </CarouselItem>
           ))}
-        </Slider>
-      </div>
+        </div>
+        <CarouselPrevious className="ml-16" />
+        <CarouselNext className="mr-16" />
+      </Carousel>
+
       <div className="max-w-2xl mx-auto mt-5 lg:max-w-none lg:mt-0 lg:row-end-2 lg:row-span-2 lg:col-span-3">
         <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">{data?.name}</h1>
         <p className="mt-2 text-muted-foreground">{data?.description}</p>
