@@ -48,7 +48,7 @@ const Reviews = () => {
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900 w-full">
-      <div className="mx-auto max-w-[1340px] py-12 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full py-12 px-4 sm:px-8 lg:px-32">
         <div className="max-w-7xl items-end justify-between sm:flex sm:pe-6 lg:pe-8">
           <h2 className="max-w-xl text-4xl font-bold  tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">Read trusted reviews from our customers</h2>
 

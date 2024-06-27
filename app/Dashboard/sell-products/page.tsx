@@ -23,7 +23,7 @@ export default async function SellRoute() {
   const user = await getUser();
 
   if (!user) {
-    redirect("api/auth/login");
+    redirect("/api/auth/login");
   }
   const data = await getData(user.id);
   return (

@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
           <main>{children}</main>
-          <Toaster richColors theme="light" closeButton />
+          <Toaster richColors closeButton />
         </ThemeProvider>
       </body>
     </html>

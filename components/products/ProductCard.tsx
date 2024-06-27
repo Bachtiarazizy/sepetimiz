@@ -32,9 +32,9 @@ export function ProductCard({ images, id, price, description, name }: iAppProps)
 
       <div className="flex justify-between items-center mt-2">
         <h1 className="font-medium lg:font-semibold text-sm lg:text-xl sm:text-sm md:text-base">{name}</h1>
-        <h3 className="inline-flex items-center rounded-md bg-primary/10 px-2 py-1 text-xs  lg:font-medium text-primary ring-1 ring-inset ring-primary/10">{price}</h3>
       </div>
-      <p className="text-gray-600 line-clamp-2 text-xs lg:text-sm mt-2 flex-grow sm:hidden">{description}</p>
+      <h3 className=" items-center  text-xs  lg:font-medium text-gray-600">{price}</h3>
+      <p className="text-gray-600 line-clamp-2 text-xs lg:text-sm mt-2 flex-grow hidden">{description}</p>
       <Button asChild className="w-full mt-5">
         <Link href={`/product/${id}`}>Learn More!</Link>
       </Button>

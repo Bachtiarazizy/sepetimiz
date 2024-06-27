@@ -4,6 +4,10 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem,
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import Link from "next/link";
 import { unstable_noStore as noStore } from "next/cache";
+import { redirect } from "next/navigation";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import prisma from "@/lib/db";
+import { UserRole } from "@prisma/client";
 
 interface iAppProps {
   email: string;
@@ -12,8 +16,35 @@ interface iAppProps {
   userImage: string | undefined;
 }
 
-export function UserNav({ email, firstName, lastName, userImage }: iAppProps) {
+async function getData(userId: string) {
+  const user = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    select: {
+      id: true,
+      userRole: true,
+    },
+  });
+
+  return user;
+}
+
+export default async function UserNav({ email, firstName, lastName, userImage }: iAppProps) {
   noStore();
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  if (!user) {
+    redirect("/api/auth/login");
+  }
+
+  const userData = await getData(user.id);
+
+  if (!userData || userData.userRole !== UserRole.ADMIN) {
+    redirect("/unauthorized"); // Redirect to an unauthorized page or any other page you prefer
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -38,6 +69,12 @@ export function UserNav({ email, firstName, lastName, userImage }: iAppProps) {
           <DropdownMenuItem asChild>
             <Link href="/Dashboard">Dashboard</Link>
           </DropdownMenuItem>
+
+          {userData.userRole === UserRole.ADMIN && (
+            <DropdownMenuItem asChild>
+              <Link href="/Admin">Admin Page</Link>
+            </DropdownMenuItem>
+          )}
           <DropdownMenuItem asChild>
             <Link href="Dashboard/settings">Settings</Link>
           </DropdownMenuItem>

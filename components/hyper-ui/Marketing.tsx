@@ -5,12 +5,12 @@ import React from "react";
 const Marketing = () => {
   return (
     <section className="py-16 w-full">
-      <div className="container mx-auto px-4 md:px-8">
+      <div className="container mx-auto ">
         <div className="flex flex-col gap-8 items-center justify-center">
           <div className="text-center">
-            <h2 className="text-3xl font-bold sm:text-4xl mb-9">Why Choose Sepetimiz?</h2>
+            <h2 className="text-xl font-bold sm:text-2xl lg:text-3xl mb-9">Why Choose Sepetimiz?</h2>
           </div>
-          <div className="flex flex-col sm:flex-row gap-8 justify-center">
+          <div className="flex flex-col sm:flex-row gap-8 justify-between">
             <div className="block rounded-xl border  border-gray-200 p-4 shadow-md hover:border-gray-300 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring">
               <div className="flex flex-col items-center">
                 <span className="inline-block bg-white dark:bg-primary-foreground rounded-lg p-3 text-center">

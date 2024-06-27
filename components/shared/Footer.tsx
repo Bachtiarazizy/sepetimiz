@@ -16,7 +16,7 @@ const Footer = () => {
               </Link>
             </div>
 
-            <p className="text-gray-700 dark:text-gray-100 mt-6 text-center sm:text-left font-semibold text-sm lg:text-base">
+            <p className="mt-4 leading-relaxed text-gray-700 text-sm dark:text-gray-400 text-center sm:text-left lg:text-left">
               Your ultimate destination for discovering and supporting Indonesian students in Turkey. Experience Link seamless e-commerce platform showcasing diverse products and services crafted by talented students pursuing their dreams
               abroad.
             </p>

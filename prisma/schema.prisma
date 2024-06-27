@@ -21,6 +21,8 @@ model User {
   lastName              String
   profileImage          String
 
+  userRole             UserRole @default(USER)
+
   isVerified Boolean @default(true)
   verification      VerificationData[]
   Product Product[]
@@ -52,6 +54,11 @@ model VerificationData {
   identityDocument String
   studentId        String
   phoneNumber      String
+}
+
+enum UserRole{
+  ADMIN
+  USER
 }
 
 enum CategoryTypes {
