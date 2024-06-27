@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
 import Link from "next/link";
-import { UserNav } from "@/components/shared/UserNav";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { ModeToggle } from "@/components/provider/ModeToggle";
 
