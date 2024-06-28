@@ -1,39 +1,46 @@
-"use client";
+"use server";
 
-import { sendEmail } from "@/app/api/send/route";
 import React from "react";
-import { toast } from "sonner";
-import { Submitbutton } from "./Submitbutton";
-import { Button } from "../ui/button";
+import { Resend } from "resend";
+import { NextApiRequest, NextApiResponse } from "next";
 
-export default function ContactUs() {
-  return (
-    <div>
-      <p className="text-gray-700 -mt-6 dark:text-white/80">
-        Please contact me directly at{" "}
-        <a className="underline" href="mailto:example@gmail.com">
-          example@gmail.com
-        </a>{" "}
-        or through this form.
-      </p>
+import ContactFormEmail from "@/components/products/ProductsEmails";
+import { getErrorMessage, validateString } from "@/lib/email";
 
-      <form
-        className="mt-10 flex flex-col dark:text-black"
-        action={async (formData) => {
-          const { data, error } = await sendEmail(formData);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-          if (error) {
-            toast.error(error);
-            return;
-          }
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== "POST") {
+    res.status(405).json({ error: "Method Not Allowed" });
+    return;
+  }
 
-          toast.success("Email sent successfully!");
-        }}
-      >
-        <input className="h-14 px-4 rounded-lg borderBlack dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none" name="senderEmail" type="email" required maxLength={500} placeholder="Your email" />
-        <textarea className="h-52 my-3 rounded-lg borderBlack p-4 dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none" name="message" placeholder="Your message" required maxLength={5000} />
-        <Button type="submit">Submit</Button>
-      </form>
-    </div>
-  );
+  const { senderEmail, message } = req.body;
+
+  // simple server-side validation
+  if (!validateString(senderEmail, 500)) {
+    res.status(400).json({ error: "Invalid sender email" });
+    return;
+  }
+  if (!validateString(message, 5000)) {
+    res.status(400).json({ error: "Invalid message" });
+    return;
+  }
+
+  try {
+    const data = await resend.emails.send({
+      from: "Sepetimiz <onboarding@resend.dev>",
+      to: "bachtiarazizy@gmail.com",
+      subject: "Message from contact form",
+      reply_to: senderEmail,
+      react: React.createElement(ContactFormEmail, {
+        message: message,
+        senderEmail: senderEmail,
+      }),
+    });
+
+    res.status(200).json({ data });
+  } catch (error) {
+    res.status(500).json({ error: getErrorMessage(error) });
+  }
 }

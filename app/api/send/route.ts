@@ -2,15 +2,15 @@
 
 import React from "react";
 import { Resend } from "resend";
+import { NextApiRequest } from "next";
 
 import ContactFormEmail from "@/components/products/ProductsEmails";
 import { getErrorMessage, validateString } from "@/lib/email";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export const sendEmail = async (formData: FormData) => {
-  const senderEmail = formData.get("senderEmail");
-  const message = formData.get("message");
+export async function GET(req: NextApiRequest) {
+  const { senderEmail, message } = req.body;
 
   // simple server-side validation
   if (!validateString(senderEmail, 500)) {
@@ -45,4 +45,4 @@ export const sendEmail = async (formData: FormData) => {
   return {
     data,
   };
-};
+}
