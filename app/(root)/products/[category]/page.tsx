@@ -49,6 +49,7 @@ async function getData(category: string) {
       id: true,
       images: true,
       description: true,
+      category: true,
       name: true,
       price: true,
     },
@@ -65,7 +66,7 @@ export default async function CategoryPage({ params }: { params: { category: str
       <h1 className="text-4xl font-bold text-center text-gray-900 dark:text-gray-100">{params.category}</h1>
       <div className="grid grid-cols-3 lg:grid-cols-6 sm:grid-cols-5 gap-10 mt-4">
         {data.map((product) => (
-          <ProductCard key={product.id} images={product.images} price={product.price} name={product.name} id={product.id} description={product.description} />
+          <ProductCard key={product.id} images={product.images} price={product.price} name={product.name} id={product.id} category={product.category} description={product.description} />
         ))}
       </div>
     </section>
