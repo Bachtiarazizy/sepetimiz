@@ -23,6 +23,7 @@ async function getData({ category }: iAppProps) {
           description: true,
           id: true,
           images: true,
+          category: true,
         },
         take: 4,
       });
@@ -41,6 +42,7 @@ async function getData({ category }: iAppProps) {
           description: true,
           id: true,
           images: true,
+          category: true,
         },
         orderBy: {
           createdAt: "desc",
@@ -65,6 +67,7 @@ async function getData({ category }: iAppProps) {
           price: true,
           description: true,
           images: true,
+          category: true,
         },
         take: 4,
       });
@@ -86,6 +89,7 @@ async function getData({ category }: iAppProps) {
           price: true,
           description: true,
           images: true,
+          category: true,
         },
         take: 4,
       });
@@ -107,6 +111,7 @@ async function getData({ category }: iAppProps) {
           price: true,
           description: true,
           images: true,
+          category: true,
         },
         take: 4,
       });
@@ -128,6 +133,7 @@ async function getData({ category }: iAppProps) {
           price: true,
           description: true,
           images: true,
+          category: true,
         },
         take: 4,
       });
@@ -164,9 +170,9 @@ async function LoadRows({ category }: iAppProps) {
           All Products <span>&rarr;</span>
         </Link>
       </div>
-      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 gap-y-8 gap-5 sm:gap-5 md:gap-8 lg:gap-9 mt-4 mx-auto">
+      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 gap-y-8 gap-5 sm:gap-5 md:gap-8 lg:gap-9 mt-4 mx-auto">
         {data.data.map((product) => (
-          <ProductCard images={product.images} key={product.id} id={product.id} name={product.name} price={product.price} description={product.description} />
+          <ProductCard images={product.images} key={product.id} id={product.id} name={product.name} price={product.price} category={product.category} description={product.description} />
         ))}
       </div>
     </main>

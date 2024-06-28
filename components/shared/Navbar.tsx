@@ -14,7 +14,7 @@ export default async function Navbar() {
   const user = await getUser();
 
   return (
-    <nav className="w-full justify-between flex md:grid md:grid-cols-12 items-center px-4 md:px-8 mx-auto py-4 sm:py-5 lg:py-7 border-b">
+    <nav className="w-full justify-between  flex md:grid md:grid-cols-12 items-center px-4 md:px-8 mx-auto py-4 sm:py-5 lg:py-7 border-b">
       <div className="md:col-span-3">
         <Link href="/">
           <div className="text-2xl font-semibold flex flex-row items-center gap-2">

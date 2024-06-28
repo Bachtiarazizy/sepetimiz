@@ -11,17 +11,18 @@ interface iAppProps {
   price: string;
   description: string;
   id: string;
+  category: string;
 }
 
-export function ProductCard({ images, id, price, description, name }: iAppProps) {
+export function ProductCard({ images, id, price, description, name, category }: iAppProps) {
   return (
-    <div className="rounded-lg h-full flex flex-col">
-      <Carousel className="w-full mx-auto">
+    <div className="w-full h-full bg-zinc-100 flex flex-col rounded">
+      <Carousel className="w-full mx-auto rounded-t">
         <CarouselContent>
           {images.map((item, index) => (
             <CarouselItem key={index}>
-              <div className="relative h-24 sm:h-32 md:h-44 lg:h-52">
-                <Image alt="Product image" src={item} fill className="object-cover w-full h-full rounded-lg" />
+              <div className="relative h-[230px] rounded-t">
+                <Image alt="Product image" src={item} fill className="object-cover w-full h-full" />
               </div>
             </CarouselItem>
           ))}
@@ -29,15 +30,17 @@ export function ProductCard({ images, id, price, description, name }: iAppProps)
         <CarouselPrevious className="ml-14 sm:ml-14 md:ml-14 lg:ml-16 h-4 w-4 sm:h-6 sm:w-6 md:h-6 md:w-6 lg:h-8 lg:w-8" />
         <CarouselNext className="mr-14 sm:mr-14 md:mr-14 lg:mr-16 h-4 w-4 sm:h-6 sm:w-6 md:h-6 md:w-6 lg:h-8 lg:w-8" />
       </Carousel>
-
-      <div className="flex justify-between items-center mt-2">
-        <h1 className="font-medium lg:font-semibold text-sm lg:text-xl sm:text-sm md:text-base">{name}</h1>
+      <div className="p-3 md:p-6 flex flex-col">
+        <h3 className=" text-lg font-medium text-gray-900">{name}</h3>
+        <div className="flex w-full justify-between items-center">
+          <p className=" items-center mt-1.5 text-sm text-gray-700">{price}</p>
+          <p className=" items-center mt-1.5 text-sm text-gray-700">{category}</p>
+        </div>
+        <p className="text-gray-600 line-clamp-2 text-xs lg:text-sm mt-2 flex-grow hidden">{description}</p>
+        <Button asChild className=" flex w-full rounded text-sm font-medium transition hover:scale-105 mt-1.5">
+          <Link href={`/product/${id}`}>Learn More!</Link>
+        </Button>
       </div>
-      <h3 className=" items-center  text-xs  lg:font-medium text-gray-600">{price}</h3>
-      <p className="text-gray-600 line-clamp-2 text-xs lg:text-sm mt-2 flex-grow hidden">{description}</p>
-      <Button asChild className="w-full mt-5">
-        <Link href={`/product/${id}`}>Learn More!</Link>
-      </Button>
     </div>
   );
 }
