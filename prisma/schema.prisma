@@ -47,12 +47,13 @@ model Product {
 model VerificationData {
   id               String        @id @default(uuid())
   userId           String
-  user             User?         @relation(fields: [userId], references: [id])  
+  name             String       
+  User             User?         @relation(fields: [userId], references: [id])  
   email            String
   address          String     
-  photoUrl         String
-  identityDocument String
-  studentId        String
+  photoUrl         String[]
+  identityDocument String[]
+  studentCard      String[]
   phoneNumber      String
 }
 
