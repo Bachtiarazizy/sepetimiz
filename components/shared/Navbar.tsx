@@ -6,8 +6,8 @@ import { ModeToggle } from "../provider/ModeToggle";
 import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { ShoppingBag } from "lucide-react";
-import { MobileMenu } from "./MobileMenu";
 import UserNav from "./UserNav";
+import MobileMenu from "./MobileMenu";
 
 export default async function Navbar() {
   const { getUser } = getKindeServerSession();

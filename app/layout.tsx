@@ -22,8 +22,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={cn("bg-background min-h-screen font-sans flex flex-col antialiased", inter.variable)}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
+          <Toaster richColors theme="light" toastOptions={{ duration: 3000 }} closeButton />
           <main>{children}</main>
-          <Toaster richColors closeButton />
         </ThemeProvider>
       </body>
     </html>

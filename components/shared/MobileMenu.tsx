@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, ChevronDown } from "lucide-react";
@@ -10,10 +10,13 @@ import { usePathname } from "next/navigation";
 import { NavLinks } from "@/constant";
 import { LoginLink, LogoutLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { ModeToggle } from "../provider/ModeToggle";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 
-export function MobileMenu() {
+export default function MobileMenu() {
   const location = usePathname();
   const [openDropdownId, setOpenDropdownId] = useState<number | null>(null);
+  const { getUser } = useKindeBrowserClient();
+  const user = getUser();
 
   const handleDropdownToggle = (id: number) => {
     setOpenDropdownId(openDropdownId === id ? null : id);
@@ -63,12 +66,20 @@ export function MobileMenu() {
         </div>
 
         <div className="flex flex-col mt-4 space-y-2">
-          <Button asChild>
-            <LoginLink>Login</LoginLink>
-          </Button>
-          <Button variant="secondary" asChild>
-            <RegisterLink>Register</RegisterLink>
-          </Button>
+          {user ? (
+            <Button variant="ghost" asChild>
+              <LogoutLink>Log out</LogoutLink>
+            </Button>
+          ) : (
+            <>
+              <Button asChild>
+                <LoginLink>Login</LoginLink>
+              </Button>
+              <Button variant="secondary" asChild>
+                <RegisterLink>Register</RegisterLink>
+              </Button>
+            </>
+          )}
         </div>
       </SheetContent>
     </Sheet>

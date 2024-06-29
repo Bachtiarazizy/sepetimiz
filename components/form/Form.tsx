@@ -50,7 +50,7 @@ export default function SellForm() {
         </div>
         <div className="flex flex-col gap-y-2">
           <Label>Whatsapp number</Label>
-          <Input placeholder="0544 255 2550" type="string" name="SellerPhone" required min={1} />
+          <Input placeholder="+90 544 255 2550" type="string" name="SellerPhone" required min={1} />
           {state?.errors?.["SellerPhone"]?.[0] && <p className="text-destructive">{state?.errors?.["SellerPhone"]?.[0]}</p>}
         </div>
 

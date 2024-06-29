@@ -7,7 +7,6 @@ import { unstable_noStore as noStore } from "next/cache";
 import { redirect } from "next/navigation";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import prisma from "@/lib/db";
-import { UserRole } from "@prisma/client";
 
 interface iAppProps {
   email: string;
@@ -20,10 +19,6 @@ async function getData(userId: string) {
   const user = await prisma.user.findUnique({
     where: {
       id: userId,
-    },
-    select: {
-      id: true,
-      userRole: true,
     },
   });
 
@@ -41,7 +36,7 @@ export default async function UserNav({ email, firstName, lastName, userImage }:
 
   const userData = await getData(user.id);
 
-  if (!userData || userData.userRole !== UserRole.ADMIN) {
+  if (!userData) {
     redirect("/unauthorized"); // Redirect to an unauthorized page or any other page you prefer
   }
 
@@ -69,12 +64,6 @@ export default async function UserNav({ email, firstName, lastName, userImage }:
           <DropdownMenuItem asChild>
             <Link href="/Dashboard">Dashboard</Link>
           </DropdownMenuItem>
-
-          {userData.userRole === UserRole.ADMIN && (
-            <DropdownMenuItem asChild>
-              <Link href="/Admin">Admin Page</Link>
-            </DropdownMenuItem>
-          )}
           <DropdownMenuItem asChild>
             <Link href="Dashboard/settings">Settings</Link>
           </DropdownMenuItem>

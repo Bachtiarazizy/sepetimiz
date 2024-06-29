@@ -11,7 +11,7 @@ export default function ContactFormEmail({ message, senderEmail }: ContactFormEm
   return (
     <Html>
       <Head />
-      <Preview>New message from your portfolio site</Preview>
+      <Preview>New message from sepetimiz</Preview>
       <Tailwind>
         <Body className="bg-gray-100 text-black">
           <Container>

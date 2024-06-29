@@ -16,7 +16,7 @@ interface iAppProps {
 
 export function ProductCard({ images, id, price, description, name, category }: iAppProps) {
   return (
-    <div className="w-full h-full bg-zinc-100 flex flex-col rounded">
+    <div className="w-full h-full bg-zinc-100 dark:bg-gray-700 flex flex-col rounded">
       <Carousel className="w-full mx-auto rounded-t">
         <CarouselContent>
           {images.map((item, index) => (
@@ -31,12 +31,12 @@ export function ProductCard({ images, id, price, description, name, category }: 
         <CarouselNext className="mr-14 sm:mr-14 md:mr-14 lg:mr-16 h-4 w-4 sm:h-6 sm:w-6 md:h-6 md:w-6 lg:h-8 lg:w-8" />
       </Carousel>
       <div className="p-3 md:p-6 flex flex-col">
-        <h3 className=" text-lg font-medium text-gray-900">{name}</h3>
+        <h3 className=" text-lg font-medium text-gray-900 dark:text-slate-100">{name}</h3>
         <div className="flex w-full justify-between items-center">
-          <p className=" items-center mt-1.5 text-sm text-gray-700">{price}</p>
-          <p className=" items-center mt-1.5 text-sm text-gray-700">{category}</p>
+          <p className=" items-center mt-1.5 text-sm text-gray-700 dark:text-zinc-400">{price}</p>
+          <p className=" items-center mt-1.5 text-sm text-gray-700 dark:text-zinc-400">{category}</p>
         </div>
-        <p className="text-gray-600 line-clamp-2 text-xs lg:text-sm mt-2 flex-grow hidden">{description}</p>
+        <p className="text-gray-600 dark:text-zinc-400 line-clamp-2 text-xs lg:text-sm mt-2 flex-grow hidden">{description}</p>
         <Button asChild className=" flex w-full rounded text-sm font-medium transition hover:scale-105 mt-1.5">
           <Link href={`/product/${id}`}>Learn More!</Link>
         </Button>

@@ -26,13 +26,13 @@ export const footerLinks = [
       { id: 1, name: "Company Profile ", href: "/about-us" },
       { id: 2, name: "Our Team", href: "/about-us" },
       { id: 3, name: "Our Values", href: "/about-us" },
-      { id: 4, name: "Contact Us", href: "/about-us" },
+      { id: 4, name: "Contact Us", href: "/customer-service" },
     ],
   },
   {
     title: "Our Services",
     links: [
-      { id: 1, name: "Sell on sepetimiz", href: "/sell-products" },
+      { id: 1, name: "Sell on sepetimiz", href: "Dashboard/sell-products" },
       { id: 2, name: "Buy Products", href: "/products/all" },
       { id: 3, name: "Affiliate program", href: "/customer-service" },
       { id: 4, name: "Advertise your store", href: "/customer-service" },
@@ -48,6 +48,6 @@ export const footerLinks = [
   },
   {
     title: "Contact Us",
-    links: ["Example@gmail.com", "123-456-7890", "Lane, Istanbul, Turkey"],
+    links: ["sepetimiz.bk@gmail.com", "123-456-7890", "Lane, Istanbul, Turkey"],
   },
 ];
