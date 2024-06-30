@@ -38,6 +38,11 @@ export default function SellForm() {
           {state?.errors?.["name"]?.[0] && <p className="text-destructive">{state?.errors?.["name"]?.[0]}</p>}
         </div>
         <div className="flex flex-col gap-y-2">
+          <Label>Location</Label>
+          <Input name="location" type="text" placeholder="location of your Product" required minLength={3} />
+          {state?.errors?.["location"]?.[0] && <p className="text-destructive">{state?.errors?.["location"]?.[0]}</p>}
+        </div>
+        <div className="flex flex-col gap-y-2">
           <Label>Category</Label>
           <SelectCategory />
           {state?.errors?.["category"]?.[0] && <p className="text-destructive">{state?.errors?.["category"]?.[0]}</p>}

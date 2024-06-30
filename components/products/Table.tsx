@@ -66,9 +66,6 @@ export default async function Tables() {
                 <TabsTrigger value="all">All</TabsTrigger>
                 <TabsTrigger value="active">Active</TabsTrigger>
                 <TabsTrigger value="draft">Draft</TabsTrigger>
-                <TabsTrigger value="archived" className="hidden sm:flex">
-                  Archived
-                </TabsTrigger>
               </TabsList>
               <div className="ml-auto flex items-center gap-2">
                 <DropdownMenu>
@@ -83,17 +80,18 @@ export default async function Tables() {
                     <DropdownMenuSeparator />
                     <DropdownMenuCheckboxItem checked>Active</DropdownMenuCheckboxItem>
                     <DropdownMenuCheckboxItem>Draft</DropdownMenuCheckboxItem>
-                    <DropdownMenuCheckboxItem>Archived</DropdownMenuCheckboxItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
                 <Button size="sm" variant="outline" className="h-8 gap-1">
                   <File className="h-3.5 w-3.5" />
                   <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">Export</span>
                 </Button>
-                <Button size="sm" className="h-8 gap-1">
-                  <PlusCircle className="h-3.5 w-3.5" />
-                  <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">Add Product</span>
-                </Button>
+                <Link href="/Dashboard/sell-products">
+                  <Button size="sm" className="h-8 gap-1">
+                    <PlusCircle className="h-3.5 w-3.5" />
+                    <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">Add Product</span>
+                  </Button>
+                </Link>
               </div>
             </div>
             <TabsContent value="all">
@@ -108,8 +106,8 @@ export default async function Tables() {
                       <TableRow>
                         <TableHead>Name</TableHead>
                         <TableHead>Status</TableHead>
-                        <TableHead className="hidden md:table-cell">Price</TableHead>
-                        <TableHead className="hidden md:table-cell">Created at</TableHead>
+                        <TableHead className="">Price</TableHead>
+                        <TableHead className="">Created at</TableHead>
                         <TableHead>
                           <span className="sr-only">Actions</span>
                         </TableHead>

@@ -21,3 +21,18 @@ export async function deleteProduct(id: string) {
   revalidatePath("/");
   revalidatePath("/products");
 }
+
+export async function getAllProducts() {
+  const products = await prisma.product.findMany({
+    select: {
+      price: true,
+      name: true,
+      description: true,
+      location: true,
+      id: true,
+      images: true,
+      category: true,
+      createdAt: true,
+    },
+  });
+}

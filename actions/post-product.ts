@@ -19,6 +19,7 @@ const productSchema = z.object({
   price: z.string().min(1, { message: "The Price has to be bigger then 1" }),
   description: z.string().min(10, { message: "Description is required" }),
   images: z.array(z.string(), { message: "Images are required" }),
+  location: z.string().min(1, { message: "Location is required" }),
   SellerPhone: z.string().min(10, { message: "Phone is required" }),
 });
 
@@ -36,6 +37,7 @@ export async function SellProduct(prevState: any, formData: FormData) {
     price: formData.get("price"),
     description: formData.get("description"),
     images: JSON.parse(formData.get("images") as string),
+    location: formData.get("location"),
     SellerPhone: formData.get("SellerPhone"),
   });
 
@@ -57,6 +59,7 @@ export async function SellProduct(prevState: any, formData: FormData) {
       price: validateFields.data.price,
       images: validateFields.data.images,
       SellerPhone: validateFields.data.SellerPhone,
+      location: validateFields.data.location,
       userId: user.id,
     },
   });

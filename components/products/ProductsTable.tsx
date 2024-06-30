@@ -1,209 +1,156 @@
 "use client";
 
-import * as React from "react";
-import { useState, useEffect } from "react";
-import { ColumnDef, ColumnFiltersState, SortingState, VisibilityState, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal, MoreVertical } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { CheckCircle2, File, Home, LineChart, ListFilter, MoreHorizontal, MoreVertical, Package, Package2, PanelLeft, PlusCircle, Search, Settings, ShoppingCart, Users2, XCircle } from "lucide-react";
+
+import { Badge } from "@/components/ui/badge";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { redirect } from "next/navigation";
+import { unstable_noStore as noStore } from "next/cache";
 import prisma from "@/lib/db";
+
 import { ActiveToggleDropdownItem, DeleteDropdownItem } from "./Product";
-import Link from "next/link";
+import { useEffect, useState } from "react";
+import { Product } from "@/lib/categoryTypes";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 
-export type Product = {
-  id: string;
-  name: string;
-  price: string;
-  isAvailable: boolean;
-  createdAt: Date;
-  category: string;
-};
+export default function Tables() {
+  const [filter, setFilter] = useState<"all" | "available" | "not-available">("all");
+  const [products, setProducts] = useState<Product[]>([]);
 
-export const columns: ColumnDef<Product>[] = [
-  {
-    id: "select",
-    header: ({ table }) => <Checkbox checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")} onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)} aria-label="Select all" />,
-    cell: ({ row }) => <Checkbox checked={row.getIsSelected()} onCheckedChange={(value) => row.toggleSelected(!!value)} aria-label="Select row" />,
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
-    accessorKey: "name",
-    header: "Name",
-    cell: ({ row }) => <div>{row.getValue("name")}</div>,
-  },
-  {
-    accessorKey: "price",
-    header: "Price",
-    cell: ({ row }) => {
-      const price = row.getValue("price") as string;
-      return <div>{price}</div>;
-    },
-  },
-  {
-    accessorKey: "isAvailable",
-    header: "Availability",
-    cell: ({ row }) => <div>{row.getValue("isAvailable") ? "Available" : "Not Available"}</div>,
-  },
-  {
-    accessorKey: "category",
-    header: "Category",
-    cell: ({ row }) => <div>{row.getValue("category")}</div>,
-  },
-  {
-    accessorKey: "createdAt",
-    header: "Created At",
-    cell: ({ row }) => <div>{row.getValue("createdAt")}</div>,
-  },
-  {
-    id: "actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      const product = row.original;
+  useEffect(() => {
+    fetchProducts();
+  }, [filter]);
 
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <MoreVertical />
-            <span className="sr-only">Actions</span>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem asChild>
-              <a download href={`/admin/products/${product.id}/download`}>
-                Download
-              </a>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link href={`/admin/products/${product.id}/edit`}>Edit</Link>
-            </DropdownMenuItem>
-            <ActiveToggleDropdownItem id={product.id} isAvailable={product.isAvailable} />
-            <DropdownMenuSeparator />
-            <DeleteDropdownItem id={product.id} disabled={product.isAvailable} />
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
-  },
-];
+  const fetchProducts = async () => {
+    const { getUser } = useKindeBrowserClient();
+    const user = await getUser();
 
-export default async function ProductsTable() {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+    if (!user) {
+      throw new Error("Unauthorized");
+    }
 
-  if (!user) {
-    redirect("api/auth/login");
-  }
-  const [data, setData] = useState<Product[]>([]);
-  const [sorting, setSorting] = useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = useState({});
-  const [pagination, setPagination] = React.useState({ pageIndex: 0, pageSize: 15 });
-
-  const products = await prisma.product.findMany({
-    where: {
+    let where: any = {
       userId: user.id,
-    },
-    select: {
-      id: true,
-      name: true,
-      category: true,
-      price: true,
-      createdAt: true,
-      isAvailable: true,
-    },
-  });
+    };
 
-  const table = useReactTable({
-    data,
-    columns,
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: setRowSelection,
-    state: {
-      sorting,
-      columnFilters,
-      columnVisibility,
-      rowSelection,
-    },
-  });
+    if (filter === "available") {
+      where.isAvailable = true;
+    } else if (filter === "not-available") {
+      where.isAvailable = false;
+    }
 
+    const products = await prisma.product.findMany({
+      where,
+      select: {
+        id: true,
+        name: true,
+        price: true,
+        createdAt: true,
+        isAvailable: true,
+      },
+      orderBy: { name: "asc" },
+    });
+
+    setProducts(products);
+  };
+
+  if (products.length === 0) return <p>No products found</p>;
   return (
-    <div className="w-full">
-      <div className="flex items-center py-4">
-        <Input placeholder="Filter names..." value={(table.getColumn("name")?.getFilterValue() as string) ?? ""} onChange={(event) => table.getColumn("name")?.setFilterValue(event.target.value)} className="max-w-sm" />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns <ChevronDown className="ml-2 h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem key={column.id} className="capitalize" checked={column.getIsVisible()} onCheckedChange={(value) => column.toggleVisibility(!!value)}>
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-      <div className="rounded-md border">
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return <TableHead key={header.id}>{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}</TableHead>;
-                })}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div>
-        <div className="space-x-2">
-          <Button variant="outline" size="sm" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
-            Previous
-          </Button>
-          <Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-            Next
-          </Button>
-        </div>
+    <div className="flex min-h-screen w-full flex-col bg-muted/40">
+      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
+        <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+          <Breadcrumb className="hidden md:flex">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="#">Dashboard</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>My Products</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </header>
+        <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
+          <Tabs defaultValue="all">
+            <div className="flex items-center">
+              <TabsList>
+                <TabsTrigger value="all" onClick={() => setFilter("all")}>
+                  All
+                </TabsTrigger>
+                <TabsTrigger value="available" onClick={() => setFilter("available")}>
+                  Available
+                </TabsTrigger>
+                <TabsTrigger value="not-available" onClick={() => setFilter("not-available")}>
+                  Not Available
+                </TabsTrigger>
+              </TabsList>
+              <div className="ml-auto flex items-center gap-2">{/* Other filter and action buttons */}</div>
+            </div>
+            <TabsContent value="all">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Products</CardTitle>
+                  <CardDescription>Manage your products and view their sales performance.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Name</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead className="hidden md:table-cell">Price</TableHead>
+                        <TableHead className="hidden md:table-cell">Created at</TableHead>
+                        <TableHead>
+                          <span className="sr-only">Actions</span>
+                        </TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {products.map((product) => (
+                        <TableRow key={product.id}>
+                          <TableCell>{product.name}</TableCell>
+                          <TableCell>
+                            {product.isAvailable ? (
+                              <>
+                                <span className="sr-only">Available</span>
+                                <CheckCircle2 />
+                              </>
+                            ) : (
+                              <>
+                                <span className="sr-only">Unavailable</span>
+                                <XCircle className="stroke-destructive" />
+                              </>
+                            )}
+                          </TableCell>
+                          <TableCell>{product.price}</TableCell>
+                          <TableCell>{new Date(product.createdAt).toLocaleDateString()}</TableCell>
+                          <TableCell>{/* Dropdown actions */}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </CardContent>
+                <CardFooter>
+                  <div className="text-xs text-muted-foreground">
+                    Showing <strong>1-10</strong> of <strong>{products.length}</strong> products
+                  </div>
+                </CardFooter>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        </main>
       </div>
     </div>
   );

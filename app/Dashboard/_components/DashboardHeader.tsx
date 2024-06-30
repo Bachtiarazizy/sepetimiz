@@ -1,7 +1,7 @@
 import React from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Home, LayoutDashboard, LineChart, Package, Package2, PanelLeft, Settings, ShoppingCart, Users2 } from "lucide-react";
+import { Home, LayoutDashboard, LineChart, Package, Package2, PanelLeft, Settings, ShoppingCart, User2, Users2 } from "lucide-react";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -41,6 +41,10 @@ export default function DashboardHeader() {
             <Link href="/Dashboard/my-products" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
               <Package className="h-5 w-5" />
               My Products
+            </Link>
+            <Link href="/Dashboard/verification" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
+              <User2 className="h-5 w-5" />
+              Verification
             </Link>
             <Link href="customer-service" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
               <Users2 className="h-5 w-5" />

@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-
 import { LoadingProductCard, ProductCard } from "./ProductCard";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -7,21 +6,48 @@ import { Skeleton } from "@/components/ui/skeleton";
 import prisma from "@/lib/db";
 
 interface iAppProps {
-  category: "newest" | "fashion" | "food" | "electronics" | "exchanges" | "baggages" | "others";
+  category?: "newest" | "fashion" | "food" | "electronics" | "exchanges" | "baggages" | "others";
 }
 
 async function getData({ category }: iAppProps) {
+  if (!category) {
+    const data = await prisma.product.findMany({
+      select: {
+        price: true,
+        name: true,
+        description: true,
+        id: true,
+        images: true,
+        category: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      take: 10, // Example: Take 10 products
+    });
+
+    return {
+      data: data,
+      title: "All Products",
+      link: "/products/all",
+    };
+  }
+
   switch (category) {
-    case "fashion": {
+    case "fashion":
+    case "food":
+    case "electronics":
+    case "exchanges":
+    case "baggages": {
       const data = await prisma.product.findMany({
         where: {
-          category: "fashion",
+          category: category,
         },
         select: {
-          price: true,
-          name: true,
-          description: true,
           id: true,
+          name: true,
+          price: true,
+          description: true,
           images: true,
           category: true,
         },
@@ -29,9 +55,9 @@ async function getData({ category }: iAppProps) {
       });
 
       return {
+        title: category,
         data: data,
-        title: "fashion",
-        link: "/products/fashion",
+        link: `/products/${category}`,
       };
     }
     case "newest": {
@@ -54,94 +80,6 @@ async function getData({ category }: iAppProps) {
         data: data,
         title: "Newest Products",
         link: "/products/all",
-      };
-    }
-    case "food": {
-      const data = await prisma.product.findMany({
-        where: {
-          category: "food",
-        },
-        select: {
-          id: true,
-          name: true,
-          price: true,
-          description: true,
-          images: true,
-          category: true,
-        },
-        take: 4,
-      });
-
-      return {
-        title: "food",
-        data: data,
-        link: "/products/food",
-      };
-    }
-    case "electronics": {
-      const data = await prisma.product.findMany({
-        where: {
-          category: "electronics",
-        },
-        select: {
-          id: true,
-          name: true,
-          price: true,
-          description: true,
-          images: true,
-          category: true,
-        },
-        take: 4,
-      });
-
-      return {
-        title: "electronics",
-        data: data,
-        link: "/products/electronics",
-      };
-    }
-    case "baggages": {
-      const data = await prisma.product.findMany({
-        where: {
-          category: "baggages",
-        },
-        select: {
-          id: true,
-          name: true,
-          price: true,
-          description: true,
-          images: true,
-          category: true,
-        },
-        take: 4,
-      });
-
-      return {
-        title: "baggages",
-        data: data,
-        link: "/products/baggages",
-      };
-    }
-    case "exchanges": {
-      const data = await prisma.product.findMany({
-        where: {
-          category: "exchanges",
-        },
-        select: {
-          id: true,
-          name: true,
-          price: true,
-          description: true,
-          images: true,
-          category: true,
-        },
-        take: 4,
-      });
-
-      return {
-        title: "exchanges",
-        data: data,
-        link: "/products/exchanges",
       };
     }
     default: {

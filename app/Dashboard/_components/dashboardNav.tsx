@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Home, Package, Package2, Settings, ShoppingCart, Menu, LayoutDashboard, CircleHelp } from "lucide-react";
+import { Home, Package, Package2, Settings, ShoppingCart, Menu, LayoutDashboard, CircleHelp, User2 } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { ModeToggle } from "@/components/provider/ModeToggle";
 import { Button } from "@/components/ui/button";
@@ -67,6 +67,17 @@ export default function DashboardNav() {
               </Link>
             </TooltipTrigger>
             {!isExpanded && <TooltipContent side="right">My Products</TooltipContent>}
+          </Tooltip>
+        </TooltipProvider>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link href="/Dashboard/verification" className="flex items-center w-full rounded-lg text-muted-foreground transition-colors hover:text-foreground px-2 py-1">
+                <User2 className="h-5 w-5" />
+                {isExpanded && <span className="ml-4">Verification</span>}
+              </Link>
+            </TooltipTrigger>
+            {!isExpanded && <TooltipContent side="right">Verification</TooltipContent>}
           </Tooltip>
         </TooltipProvider>
         <TooltipProvider>
