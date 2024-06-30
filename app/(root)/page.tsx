@@ -2,7 +2,6 @@ import Banner from "@/components/hyper-ui/Banner";
 import Marketing from "@/components/hyper-ui/Marketing";
 import Reviews from "@/components/hyper-ui/Review";
 import { ProductRow } from "@/components/products/ProductRow";
-import Collection from "@/components/shared/Collections";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
