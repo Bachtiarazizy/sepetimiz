@@ -8,9 +8,10 @@ import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import { toast } from "sonner";
-import { Submitbutton } from "./Submitbutton";
+
 import { Textarea } from "../ui/textarea";
 import { State, verificationData } from "@/actions/verification";
+import { Button } from "../ui/button";
 
 export default function VerificationForm() {
   const initalState: State = { message: "", status: undefined };
@@ -103,7 +104,7 @@ export default function VerificationForm() {
         </div>
       </CardContent>
       <CardFooter className="mt-5">
-        <Submitbutton title="Create your Product" />
+        <Button>Submit</Button>
       </CardFooter>
     </form>
   );

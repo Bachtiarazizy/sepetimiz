@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { toast } from "sonner";
 import { State, UpdateUserSettings } from "@/actions/update-user";
 import { SubmitButton } from "./Submitbutton";
+import { Button } from "../ui/button";
 
 interface iAppProps {
   firstName: string;
@@ -50,7 +51,9 @@ export function SettingsForm({ email, firstName, lastName }: iAppProps) {
           <Input name="email" type="email" disabled defaultValue={"jan@alenix.de"} />
         </div>
       </CardContent>
-      <CardFooter></CardFooter>
+      <CardFooter>
+        <Button>Save</Button>
+      </CardFooter>
     </form>
   );
 }
