@@ -8,8 +8,8 @@ import { useFormState } from "react-dom";
 
 import { useEffect } from "react";
 import { toast } from "sonner";
-import { Submitbutton } from "./Submitbutton";
 import { State, UpdateUserSettings } from "@/actions/update-user";
+import { SubmitButton } from "./Submitbutton";
 
 interface iAppProps {
   firstName: string;
@@ -50,9 +50,7 @@ export function SettingsForm({ email, firstName, lastName }: iAppProps) {
           <Input name="email" type="email" disabled defaultValue={"jan@alenix.de"} />
         </div>
       </CardContent>
-      <CardFooter>
-        <Submitbutton title="Update your settings" />
-      </CardFooter>
+      <CardFooter></CardFooter>
     </form>
   );
 }

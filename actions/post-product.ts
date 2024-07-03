@@ -2,7 +2,7 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { ZodStringDef, z } from "zod";
 import { redirect } from "next/navigation";
-import { CategoryTypes } from "@prisma/client";
+import { CategoryTypes, ProductStatus } from "@prisma/client";
 import prisma from "@/lib/db";
 
 export type State = {
@@ -16,6 +16,7 @@ export type State = {
 const productSchema = z.object({
   name: z.string().min(3, { message: "The name has to be a min charackter length of 5" }),
   category: z.string().min(1, { message: "Category is required" }),
+  status: z.string().min(1, { message: "Status is required" }),
   price: z.string().min(1, { message: "The Price has to be bigger then 1" }),
   description: z.string().min(10, { message: "Description is required" }),
   images: z.array(z.string(), { message: "Images are required" }),
@@ -36,6 +37,7 @@ export async function SellProduct(prevState: any, formData: FormData) {
     category: formData.get("category"),
     price: formData.get("price"),
     description: formData.get("description"),
+    status: formData.get("status"),
     images: JSON.parse(formData.get("images") as string),
     location: formData.get("location"),
     SellerPhone: formData.get("SellerPhone"),
@@ -55,6 +57,7 @@ export async function SellProduct(prevState: any, formData: FormData) {
     data: {
       name: validateFields.data.name,
       category: validateFields.data.category as CategoryTypes,
+      status: validateFields.data.status as ProductStatus,
       description: validateFields.data.description,
       price: validateFields.data.price,
       images: validateFields.data.images,

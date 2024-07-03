@@ -34,11 +34,11 @@ export default function DashboardHeader() {
               <LayoutDashboard className="h-5 w-5" />
               Dashboard
             </Link>
-            <Link href="/Dashboard/sell-products" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
+            <Link href="/Dashboard/products/create" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
               <ShoppingCart className="h-5 w-5" />
               Sell Product
             </Link>
-            <Link href="/Dashboard/my-products" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
+            <Link href="/Dashboard/products" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
               <Package className="h-5 w-5" />
               My Products
             </Link>

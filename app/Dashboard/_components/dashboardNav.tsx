@@ -49,7 +49,7 @@ export default function DashboardNav() {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Link href="/Dashboard/sell-products" className="flex items-center w-full rounded-lg text-muted-foreground transition-colors hover:text-foreground px-2 py-1">
+              <Link href="/Dashboard/products/create" className="flex items-center w-full rounded-lg text-muted-foreground transition-colors hover:text-foreground px-2 py-1">
                 <ShoppingCart className="h-5 w-5" />
                 {isExpanded && <span className="ml-4">Sell Products</span>}
               </Link>
@@ -61,7 +61,7 @@ export default function DashboardNav() {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Link href="/Dashboard/my-products" className="flex items-center w-full rounded-lg text-muted-foreground transition-colors hover:text-foreground px-2 py-1">
+              <Link href="/Dashboard/products" className="flex items-center w-full rounded-lg text-muted-foreground transition-colors hover:text-foreground px-2 py-1">
                 <Package className="h-5 w-5" />
                 {isExpanded && <span className="ml-4">My Products</span>}
               </Link>

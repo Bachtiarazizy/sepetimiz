@@ -1,13 +1,4 @@
-import { ChefHat, Globe, PartyPopper } from "lucide-react";
-import { ReactNode } from "react";
-
-interface iAppProps {
-  name: string;
-  title: string;
-  id: number;
-}
-
-export const categoryItems: iAppProps[] = [
+export const categories = [
   {
     id: 0,
     name: "fashion",

@@ -24,17 +24,18 @@ model User {
   isVerified Boolean @default(false)
   verification      VerificationData[]
   Product Product[]
+  createdAt DateTime @default(now())
 }
 
 model Product {
   id               String        @id @default(uuid())
   name             String
   price            String
-  isAvailable      Boolean       @default(true)
+  status           ProductStatus
   description      String
   images           String[]
-  category         CategoryTypes
-  SellerPhone      String?
+  category         Category
+  SellerPhone      String
   location         String
 
   updatedAt DateTime @default(now())
@@ -57,11 +58,17 @@ model VerificationData {
 }
 
 
-enum CategoryTypes {
+enum Category {
   fashion
   electronics
   food
   exchanges
   baggages
   others
+}
+
+enum ProductStatus {
+  draft
+  published
+  archived
 }

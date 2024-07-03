@@ -13,7 +13,7 @@ export const NavLinks = [
       { id: 4, name: "exchange", href: "/products/exchanges" },
     ],
   },
-  { href: "/Dashboard/sell-products", id: 3, name: "Sell Your Product" },
+  { href: "/Dashboard/products/create", id: 3, name: "Sell Your Product" },
   { href: "/customer-service", id: 4, name: "Customer Service" },
 ];
 
@@ -32,7 +32,7 @@ export const footerLinks = [
   {
     title: "Our Services",
     links: [
-      { id: 1, name: "Sell on sepetimiz", href: "Dashboard/sell-products" },
+      { id: 1, name: "Sell on sepetimiz", href: "Dashboard/products/create" },
       { id: 2, name: "Buy Products", href: "/products/all" },
       { id: 3, name: "Affiliate program", href: "/customer-service" },
       { id: 4, name: "Advertise your store", href: "/customer-service" },

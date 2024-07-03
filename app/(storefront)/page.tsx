@@ -1,7 +1,7 @@
 import Banner from "@/components/hyper-ui/Banner";
 import Marketing from "@/components/hyper-ui/Marketing";
 import Reviews from "@/components/hyper-ui/Review";
-import { ProductRow } from "@/components/products/ProductRow";
+import { FeaturedProducts } from "@/components/products/FeaturedProducts";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
@@ -43,11 +43,7 @@ export default function Home() {
         </div>
 
         <div className="mx-auto max-w-screen-2xl px-4 py-6 sm:px-6 lg:px-8">
-          {/* <Collection data={[]} emptyTitle="No Products Found" emptyStateSubtext="Try adjusting your search or filter to find what you're looking for." collectionType="All_Products" limit={6} page={1} totalPages={2} /> */}
-          {/* <ProductRow category="newest" /> */}
-          <ProductRow />
-          {/* <ProductRow category="electronics" />
-          <ProductRow category="food" /> */}
+          <FeaturedProducts />
         </div>
       </section>
       <Marketing />
