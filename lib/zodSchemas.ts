@@ -10,3 +10,10 @@ export const productSchema = z.object({
   location: z.string().min(1),
   SellerPhone: z.string().min(1),
 });
+
+export const productFilterSchema = z.object({
+  q: z.string().optional(),
+  location: z.string().optional(),
+});
+
+export type ProductFilterValues = z.infer<typeof productFilterSchema>;

@@ -46,7 +46,7 @@ export default function DashboardHeader() {
               <User2 className="h-5 w-5" />
               Verification
             </Link>
-            <Link href="customer-service" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
+            <Link href="/customer-service" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
               <Users2 className="h-5 w-5" />
               Services
             </Link>

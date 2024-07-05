@@ -36,7 +36,7 @@ model Product {
   images           String[]
   category         Category
   SellerPhone      String
-  location         String?
+  location         String
 
   updatedAt DateTime @default(now())
   createdAt DateTime @default(now())
