@@ -23,14 +23,6 @@ export default async function ProductsRoute() {
   const data = await getData();
   return (
     <>
-      <div className="flex items-center justify-end">
-        <Button asChild className="flex items-center gap-x-2">
-          <Link href="/Dashboard/products/create">
-            <PlusCircle className="w-3.5 h-3.5" />
-            <span>Add Product</span>
-          </Link>
-        </Button>
-      </div>
       <Card className="mt-5">
         <CardHeader>
           <CardTitle>Products</CardTitle>
@@ -83,6 +75,14 @@ export default async function ProductsRoute() {
           </Table>
         </CardContent>
       </Card>
+      <div className="flex items-center justify-end mt-6">
+        <Button asChild className="flex items-center gap-x-2">
+          <Link href="/Dashboard/sell-product">
+            <PlusCircle className="w-3.5 h-3.5" />
+            <span>Add Product</span>
+          </Link>
+        </Button>
+      </div>
     </>
   );
 }

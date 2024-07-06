@@ -44,11 +44,9 @@ export default async function ProductResults({ filterValues, page = 1 }: Product
   const [products, totalResults] = await Promise.all([productsPromise, countPromise]);
 
   return (
-    <div className="grow space-y-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {products.map((product) => (
-        <Link key={product.id} href={`/product/${product.id}`} className="block">
-          <ProductListItem product={product} />
-        </Link>
+        <ProductListItem product={product} />
       ))}
       {products.length === 0 && <p className="m-auto text-center">No products found. Try adjusting your search filters.</p>}
       {products.length > 0 && <Pagination currentPage={page} totalPages={Math.ceil(totalResults / productsPerPage)} filterValues={filterValues} />}

@@ -14,7 +14,7 @@ export default function DeleteRoute({ params }: { params: { id: string } }) {
         </CardHeader>
         <CardFooter className="w-full flex justify-between">
           <Button variant="secondary" asChild>
-            <Link href="/dashboard/products">Cancel</Link>
+            <Link href="/Dashboard/products">Cancel</Link>
           </Button>
           <form action={deleteProduct}>
             <input type="hidden" name="productId" value={params.id} />

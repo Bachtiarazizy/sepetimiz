@@ -42,15 +42,14 @@ export default function ProductCreateRoute() {
 
   return (
     <form id={form.id} onSubmit={form.onSubmit} action={action}>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 mt-6">
         <Button variant="outline" size="icon" asChild>
           <Link href="/Dashboard/products">
             <ChevronLeft className="w-4 h-4" />
           </Link>
         </Button>
-        <h1 className="text-xl font-semibold tracking-tight">New Product</h1>
+        <h1 className="text-md font-semibold tracking-tight">My Product</h1>
       </div>
-
       <Card className="mt-5">
         <CardHeader>
           <CardTitle>Product Details</CardTitle>

@@ -12,8 +12,14 @@ import { Toaster } from "@/components/ui/sonner";
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata = {
-  title: "Sepetimiz",
+  title: {
+    default: "Sepetimiz",
+    template: "%s | Sepetimiz",
+  },
   description: "Tempat informasi jual-beli mahasiswa Indo di turki",
+  icons: {
+    icon: "/assets/images/logo.svg",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

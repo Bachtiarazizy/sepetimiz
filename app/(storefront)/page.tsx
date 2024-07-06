@@ -1,7 +1,6 @@
 import Banner from "@/components/hyper-ui/Banner";
 import Marketing from "@/components/hyper-ui/Marketing";
 import Reviews from "@/components/hyper-ui/Review";
-import { FeaturedProducts } from "@/components/products/FeaturedProducts";
 import ProductResults from "@/components/products/ProductResult";
 import ProductFilterSidebar from "@/components/shared/ProductFilterSidebar";
 import { Button } from "@/components/ui/button";
@@ -49,11 +48,10 @@ export default function Home({ searchParams: { q, location, page } }: PageProps)
           </p>
         </div>
 
-        <section className="flex flex-col md:flex-row gap-4">
+        <section className="flex flex-col mt-10 gap-10">
           <ProductFilterSidebar defaultValues={filterValues} />
-          <div className="mx-auto max-w-screen-2xl space-y-4 grow px-4 py-6 sm:px-6 lg:px-8">
-            <ProductResults filterValues={filterValues} page={page ? parseInt(page) : undefined} />
-          </div>
+
+          <ProductResults filterValues={filterValues} page={page ? parseInt(page) : undefined} />
         </section>
       </section>
       <Marketing />

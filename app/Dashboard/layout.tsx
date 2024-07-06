@@ -1,6 +1,6 @@
-import DashboardNav from "./_components/dashboardNav";
 import DashboardFooter from "./_components/dashboardFooter";
 import DashboardHeader from "./_components/DashboardHeader";
+import { Sidebar } from "./_components/sidebar";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -9,7 +9,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <DashboardHeader />
       </div>
       <div className="hidden md:flex h-full w-56 flex-col fixed inset-y-0 z-50">
-        <DashboardNav />
+        <Sidebar />
       </div>
       <main className="md:pl-56 pt-[80px] h-full">{children}</main>
       <DashboardFooter />

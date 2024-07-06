@@ -35,27 +35,25 @@ export default async function ProductFilterSidebar({ defaultValues }: ProductFil
     .then((locations) => locations.map(({ location }) => location).filter(Boolean))) as string[];
 
   return (
-    <aside className="sticky top-0 h-fit rounded-lg border bg-background p-4 md:w-[260px]">
-      <form action={filterJobs} key={JSON.stringify(defaultValues)}>
-        <div className="space-y-4">
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="q">Search</Label>
-            <Input id="q" name="q" placeholder="bagasi,tuker lira etc." defaultValue={defaultValues.q} />
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="location">Location</Label>
-            <Select id="location" name="location" defaultValue={defaultValues.location || ""}>
-              <option value="">All locations</option>
-              {distinctLocations.map((location) => (
-                <option key={location} value={location}>
-                  {location}
-                </option>
-              ))}
-            </Select>
-          </div>
-          <Button type="submit">Submit</Button>
+    <form action={filterJobs} key={JSON.stringify(defaultValues)} className="space-y-4">
+      <div className="flex flex-col md:flex-row md:space-x-4">
+        <div className="flex flex-col w-full md:flex-1">
+          <Input id="q" name="q" placeholder="search product.." defaultValue={defaultValues.q} className="w-full" />
         </div>
-      </form>
-    </aside>
+        <div className="flex flex-col w-full md:flex-1 mt-4 md:mt-0">
+          <Select id="location" name="location" defaultValue={defaultValues.location || ""} className="w-full">
+            <option value="">All locations</option>
+            {distinctLocations.map((location) => (
+              <option key={location} value={location}>
+                {location}
+              </option>
+            ))}
+          </Select>
+        </div>
+        <Button type="submit" className="mt-4 md:mt-0">
+          Submit
+        </Button>
+      </div>
+    </form>
   );
 }

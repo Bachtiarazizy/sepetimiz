@@ -1,7 +1,7 @@
 import React from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Home, LayoutDashboard, LineChart, Package, Package2, PanelLeft, Settings, ShoppingCart, User2, Users2 } from "lucide-react";
+import { Home, LayoutDashboard, LineChart, Package, Package2, PanelLeft, Settings, ShoppingBag, ShoppingCart, User2, Users2 } from "lucide-react";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -12,7 +12,13 @@ import { ModeToggle } from "@/components/provider/ModeToggle";
 
 export default function DashboardHeader() {
   return (
-    <header className="sticky top-0 z-30 flex h-14 items-center justify-between  border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+    <div className="p-4 border-b h-full flex items-center justify-between bg-background shadow-sm">
+      <div className="sm:hidden">
+        <Link href="/" className="flex items-center w-full rounded-lg text-muted-foreground transition-colors hover:text-foreground py-1">
+          <ShoppingBag />
+          <span className="ml-4">Sepetimiz</span>
+        </Link>
+      </div>
       <Sheet>
         <SheetTrigger asChild>
           <Button size="icon" variant="outline" className="sm:hidden">
@@ -20,7 +26,7 @@ export default function DashboardHeader() {
             <span className="sr-only">Toggle Menu</span>
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="sm:max-w-xs flex flex-col justify-between">
+        <SheetContent side="right" className="sm:max-w-xs flex flex-col justify-between">
           <nav className="grid gap-6 text-lg font-medium">
             <Link href="/" className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base">
               <Package2 className="h-5 w-5 transition-all group-hover:scale-110" />
@@ -34,7 +40,7 @@ export default function DashboardHeader() {
               <LayoutDashboard className="h-5 w-5" />
               Dashboard
             </Link>
-            <Link href="/Dashboard/products/create" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
+            <Link href="/Dashboard/sell-product" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
               <ShoppingCart className="h-5 w-5" />
               Sell Product
             </Link>
@@ -62,13 +68,6 @@ export default function DashboardHeader() {
           </nav>
         </SheetContent>
       </Sheet>
-
-      <div className="">
-        <Link href="/" className="flex items-center w-full rounded-lg text-muted-foreground transition-colors hover:text-foreground px-2 py-1">
-          <Package2 className="h-5 w-5" />
-          <span className="ml-4">Sepetimiz</span>
-        </Link>
-      </div>
-    </header>
+    </div>
   );
 }
