@@ -7,9 +7,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { unstable_noStore as noStore } from "next/cache";
 import prisma from "@/lib/db";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
-async function getData() {
+async function getData(userId: string) {
   const data = await prisma.product.findMany({
+    where: {
+      userId: userId,
+    },
+    select: {
+      name: true,
+      images: true,
+      price: true,
+      createdAt: true,
+      status: true,
+      id: true,
+    },
     orderBy: {
       createdAt: "desc",
     },
@@ -20,7 +32,14 @@ async function getData() {
 
 export default async function ProductsRoute() {
   noStore();
-  const data = await getData();
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  if (!user) {
+    throw new Error("Unoauthiued");
+  }
+
+  const data = await getData(user.id);
   return (
     <>
       <Card className="mt-5">
@@ -48,7 +67,7 @@ export default async function ProductsRoute() {
                   </TableCell>
                   <TableCell>{item.name}</TableCell>
                   <TableCell>{item.status}</TableCell>
-                  <TableCell>${item.price}</TableCell>
+                  <TableCell>{item.price}</TableCell>
                   <TableCell>{new Intl.DateTimeFormat("en-US").format(item.createdAt)}</TableCell>
                   <TableCell className="text-end">
                     <DropdownMenu>

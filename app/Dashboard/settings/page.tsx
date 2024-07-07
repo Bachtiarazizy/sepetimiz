@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import prisma from "@/lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { unstable_noStore as noStore } from "next/cache";
+import { redirect } from "next/navigation";
 
 async function getData(userId: string) {
   const data = await prisma.user.findUnique({
@@ -24,7 +25,7 @@ export default async function SetttingsPage() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
   if (!user) {
-    throw new Error("Not Authorized");
+    redirect("/api/auth/login");
   }
 
   const data = await getData(user.id);

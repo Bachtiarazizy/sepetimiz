@@ -10,8 +10,8 @@ export default function ContactUs() {
     <div>
       <p className="text-gray-700 -mt-6 dark:text-white/80">
         Please contact me directly at{" "}
-        <a className="underline" href="mailto:example@gmail.com">
-          example@gmail.com
+        <a className="underline" href="mailto:sepetimiz.bk@gmail.com">
+          sepetimiz.bk@gmail.com
         </a>{" "}
         or through this form.
       </p>

@@ -34,6 +34,7 @@ export async function createProduct(prevState: unknown, formData: FormData) {
       category: submission.value.category,
       location: submission.value.location,
       SellerPhone: submission.value.SellerPhone,
+      userId: user.id,
     },
   });
 

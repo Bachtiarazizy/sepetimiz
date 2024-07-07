@@ -37,14 +37,14 @@ export default async function UserNav({ email, firstName, lastName, userImage }:
   const userData = await getData(user.id);
 
   if (!userData) {
-    redirect("/unauthorized"); // Redirect to an unauthorized page or any other page you prefer
+    redirect("/api/auth/login");
   }
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-10 w-10 rounded-full">
-          <Avatar className="h-10 w-10">
+        <Button variant="ghost" className="relative h-10 w-10 rounded-full bg-zinc-100">
+          <Avatar className="h-10 w-10 bg-slate-50">
             <AvatarImage src={userImage} alt="User Image" />
             <AvatarFallback>{firstName.slice(0, 3)}</AvatarFallback>
           </Avatar>
@@ -53,16 +53,14 @@ export default async function UserNav({ email, firstName, lastName, userImage }:
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">
-              {firstName} {lastName}
-            </p>
+            <p className="text-sm font-medium leading-none">{firstName}</p>
             <p className="text-xs leading-none text-muted-foreground">{email}</p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href="/Dashboard">Dashboard</Link>
+            <Link href="/Dashboard/products">Dashboard</Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
             <Link href="Dashboard/settings">Settings</Link>

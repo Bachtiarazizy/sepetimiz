@@ -1,42 +1,27 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { ChevronLeft, XIcon } from "lucide-react";
-import Link from "next/link";
-import Image from "next/image";
+import { createProduct } from "@/actions/actions";
+import { productSchema } from "@/lib/zodSchemas";
+import { useForm } from "@conform-to/react";
 import { useState } from "react";
 import { useFormState } from "react-dom";
-import { useForm } from "@conform-to/react";
+import { Button } from "../ui/button";
+import Link from "next/link";
+import { ChevronLeft, XIcon } from "lucide-react";
 import { parseWithZod } from "@conform-to/zod";
-import { type $Enums } from "@prisma/client";
-import { editProduct } from "@/actions/actions";
-import { productSchema } from "@/lib/zodSchemas";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { categories } from "@/lib/categories";
+import Image from "next/image";
 import { UploadDropzone } from "@/lib/Uploadhing";
 import { SubmitButton } from "./Submitbutton";
+import { Textarea } from "../ui/textarea";
 
-interface iAppProps {
-  data: {
-    id: string;
-    name: string;
-    description: string;
-    status: $Enums.ProductStatus;
-    price: string;
-    images: string[];
-    category: $Enums.Category;
-    location: string;
-    SellerPhone: string;
-  };
-}
-
-export function EditForm({ data }: iAppProps) {
-  const [images, setImages] = useState<string[]>(data.images);
-  const [lastResult, action] = useFormState(editProduct, undefined);
+export default function ProductCreateRoute() {
+  const [images, setImages] = useState<string[]>([]);
+  const [lastResult, action] = useFormState(createProduct, undefined);
   const [form, fields] = useForm({
     lastResult,
 
@@ -51,28 +36,27 @@ export function EditForm({ data }: iAppProps) {
   const handleDelete = (index: number) => {
     setImages(images.filter((_, i) => i !== index));
   };
+
   return (
     <form id={form.id} onSubmit={form.onSubmit} action={action}>
-      <input type="hidden" name="productId" value={data.id} />
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 mt-6">
         <Button variant="outline" size="icon" asChild>
-          <Link href="/dashboard/products">
+          <Link href="/Dashboard/products">
             <ChevronLeft className="w-4 h-4" />
           </Link>
         </Button>
-        <h1 className="text-xl font-semibold tracking-tight">Edit Product</h1>
+        <h1 className="text-md font-semibold tracking-tight">My Product</h1>
       </div>
-
       <Card className="mt-5">
         <CardHeader>
           <CardTitle>Product Details</CardTitle>
-          <CardDescription>In this form you can update your product</CardDescription>
+          <CardDescription>In this form you can create your product</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-3">
               <Label>Name</Label>
-              <Input type="text" key={fields.name.key} name={fields.name.name} defaultValue={data.name} className="w-full" placeholder="Product Name" />
+              <Input type="text" key={fields.name.key} name={fields.name.name} defaultValue={fields.name.initialValue} className="w-full" placeholder="Product Name" />
 
               <p className="text-red-500">{fields.name.errors}</p>
             </div>
@@ -91,7 +75,7 @@ export function EditForm({ data }: iAppProps) {
 
             <div className="flex flex-col gap-3">
               <Label>Description</Label>
-              <Textarea key={fields.description.key} name={fields.description.name} defaultValue={data.description} placeholder="Write your description right here..." />
+              <Textarea key={fields.description.key} name={fields.description.name} defaultValue={fields.description.initialValue} placeholder="Write your description right here..." />
               <p className="text-red-500">{fields.description.errors}</p>
             </div>
             <div className="flex flex-col gap-3">
@@ -102,7 +86,7 @@ export function EditForm({ data }: iAppProps) {
 
             <div className="flex flex-col gap-3">
               <Label>Status</Label>
-              <Select key={fields.status.key} name={fields.status.name} defaultValue={data.status}>
+              <Select key={fields.status.key} name={fields.status.name} defaultValue={fields.status.initialValue}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select Status" />
                 </SelectTrigger>
@@ -117,7 +101,7 @@ export function EditForm({ data }: iAppProps) {
 
             <div className="flex flex-col gap-3">
               <Label>Category</Label>
-              <Select key={fields.category.key} name={fields.category.name} defaultValue={data.category}>
+              <Select key={fields.category.key} name={fields.category.name} defaultValue={fields.category.initialValue}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select Category" />
                 </SelectTrigger>
@@ -164,7 +148,7 @@ export function EditForm({ data }: iAppProps) {
           </div>
         </CardContent>
         <CardFooter>
-          <SubmitButton text="Edit Product" />
+          <SubmitButton text="Create Product" />
         </CardFooter>
       </Card>
     </form>

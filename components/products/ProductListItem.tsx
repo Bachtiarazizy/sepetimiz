@@ -29,7 +29,7 @@ export default function ProductListItem({ product: { id, name, price, category, 
       <div className="flex justify-between items-center mt-2">
         <h1 className="font-semibold text-xl">{name}</h1>
       </div>
-      <h3 className="inline-flex items-center rounded-md bg-primary/10 px-2 py-1 text-xs font-medium text-primary ring-1 ring-inset ring-primary/10">${price}</h3>
+      <h3 className="inline-flex items-center text-xs font-medium ">{price}</h3>
       <p className="text-gray-600 text-sm mt-2 line-clamp-2">{description}</p>
       <p className="text-gray-600 text-sm mt-2 line-clamp-2">{location}</p>
 

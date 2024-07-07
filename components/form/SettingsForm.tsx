@@ -9,7 +9,6 @@ import { useFormState } from "react-dom";
 import { useEffect } from "react";
 import { toast } from "sonner";
 import { State, UpdateUserSettings } from "@/actions/update-user";
-import { SubmitButton } from "./Submitbutton";
 import { Button } from "../ui/button";
 
 interface iAppProps {
@@ -48,11 +47,11 @@ export function SettingsForm({ email, firstName, lastName }: iAppProps) {
 
         <div className="flex flex-col gap-y-2">
           <Label>Email</Label>
-          <Input name="email" type="email" disabled defaultValue={"jan@alenix.de"} />
+          <Input name="email" type="email" disabled defaultValue={email} />
         </div>
       </CardContent>
       <CardFooter>
-        <Button>Save</Button>
+        <Button type="submit">Save</Button>
       </CardFooter>
     </form>
   );

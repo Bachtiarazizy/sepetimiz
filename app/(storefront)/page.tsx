@@ -26,7 +26,7 @@ function getTitle({ q, location }: ProductFilterValues) {
 
 export function generateMetadata({ searchParams: { q, location } }: PageProps): Metadata {
   return {
-    title: `${getTitle({ q, location })} | Flow Products Store`,
+    title: `${getTitle({ q, location })} `,
   };
 }
 
