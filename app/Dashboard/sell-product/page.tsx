@@ -3,6 +3,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import prisma from "@/lib/db";
 import ProductCreateRoute from "@/components/form/product-form";
+import VerificationAlert from "@/components/shared/VerificationAlert";
 
 async function getData(userId: string) {
   const data = await prisma.user.findUnique({
@@ -21,7 +22,7 @@ async function getData(userId: string) {
   return data;
 }
 
-export default async function sellProduct() {
+export default async function SellProduct() {
   unstable_noStore();
   const { getUser } = getKindeServerSession();
   const user = await getUser();
@@ -33,6 +34,10 @@ export default async function sellProduct() {
   const data = await getData(user.id);
   if (!data) {
     redirect("/error-page");
+  }
+
+  if (!data.isVerified) {
+    return <VerificationAlert />;
   }
 
   return <ProductCreateRoute />;

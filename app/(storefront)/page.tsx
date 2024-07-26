@@ -2,6 +2,7 @@ import Banner from "@/components/hyper-ui/Banner";
 import Marketing from "@/components/hyper-ui/Marketing";
 import Reviews from "@/components/hyper-ui/Review";
 import ProductResults from "@/components/products/ProductResult";
+import SelectCategories from "@/components/products/SelectCategories";
 import ProductFilterSidebar from "@/components/shared/ProductFilterSidebar";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -39,6 +40,7 @@ export default function Home({ searchParams: { q, location, page } }: PageProps)
   return (
     <main className="flex min-h-screen flex-col items-center justify-between w-full gap-y-5 sm:gap-y-8 lg:gap-y-10">
       <Banner />
+      <SelectCategories />
       <section className="w-full mx-auto px-4 md:px-8">
         <div className="max-w-4xl mx-auto text-2xl sm:text-5xl lg:text-6xl font-semibold text-center">
           <h1>Check Out the Latest</h1>

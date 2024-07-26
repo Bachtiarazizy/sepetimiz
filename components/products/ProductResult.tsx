@@ -14,7 +14,7 @@ interface ProductResultsProps {
 export default async function ProductResults({ filterValues, page = 1 }: ProductResultsProps) {
   const { q, location } = filterValues;
 
-  const productsPerPage = 6;
+  const productsPerPage = 8;
   const skip = (page - 1) * productsPerPage;
 
   const searchString = q

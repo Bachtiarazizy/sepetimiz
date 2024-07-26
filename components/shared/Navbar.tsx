@@ -8,6 +8,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { ShoppingBag } from "lucide-react";
 import UserNav from "./UserNav";
 import MobileMenu from "./MobileMenu";
+import SearchBar from "./SearchBar";
 
 export default async function Navbar() {
   const { getUser } = getKindeServerSession();
