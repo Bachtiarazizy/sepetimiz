@@ -52,8 +52,8 @@ model VerificationData {
   email            String
   address          String     
   photoUrl         String[]
-  identityDocument String[]
-  studentCard      String[]
+  studentDocument String[]
+  identityNumber      String
   phoneNumber      String
 }
 

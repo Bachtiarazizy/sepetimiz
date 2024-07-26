@@ -34,7 +34,7 @@ export default function VerificationForm() {
       <CardContent className="flex flex-col gap-y-10">
         <div className="flex flex-col gap-y-2">
           <Label>Name</Label>
-          <Input name="name" type="text" placeholder="Name of your Product" required minLength={3} />
+          <Input name="name" type="text" placeholder="Fullname" required minLength={3} />
           {state?.errors?.["name"]?.[0] && <p className="text-destructive">{state?.errors?.["name"]?.[0]}</p>}
         </div>
 
@@ -51,8 +51,14 @@ export default function VerificationForm() {
 
         <div className="flex flex-col gap-y-2">
           <Label>Address</Label>
-          <Textarea name="address" placeholder="Pleae describe your address product " required minLength={10} />
-          {state?.errors?.["address"]?.[0] && <p className="text-destructive">{state?.errors?.["description"]?.[0]}</p>}
+          <Textarea name="address" placeholder="Pleae describe your address" required minLength={10} />
+          {state?.errors?.["address"]?.[0] && <p className="text-destructive">{state?.errors?.["address"]?.[0]}</p>}
+        </div>
+
+        <div className="flex flex-col gap-y-2">
+          <Label>Identity Number</Label>
+          <Textarea name="identityNumber" placeholder="Passport or Identity Card" required minLength={10} />
+          {state?.errors?.["identityNumber"]?.[0] && <p className="text-destructive">{state?.errors?.["identityNumber"]?.[0]}</p>}
         </div>
 
         <div className="flex flex-col gap-y-2">
@@ -72,24 +78,8 @@ export default function VerificationForm() {
         </div>
 
         <div className="flex flex-col gap-y-2">
-          <input type="hidden" name="identityDocument" value={JSON.stringify(images)} />
-          <Label>Identity Document</Label>
-          <UploadDropzone
-            endpoint="imageUploader"
-            onClientUploadComplete={(res) => {
-              setImages(res.map((item) => item.url));
-              toast.success("Your images have been uploaded");
-            }}
-            onUploadError={(error: Error) => {
-              toast.error("Something went wrong, try again");
-            }}
-          />
-          {state?.errors?.["images"]?.[0] && <p className="text-destructive">{state?.errors?.["images"]?.[0]}</p>}
-        </div>
-
-        <div className="flex flex-col gap-y-2">
-          <input type="hidden" name="studentCard" value={JSON.stringify(images)} />
-          <Label>Student Card</Label>
+          <input type="hidden" name="studentDocument" value={JSON.stringify(images)} />
+          <Label>Student Document</Label>
           <UploadDropzone
             endpoint="imageUploader"
             onClientUploadComplete={(res) => {

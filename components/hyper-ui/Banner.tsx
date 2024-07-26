@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 const Banner = () => {
   return (
     <section>
-      <div className="mx-auto max-w-screen-2xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto  py-8 ">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-1 lg:grid-cols-2">
           <div className="relative p-8 md:p-12 lg:px-16 lg:py-24">
             <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover z-0">
@@ -41,6 +41,13 @@ const Banner = () => {
           </div>
         </div>
       </div>
+      {/* <div className="max-w-4xl mx-auto text-2xl sm:text-5xl lg:text-6xl font-semibold text-center">
+          <h1>Check Out the Latest</h1>
+          <h1 className="text-primary">Products and Services</h1>
+          <p className="lg:text-lg text-muted-foreground mx-auto mt-5 w-[95%] font-normal text-sm">
+            Stay updated with our newest additions and explore the most recent innovations and offerings in the market. Be the first to discover what's new!
+          </p>
+        </div> */}
     </section>
   );
 };

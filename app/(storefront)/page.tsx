@@ -1,3 +1,4 @@
+import Categories from "@/components/Categories";
 import Banner from "@/components/hyper-ui/Banner";
 import Marketing from "@/components/hyper-ui/Marketing";
 import Reviews from "@/components/hyper-ui/Review";
@@ -38,23 +39,16 @@ export default function Home({ searchParams: { q, location, page } }: PageProps)
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between w-full gap-y-5 sm:gap-y-8 lg:gap-y-10">
+    <main className="flex min-h-screen flex-col items-center justify-between w-full gap-y-3 sm:gap-y-8 lg:gap-y-10">
       <Banner />
-      <SelectCategories />
-      <section className="w-full mx-auto px-4 md:px-8">
-        <div className="max-w-4xl mx-auto text-2xl sm:text-5xl lg:text-6xl font-semibold text-center">
-          <h1>Check Out the Latest</h1>
-          <h1 className="text-primary">Products and Services</h1>
-          <p className="lg:text-lg text-muted-foreground mx-auto mt-5 w-[95%] font-normal text-sm">
-            Stay updated with our newest additions and explore the most recent innovations and offerings in the market. Be the first to discover what's new!
-          </p>
-        </div>
-
-        <section className="flex flex-col mt-10 gap-10">
+      <section className="w-full mx-auto flex flex-col mt-5 ">
+        <div className="flex items-center md:flex-row flex-col py-4">
+          <Categories />
           <ProductFilterSidebar defaultValues={filterValues} />
-
+        </div>
+        <div className="mt-8">
           <ProductResults filterValues={filterValues} page={page ? parseInt(page) : undefined} />
-        </section>
+        </div>
       </section>
       <Marketing />
       <Reviews />

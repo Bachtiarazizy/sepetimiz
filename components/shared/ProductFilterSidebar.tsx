@@ -35,7 +35,7 @@ export default async function ProductFilterSidebar({ defaultValues }: ProductFil
     .then((locations) => locations.map(({ location }) => location).filter(Boolean))) as string[];
 
   return (
-    <form action={filterJobs} key={JSON.stringify(defaultValues)} className="space-y-4">
+    <form action={filterJobs} key={JSON.stringify(defaultValues)} className="space-y-4 w-full">
       <div className="flex flex-col md:flex-row md:space-x-4">
         <div className="flex flex-col w-full md:flex-1">
           <Input id="q" name="q" placeholder="search product.." defaultValue={defaultValues.q} className="w-full" />

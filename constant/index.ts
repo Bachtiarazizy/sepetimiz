@@ -17,6 +17,15 @@ export const NavLinks = [
   { href: "/customer-service", id: 4, name: "Customer Service" },
 ];
 
+export const categoryFilters = [
+  { name: "Fashions", href: "/products/fashion" },
+  { name: "Electronics", href: "/products/electronics" },
+  { name: "Food", href: "/products/food" },
+  { name: "Bagages", href: "/products/baggages" },
+  { name: "Exchanges", href: "/products/exchanges" },
+  { name: "All", href: "/products/all" },
+];
+
 export const footerLinks = [
   {
     title: "About Us",
@@ -46,6 +55,10 @@ export const footerLinks = [
   },
   {
     title: "Contact Us",
-    links: ["sepetimiz.bk@gmail.com", "123-456-7890", "Lane, Istanbul, Turkey"],
+    links: [
+      { id: 1, name: "sepetimiz.bk@gmail.com", href: "mailto:sepetimiz.bk@gmail.com" },
+      { id: 2, name: "+90 555 444 33 22", href: "tel:+905554443322" },
+      { id: 3, name: "Lane, Istanbul, Turkey", href: "#" },
+    ],
   },
 ];
