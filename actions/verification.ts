@@ -1,7 +1,7 @@
 "use server";
 
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { z } from "zod";
+import { ZodStringDef, z } from "zod";
 import { redirect } from "next/navigation";
 import prisma from "@/lib/db";
 
@@ -15,11 +15,11 @@ export type State = {
 
 const VerificationDataSchema = z.object({
   name: z.string().min(3, { message: "The name has to be a minimum character length of 3" }),
+  photoUrl: z.array(z.string(), { message: "Images are required" }),
   email: z.string().email({ message: "Email is required" }),
   address: z.string().min(10, { message: "Address is required" }),
-  identityNumber: z.string().min(10, { message: "Student ID is required" }),
-  photoUrl: z.array(z.string(), { message: "Images are required" }),
-  studentDocument: z.array(z.string().min(10, { message: "ID is required" })),
+  studentDocument: z.array(z.string().min(10, { message: "Student ID is required" })),
+  identityNumber: z.string().min(10, { message: "identity number is required" }),
   phoneNumber: z.string().min(10, { message: "Phone is required" }),
 });
 
@@ -35,8 +35,8 @@ export async function verificationData(prevState: any, formData: FormData) {
     name: formData.get("name"),
     email: formData.get("email"),
     address: formData.get("address"),
-    identityNumber: formData.get("identityNumber"),
     photoUrl: JSON.parse(formData.get("photoUrl") as string),
+    identityNumber: formData.get("identityNumber"),
     studentDocument: JSON.parse(formData.get("studentDocument") as string),
     phoneNumber: formData.get("phoneNumber"),
   });
@@ -51,7 +51,7 @@ export async function verificationData(prevState: any, formData: FormData) {
     return state;
   }
 
-  await prisma.verificationData.create({
+  const data = await prisma.verificationData.create({
     data: {
       name: validateFields.data.name,
       email: validateFields.data.email,
