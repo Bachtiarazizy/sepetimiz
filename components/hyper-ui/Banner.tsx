@@ -8,11 +8,11 @@ const Banner = () => {
       <div className="mx-auto  py-8 ">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-1 lg:grid-cols-2">
           <div className="relative p-8 md:p-12 lg:px-16 lg:py-24">
-            <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover z-0">
+            <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover ">
               <source src="https://videos.pexels.com/video-files/3108018/3108018-sd_640_360_25fps.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
-            <div className="absolute inset-0 bg-slate-600 opacity-70 z-10"></div>
+            <div className="absolute inset-0 bg-slate-600 opacity-70 "></div>
             <div className="relative z-20 p-8 md:p-12 lg:px-16 lg:py-24">
               <div className="mx-auto max-w-xl text-center">
                 <h2 className="text-2xl font-bold text-white md:text-3xl">Check Out the Latest Products and Services</h2>

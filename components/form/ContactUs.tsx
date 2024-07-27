@@ -7,7 +7,7 @@ import { sendEmail } from "@/app/api/send/send";
 
 export default function ContactUs() {
   return (
-    <div>
+    <div className="flex flex-col gap-5">
       <p className="text-gray-700 -mt-6 dark:text-white/80">
         Please contact me directly at{" "}
         <a className="underline" href="mailto:sepetimiz.bk@gmail.com">
@@ -17,7 +17,7 @@ export default function ContactUs() {
       </p>
 
       <form
-        className="mt-10 flex flex-col dark:text-black"
+        className="mt-10 flex flex-col dark:text-black w-full"
         action={async (formData) => {
           const { data, error } = await sendEmail(formData);
 
