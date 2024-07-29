@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import NavbarLinks from "./NavbarLinks";
 import { ModeToggle } from "../provider/ModeToggle";
-
 import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { ShoppingBag } from "lucide-react";
@@ -15,7 +14,7 @@ export default async function Navbar() {
   const user = await getUser();
 
   return (
-    <nav className="w-full justify-between  flex md:grid md:grid-cols-12 items-center px-4 md:px-8 mx-auto py-4 sm:py-5 lg:py-7 border-b">
+    <nav className="sticky top-0 z-50 w-full justify-between flex md:grid md:grid-cols-12 items-center px-4 md:px-20 mx-auto py-4 sm:py-5 lg:py-7 border-b  ">
       <div className="md:col-span-3">
         <Link href="/">
           <div className="text-2xl font-semibold flex flex-row items-center gap-2">

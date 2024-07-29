@@ -1,53 +1,50 @@
 import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
+import RetroGrid from "@/components/magicui/retro-grid";
+import TypingAnimation from "../magicui/typing-animation";
+import BoxReveal from "../magicui/box-reveal";
+import AnimatedShinyText from "../magicui/animated-shiny-text";
+import { ArrowRightIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const Banner = () => {
   return (
-    <section>
-      <div className="mx-auto  py-8 ">
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-1 lg:grid-cols-2">
-          <div className="relative p-8 md:p-12 lg:px-16 lg:py-24">
-            <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover ">
-              <source src="https://videos.pexels.com/video-files/3108018/3108018-sd_640_360_25fps.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-            <div className="absolute inset-0 bg-slate-600 opacity-70 "></div>
-            <div className="relative z-20 p-8 md:p-12 lg:px-16 lg:py-24">
-              <div className="mx-auto max-w-xl text-center">
-                <h2 className="text-2xl font-bold text-white md:text-3xl">Check Out the Latest Products and Services</h2>
-                <p className="hidden text-white/90 sm:mt-4 sm:block">Stay updated with our newest additions and explore the most recent innovations and offerings in the market. Be the first to discover what's new!</p>
-                <div className="mt-4 md:mt-8">
-                  <Link href="/products/all">
-                    <Button className="transition hover:bg-opacity-75 text-xs sm:text-sm lg:text-sm">Browse New Arrivals</Button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-2">
-            <img
-              alt=""
-              src="https://images.unsplash.com/photo-1605902711834-8b11c3e3ef2f?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHNob3BwaW5nJTIwb25saW5lfGVufDB8fDB8fHww"
-              className="h-40 w-full object-cover sm:h-56 md:h-full"
-            />
-
-            <img
-              alt=""
-              src="https://images.unsplash.com/photo-1513094735237-8f2714d57c13?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHNob3BwaW5nfGVufDB8fDB8fHww"
-              className="h-40 w-full object-cover sm:h-56 md:h-full"
-            />
-          </div>
-        </div>
-      </div>
-      {/* <div className="max-w-4xl mx-auto text-2xl sm:text-5xl lg:text-6xl font-semibold text-center">
-          <h1>Check Out the Latest</h1>
-          <h1 className="text-primary">Products and Services</h1>
-          <p className="lg:text-lg text-muted-foreground mx-auto mt-5 w-[95%] font-normal text-sm">
-            Stay updated with our newest additions and explore the most recent innovations and offerings in the market. Be the first to discover what's new!
+    <section className="relative flex flex-col items-start justify-center gap-6 w-screen h-screen">
+      <RetroGrid className="absolute inset-0 z-0" />
+      {/* <div className="absolute inset-0 z-10 bg-zinc-900 bg-opacity-15"></div> Dark overlay */}
+      <div className="relative h-full w-full max-w-5xl px-20 items-center justify-center overflow-hidden pt-40 z-20">
+        <BoxReveal boxColor={"#5046e6"} duration={0.5}>
+          <TypingAnimation className="text-4xl font-medium text-black dark:text-white" text="Welcome to Sepetimiz" />
+        </BoxReveal>
+        <BoxReveal boxColor={"#5046e6"} duration={0.5}>
+          <p className="text-5xl font-semibold mt-4">
+            Discover and Support <br /> Indonesian Students in Turkey.
           </p>
-        </div> */}
+        </BoxReveal>
+
+        <BoxReveal boxColor={"#5046e6"} duration={0.5}>
+          <div className="mt-6">
+            <p>
+              -&gt; Experience a seamless e-commerce platform. <br />
+              -&gt; Showcasing diverse products and services <span className="font-semibold text-[#5046e6]">talented students</span> pursuing their <span className="font-semibold text-[#5046e6]">dreams abroad.</span>
+            </p>
+          </div>
+        </BoxReveal>
+
+        <BoxReveal boxColor={"#5046e6"} duration={0.5}>
+          <div
+            className={cn(
+              "group rounded-full border mt-6 border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800"
+            )}
+          >
+            <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
+              <span>✨ Join Now and Start Exploring</span>
+              <ArrowRightIcon className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+            </AnimatedShinyText>
+          </div>
+        </BoxReveal>
+      </div>
     </section>
   );
 };

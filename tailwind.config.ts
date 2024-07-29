@@ -2,7 +2,7 @@ import type { Config } from "tailwindcss";
 import { withUt } from "uploadthing/tw";
 import { fontFamily } from "tailwindcss/defaultTheme";
 
-const config = {
+const config: Config = {
   darkMode: ["class"],
   content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   prefix: "",
@@ -16,19 +16,47 @@ const config = {
       },
     },
     extend: {
+      animation: {
+        grid: "grid 15s linear infinite",
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+        shimmer: "shimmer 8s infinite",
+      },
+      keyframes: {
+        grid: {
+          "0%": { transform: "translateY(-50%)" },
+          "100%": { transform: "translateY(0)" },
+        },
+        shimmer: {
+          "0%, 90%, 100%": {
+            "background-position": "calc(-100% - var(--shimmer-width)) 0",
+          },
+          "30%, 60%": {
+            "background-position": "calc(100% + var(--shimmer-width)) 0",
+          },
+        },
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+      },
       utilities: {
         ".scrollbar-hide": {
-          /* Hide scrollbar for Chrome, Safari and Opera */
+          /* Hide scrollbar for Chrome, Safari, and Opera */
           "&::-webkit-scrollbar": {
             display: "none",
           },
-          /* Hide scrollbar for IE, Edge and Firefox */
+          /* Hide scrollbar for IE, Edge, and Firefox */
           "-ms-overflow-style": "none" /* IE and Edge */,
           "scrollbar-width": "none" /* Firefox */,
         },
       },
       fontFamily: {
-        sans: ["var(--font-sans)", "sans-serif"],
+        sans: ["var(--font-sans)", ...fontFamily.sans],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -70,23 +98,9 @@ const config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
-      keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-      },
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config;
+};
 
 export default withUt(config);
