@@ -122,7 +122,7 @@ async function LoadRows({ category }: iAppProps) {
         </Link>
       </div>
 
-      <div className="grid gird-cols-2 lg:grid-cols-5 sm:grid-cols-2 mt-4 gap-10">
+      <div className="grid gird-cols-1 lg:grid-cols-5 sm:grid-cols-2 mt-4 gap-10">
         {data.data.map((product) => (
           <ProductCard images={product.images} key={product.id} id={product.id} name={product.name} price={product.price} location={product.location} />
         ))}

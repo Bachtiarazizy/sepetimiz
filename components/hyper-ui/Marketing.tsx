@@ -1,6 +1,7 @@
 import { PackageOpen, Package, Truck } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import { BorderBeam } from "../magicui/border-beam";
 
 const Marketing = () => {
   return (
@@ -10,38 +11,23 @@ const Marketing = () => {
           <h2 className="text-xl font-bold sm:text-2xl lg:text-3xl mb-9">Why Choose Sepetimiz?</h2>
         </div>
         <div className="flex flex-col sm:flex-row gap-8 justify-between">
-          <div className="block rounded-xl border  border-gray-200 p-4 shadow-md hover:border-gray-300 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring">
-            <div className="flex flex-col items-center">
-              <span className="inline-block bg-white dark:bg-primary-foreground rounded-lg p-3 text-center">
-                <PackageOpen size={24} className="text-primary" />
-              </span>
-
-              <h2 className="mt-2 font-bold ">Quality Products</h2>
-
-              <p className="mt-1 text-sm text-gray-600 text-center dark:text-gray-400">Find high-quality products crafted by talented Indonesian students in Turkey.</p>
-            </div>
+          <div className="relative flex h-[200px] w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">
+            <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">
+              Border Beam
+            </span>
+            <BorderBeam size={250} duration={12} delay={9} />
           </div>
-          <div className="block rounded-xl border  border-gray-200 p-4 shadow-md hover:border-gray-300 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring">
-            <div className="flex flex-col items-center">
-              <span className="inline-block bg-white dark:bg-primary-foreground rounded-lg p-3 text-center">
-                <PackageOpen size={24} className="text-primary" />
-              </span>
-
-              <h2 className="mt-2 font-bold ">Supporting Talents</h2>
-
-              <p className="mt-1 text-sm text-gray-600 text-center dark:text-gray-400">Empower Indonesian students in Turkey by supporting their creative endeavors.</p>
-            </div>
+          <div className="relative flex h-[200px] w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">
+            <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">
+              Border Beam
+            </span>
+            <BorderBeam size={250} duration={12} delay={9} />
           </div>
-          <div className="block rounded-xl border  border-gray-200 p-4 shadow-md hover:border-gray-300 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring">
-            <div className="flex flex-col items-center">
-              <span className="inline-block bg-white dark:bg-primary-foreground rounded-lg p-3 text-center">
-                <Truck size={24} className="text-primary" />
-              </span>
-
-              <h2 className="mt-2 font-bold ">Easy Transactions</h2>
-
-              <p className="mt-1 text-sm text-gray-600 text-center dark:text-gray-400">Enjoy hassle-free transactions and a seamless shopping experience.</p>
-            </div>
+          <div className="relative flex h-[200px] w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">
+            <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">
+              Border Beam
+            </span>
+            <BorderBeam size={250} duration={12} delay={9} />
           </div>
         </div>
       </div>

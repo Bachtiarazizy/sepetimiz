@@ -1,159 +1,86 @@
-"use client";
+import { cn } from "@/lib/utils";
+import Marquee from "@/components/magicui/marquee";
 
-import React from "react";
-import styled, { keyframes, css } from "styled-components";
+const reviews = [
+  {
+    name: "Jack",
+    username: "@jack",
+    body: "I've never seen anything like this before. It's amazing. I love it.",
+    img: "https://avatar.vercel.sh/jack",
+  },
+  {
+    name: "Jill",
+    username: "@jill",
+    body: "I don't know what to say. I'm speechless. This is amazing.",
+    img: "https://avatar.vercel.sh/jill",
+  },
+  {
+    name: "John",
+    username: "@john",
+    body: "I'm at a loss for words. This is amazing. I love it.",
+    img: "https://avatar.vercel.sh/john",
+  },
+  {
+    name: "Jane",
+    username: "@jane",
+    body: "I'm at a loss for words. This is amazing. I love it.",
+    img: "https://avatar.vercel.sh/jane",
+  },
+  {
+    name: "Jenny",
+    username: "@jenny",
+    body: "I'm at a loss for words. This is amazing. I love it.",
+    img: "https://avatar.vercel.sh/jenny",
+  },
+  {
+    name: "James",
+    username: "@james",
+    body: "I'm at a loss for words. This is amazing. I love it.",
+    img: "https://avatar.vercel.sh/james",
+  },
+];
 
-function Marquees() {
-  const row1 = [
-    "assets/images/1.png",
-    "assets/images/2.png",
-    "assets/images/3.png",
-    "assets/images/4.png",
-    "assets/images/5.png",
-    "assets/images/6.png",
-    "assets/images/7.png",
-    "assets/images/8.png",
-    "assets/images/9.png",
-    "assets/images/10.png",
-  ];
+const firstRow = reviews.slice(0, reviews.length / 2);
+const secondRow = reviews.slice(reviews.length / 2);
 
-  const row2 = [
-    "assets/images/11.png",
-    "assets/images/12.png",
-    "assets/images/13.png",
-    "assets/images/14.png",
-    "assets/images/15.png",
-    "assets/images/16.png",
-    "assets/images/17.png",
-    "assets/images/18.png",
-    "assets/images/19.png",
-    "assets/images/20.png",
-  ];
+const ReviewCard = ({ img, name, username, body }: { img: string; name: string; username: string; body: string }) => {
   return (
-    <Wrapper>
-      <Marquee>
-        <MarqueeGroup>
-          {row1.map((el) => (
-            <ImageGroup>
-              <Image src={el} />
-            </ImageGroup>
-          ))}
-        </MarqueeGroup>
-        <MarqueeGroup>
-          {row1.map((el) => (
-            <ImageGroup>
-              <Image src={el} />
-            </ImageGroup>
-          ))}
-        </MarqueeGroup>
+    <figure
+      className={cn(
+        "relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4",
+        // light styles
+        "border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]",
+        // dark styles
+        "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]"
+      )}
+    >
+      <div className="flex flex-row items-center gap-2">
+        <img className="rounded-full" width="32" height="32" alt="" src={img} />
+        <div className="flex flex-col">
+          <figcaption className="text-sm font-medium dark:text-white">{name}</figcaption>
+          <p className="text-xs font-medium dark:text-white/40">{username}</p>
+        </div>
+      </div>
+      <blockquote className="mt-2 text-sm">{body}</blockquote>
+    </figure>
+  );
+};
+
+export function MarqueeDemo() {
+  return (
+    <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">
+      <Marquee pauseOnHover className="[--duration:20s]">
+        {firstRow.map((review) => (
+          <ReviewCard key={review.username} {...review} />
+        ))}
       </Marquee>
-      <Marquee>
-        <MarqueeGroup2>
-          {row2.map((el) => (
-            <ImageGroup>
-              <Image src={el} />
-            </ImageGroup>
-          ))}
-        </MarqueeGroup2>
-        <MarqueeGroup2>
-          {row2.map((el) => (
-            <ImageGroup>
-              <Image src={el} />
-            </ImageGroup>
-          ))}
-        </MarqueeGroup2>
+      <Marquee reverse pauseOnHover className="[--duration:20s]">
+        {secondRow.map((review) => (
+          <ReviewCard key={review.username} {...review} />
+        ))}
       </Marquee>
-    </Wrapper>
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-white dark:from-background"></div>
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-white dark:from-background"></div>
+    </div>
   );
 }
-
-export default Marquees;
-
-const AppContainer = styled.div`
-  width: 100vw;
-  height: 120px;
-  position: relative;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const Wrapper = styled.div`
-  width: 100%;
-  height: fit-content;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-`;
-
-const Text = styled.div`
-  font-size: 35px;
-  font-weight: 500;
-  margin-bottom: 10px;
-  color: #02203c;
-`;
-
-const Note = styled.div`
-  font-size: 18px;
-  font-weight: 200;
-  margin-bottom: 40px;
-  color: #7c8e9a;
-`;
-
-const Marquee = styled.div`
-  display: flex;
-  width: 1200px;
-  overflow: hidden;
-  user-select: none;
-
-  mask-image: linear-gradient(to right, hsl(0 0% 0% / 0), hsl(0 0% 0% / 1) 10%, hsl(0 0% 0% / 1) 90%, hsl(0 0% 0% / 0));
-`;
-
-const scrollX = keyframes`
-  from {
-    left: translateX(0);
-  }
-  to {
-    transform: translateX(-100%);
-  }
-`;
-
-const common = css`
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  white-space: nowrap;
-  width: 100%;
-  animation: ${scrollX} 30s linear infinite;
-`;
-
-const MarqueeGroup = styled.div`
-  ${common}
-`;
-const MarqueeGroup2 = styled.div`
-  ${common}
-  animation-direction: reverse;
-  animation-delay: -3s;
-`;
-
-const ImageGroup = styled.div`
-  display: grid;
-  place-items: center;
-  width: clamp(10rem, 1rem + 40vmin, 30rem);
-  padding: calc(clamp(10rem, 1rem + 30vmin, 30rem) / 10);
-`;
-
-const Image = styled.img`
-  object-fit: contain;
-  width: 100%;
-  height: 100%;
-  /* border: 1px solid black; */
-  border-radius: 0.5rem;
-  aspect-ratio: 16/9;
-  padding: 5px 20px;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-`;

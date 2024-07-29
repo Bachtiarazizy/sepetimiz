@@ -5,10 +5,10 @@ import React from "react";
 export default async function About() {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   return (
-    <main className="min-h-screen flex flex-col gap-y-10 lg:py-10 md:py-10 py-5 lg:px-20 md:px-10 px-5 bg-gray-50 dark:bg-gray-900">
+    <main className="min-h-screen flex flex-col gap-y-10 lg:py-10 md:py-10 py-5 lg:px-20 md:px-10 px-5">
       <h1 className="text-4xl font-bold text-center text-gray-900 dark:text-gray-100">About Us</h1>
 
-      <div className="w-full mx-auto space-y-8 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg">
+      <div className="w-full mx-auto space-y-8 p-8 rounded-lg shadow-lg">
         <img
           alt="About Us Image"
           src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"

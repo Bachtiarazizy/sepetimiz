@@ -5,7 +5,7 @@ const Faqs = () => {
     <section>
       {" "}
       <div className="space-y-4">
-        <details className="group border-s-4 border-primary bg-white shadow-lg dark:bg-gray-900 rounded-lg p-6 [&_summary::-webkit-details-marker]:hidden" open>
+        <details className="group border-s-4 border-primary bg-white shadow-lg dark:bg-zinc-800 rounded-lg p-6 [&_summary::-webkit-details-marker]:hidden" open>
           <summary className="flex cursor-pointer items-center justify-between gap-1.5">
             <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100"> How can I contact customer support?</h2>
 
@@ -21,7 +21,7 @@ const Faqs = () => {
           </p>
         </details>
 
-        <details className="group border-s-4 border-primary bg-white shadow-lg dark:bg-gray-900 rounded-lg p-6 [&_summary::-webkit-details-marker]:hidden">
+        <details className="group border-s-4 border-primary bg-white shadow-lg dark:bg-zinc-800 rounded-lg p-6 [&_summary::-webkit-details-marker]:hidden">
           <summary className="flex cursor-pointer items-center justify-between gap-1.5">
             <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">Are the product details and specifications accurate?</h2>
 
@@ -36,7 +36,7 @@ const Faqs = () => {
             We strive to ensure all information on our website is accurate and up-to-date. However, we recommend double-checking details with the official manufacturer or service provider.
           </p>
         </details>
-        <details className="group border-s-4 border-primary bg-white shadow-lg dark:bg-gray-900 rounded-lg p-6 [&_summary::-webkit-details-marker]:hidden">
+        <details className="group border-s-4 border-primary bg-white shadow-lg dark:bg-zinc-800 rounded-lg p-6 [&_summary::-webkit-details-marker]:hidden">
           <summary className="flex cursor-pointer items-center justify-between gap-1.5">
             <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">How do I create an account?</h2>
 
@@ -51,7 +51,7 @@ const Faqs = () => {
             Click on the “Sign Up” button at the top right corner of the homepage and follow the instructions to create an account. You’ll need a valid email address to complete the registration.
           </p>
         </details>
-        <details className="group border-s-4 border-primary bg-white shadow-lg dark:bg-gray-900 rounded-lg p-6 [&_summary::-webkit-details-marker]:hidden">
+        <details className="group border-s-4 border-primary bg-white shadow-lg dark:bg-zinc-800 rounded-lg p-6 [&_summary::-webkit-details-marker]:hidden">
           <summary className="flex cursor-pointer items-center justify-between gap-1.5">
             <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">How do you protect my personal information?</h2>
 
@@ -65,7 +65,7 @@ const Faqs = () => {
           <p className="mt-4 leading-relaxed text-gray-700 dark:text-gray-400">We take your privacy seriously and use industry-standard security measures to protect your data. For more details, please read our Privacy Policy.</p>
         </details>
 
-        <details className="group border-s-4 border-primary bg-white shadow-lg dark:bg-gray-900 rounded-lg p-6 [&_summary::-webkit-details-marker]:hidden">
+        <details className="group border-s-4 border-primary bg-white shadow-lg dark:bg-zinc-800 rounded-lg p-6 [&_summary::-webkit-details-marker]:hidden">
           <summary className="flex cursor-pointer items-center justify-between gap-1.5">
             <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">What should I do if I encounter technical issues on the website?</h2>
 
