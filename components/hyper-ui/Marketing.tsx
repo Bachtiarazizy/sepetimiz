@@ -6,7 +6,7 @@ import { BentoDemo } from "../Animation/BentoDemo";
 
 const Marketing = () => {
   return (
-    <div className="mx-auto max-w-screen py-8 sm:py-12 lg:py-16 flex flex-col-reverse lg:flex-row justify-between items-center lg:items-start">
+    <div className="mx-auto w-full py-8 sm:py-12 lg:py-16 flex flex-col-reverse lg:flex-row justify-between items-center lg:items-start">
       <div className="w-full lg:w-auto mt-8 lg:mt-0">
         <BentoDemo />
       </div>

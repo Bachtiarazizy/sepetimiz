@@ -38,6 +38,24 @@ const reviews = [
   {
     img: "assets/images/12.png",
   },
+  {
+    img: "assets/images/13.png",
+  },
+  {
+    img: "assets/images/14.png",
+  },
+  {
+    img: "assets/images/15.png",
+  },
+  {
+    img: "assets/images/16.png",
+  },
+  {
+    img: "assets/images/17.png",
+  },
+  {
+    img: "assets/images/18.png",
+  },
 ];
 
 const firstRow = reviews.slice(0, reviews.length / 2);

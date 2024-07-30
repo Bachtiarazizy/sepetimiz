@@ -2,7 +2,7 @@ import { MarqueeDemoVertical } from "../hyper-ui/Review";
 
 export default function Reviews() {
   return (
-    <div className="mx-auto max-w-screen py-8 sm:py-12 lg:py-16 flex flex-col lg:flex-row justify-between items-center lg:items-start">
+    <div className="mx-auto w-full py-8 sm:py-12 lg:py-16 flex flex-col lg:flex-row justify-between items-center lg:items-start">
       <div className="lg:py-24 max-w-2xl  text-center lg:text-left">
         <h2 className="text-3xl font-bold sm:text-4xl">
           Read trusted <br /> reviews from our customers

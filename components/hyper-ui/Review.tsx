@@ -50,7 +50,7 @@ const ReviewCard = ({ img, name, username, body }: { img: string; name: string; 
 
 export function MarqueeDemoVertical() {
   return (
-    <div className="relative flex h-[500px] w-[480px] flex-row items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">
+    <div className="relative flex h-[500px] w-full lg:px-8 flex-row items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">
       <Marquee pauseOnHover vertical className="[--duration:20s]">
         {firstRow.map((review) => (
           <ReviewCard key={review.username} {...review} />
