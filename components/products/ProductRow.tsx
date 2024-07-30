@@ -116,13 +116,13 @@ async function LoadRows({ category }: iAppProps) {
   return (
     <>
       <div className="md:flex md:items-center md:justify-between ">
-        <h2 className="text-3xl font-extrabold tracking-tighter ">{data.title}</h2>
+        <h2 className="text-xl lg:text-3xl font-extrabold tracking-tighter ">{data.title}</h2>
         <Link href={data.link} className="text-sm hidden font-medium text-primary hover:text-primary/90 md:block">
           All Products <span>&rarr;</span>
         </Link>
       </div>
 
-      <div className="grid gird-cols-1 lg:grid-cols-5 sm:grid-cols-2  gap-10 mt-10">
+      <div className="grid gird-cols-1 lg:grid-cols-4 sm:grid-cols-2  gap-10 mt-10">
         {data.data.map((product) => (
           <ProductCard images={product.images} key={product.id} id={product.id} name={product.name} price={product.price} location={product.location} />
         ))}

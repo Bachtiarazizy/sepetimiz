@@ -8,7 +8,7 @@ export default function Reviews() {
           Read trusted <br /> reviews from our customers
         </h2>
 
-        <p className="mt-4 text-gray-600">
+        <p className="hidden md:flex mt-4 text-gray-600">
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut qui hic atque tenetur quis eius quos ea neque sunt, accusantium soluta minus veniam tempora deserunt? Molestiae eius quidem quam repellat.
         </p>
 

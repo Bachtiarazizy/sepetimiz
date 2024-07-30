@@ -9,7 +9,7 @@ interface ProductListItemProps {
   product: Product;
 }
 
-export default function ProductListItem({ product: { id, name, price, category, location, images, description } }: ProductListItemProps) {
+export default function ProductListItem({ product: { id, name, price, category, location, images } }: ProductListItemProps) {
   return (
     <div className="rounded-lg">
       <Carousel className="w-full mx-auto">
@@ -25,17 +25,17 @@ export default function ProductListItem({ product: { id, name, price, category, 
         <CarouselPrevious className="ml-16" />
         <CarouselNext className="mr-16" />
       </Carousel>
+      <div className="relative border border-gray-100 bg-white p-6">
+        <h3 className="mt-4 text-lg font-medium text-gray-900">{name}</h3>
 
-      <div className="flex justify-between items-center mt-2">
-        <h1 className="font-semibold text-xl">{name}</h1>
+        <p className="mt-4 text-lg font-medium text-gray-900 ">{price}</p>
+
+        <p className="mt-1.5 text-sm text-gray-700">{location}</p>
+
+        <Button asChild className="block w-full rounded bg-yellow-400 p-4 text-sm font-medium transition hover:scale-105">
+          <Link href={`/product/${id}`}>Learn More!</Link>
+        </Button>
       </div>
-      <h3 className="inline-flex items-center text-xs font-medium ">{price}</h3>
-      <p className="text-gray-600 text-sm mt-2 line-clamp-2">{description}</p>
-      <p className="text-gray-600 text-sm mt-2 line-clamp-2">{location}</p>
-
-      <Button asChild className="w-full mt-5">
-        <Link href={`/product/${id}`}>Learn More!</Link>
-      </Button>
     </div>
   );
 }

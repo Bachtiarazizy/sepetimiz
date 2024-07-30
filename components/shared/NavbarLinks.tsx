@@ -24,14 +24,14 @@ export default function NavbarLinks() {
       {NavLinks.map((item) =>
         item.dropdown ? (
           <div key={item.id} className="relative" onMouseLeave={handleMouseLeave}>
-            <button onClick={handleDropdownToggle} className={cn(location === item.href ? "text-primary underline" : "transition hover:text-primary hover:text-opacity-75 ", "group flex items-center px-2 py-2 font-medium rounded-sm")}>
+            <button onClick={handleDropdownToggle} className={cn(location === item.href ? "text-primary " : "transition duration-200 hover:text-indigo-600 hover:text-opacity-75", "group flex items-center px-2 py-2 font-medium rounded-sm")}>
               {item.name}
               <ChevronDown className="ml-2" size={16} />
             </button>
             {dropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 border bg-zinc-50 dark:bg-gray-800 rounded-md shadow-lg z-50" onMouseLeave={handleMouseLeave}>
                 {item.dropdown.map((subItem) => (
-                  <Link href={subItem.href} key={subItem.id} className="block px-4 py-2 text-gray-800 dark:text-gray-100 transition dark:hover:bg-gray-600 hover:bg-gray-100">
+                  <Link href={subItem.href} key={subItem.id} className="block px-4 py-2 text-gray-800 dark:text-gray-100 transition duration-200 dark:hover:bg-gray-600 hover:bg-gray-100">
                     {subItem.name}
                   </Link>
                 ))}
@@ -39,7 +39,11 @@ export default function NavbarLinks() {
             )}
           </div>
         ) : (
-          <Link href={item.href} key={item.id} className={cn(location === item.href ? "text-primary underline bg=muted" : "transition hover:text-primary hover:text-opacity-75", "group flex items-center px-2 py-2 font-medium rounded-lg")}>
+          <Link
+            href={item.href}
+            key={item.id}
+            className={cn(location === item.href ? "text-primary bg-muted" : "transition duration-200 hover:text-indigo-600 hover:text-opacity-75", "group flex items-center px-2 py-2 font-medium rounded-lg")}
+          >
             {item.name}
           </Link>
         )

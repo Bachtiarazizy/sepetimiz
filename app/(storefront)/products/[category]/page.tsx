@@ -60,8 +60,8 @@ export default async function CategoryPage({ params }: { params: { category: str
   }
 
   return (
-    <section className="max-w-7xl mx-auto px-4 md:px-8">
-      <h1 className="text-xl font-bold mb-4">{capitalizeFirstLetter(params.category)}</h1>
+    <section className="max-w-full mx-auto px-4 md:px-32 py-6">
+      <h1 className="text-xl font-bold mb-6">{capitalizeFirstLetter(params.category)}</h1>
       <div className="grid grid-cols-1 lg:grid-cols-3 sm:grid-cols-2 gap-10 mt-4">
         {data.length === 0 ? <p>No products found in this category.</p> : data.map((product) => <ProductCard key={product.id} images={product.images} price={product.price} name={product.name} id={product.id} location={product.location} />)}
       </div>

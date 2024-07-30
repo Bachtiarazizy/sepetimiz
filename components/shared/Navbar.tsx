@@ -15,7 +15,7 @@ export default async function Navbar() {
 
   return (
     <nav className=" w-full justify-between flex  items-center px-4 md:px-20 mx-auto py-4 sm:py-5 lg:py-5 border-b  ">
-      <div className="md:col-span-3 pr-6">
+      <div className="md:col-span-3 pr-8">
         <Link href="/">
           <div className="text-2xl font-semibold flex flex-row items-center gap-2">
             <ShoppingBag />
