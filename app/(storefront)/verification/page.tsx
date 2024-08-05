@@ -14,6 +14,16 @@ async function getData(userId: string) {
     where: {
       id: userId,
     },
+    select: {
+      id: true,
+      email: true,
+      firstName: true,
+      lastName: true,
+      profileImage: true,
+      userRole: true,
+      verificationStatus: true,
+      createdAt: true,
+    },
   });
 
   return user;
@@ -34,7 +44,7 @@ export default async function Verification() {
     redirect("/api/auth/login");
   }
 
-  const isVerified = dbUser.isVerified;
+  const isVerified = dbUser.verificationStatus === "success";
 
   return (
     <section className="w-full mx-auto px-4 md:px-8 mb-14">
@@ -58,7 +68,7 @@ export default async function Verification() {
               <Link href={`/`}>Go to HomePage</Link>
             </Button>
 
-            <p className="copyright">© 2024 CarePluse</p>
+            <p className="copyright">© 2024 Sepetimiz</p>
           </div>
         </div>
       )}
