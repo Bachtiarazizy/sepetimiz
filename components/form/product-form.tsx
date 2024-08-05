@@ -12,23 +12,45 @@ import { parseWithZod } from "@conform-to/zod";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { Select as CustomSelect, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { categories } from "@/lib/categories";
 import Image from "next/image";
 import { UploadDropzone } from "@/lib/Uploadhing";
 import { SubmitButton } from "./Submitbutton";
-import { Textarea } from "../ui/textarea";
+import { TipTapEditor } from "./Editor";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+import Select from "react-select";
+import { cityOptions } from "@/constant/citi-lists";
+
+const currencyOptions = [
+  { value: "₺", label: "Lira" },
+  { value: "$", label: "Dollar" },
+  { value: "Rp", label: "Rupiah" },
+];
+
+interface CityOption {
+  value: string;
+  label: string;
+}
+
+interface CurrencyOption {
+  value: string;
+  label: string;
+}
 
 export default function ProductCreateRoute() {
   const [images, setImages] = useState<string[]>([]);
+  const [phoneNumber, setPhoneNumber] = useState<string | undefined>("");
+  const [descriptionJson, setDescriptionJson] = useState(null);
+  const [selectedCity, setSelectedCity] = useState<CityOption | null>(null);
+  const [selectedCurrency, setSelectedCurrency] = useState<CurrencyOption | null>(null);
   const [lastResult, action] = useFormState(createProduct, undefined);
   const [form, fields] = useForm({
     lastResult,
-
     onValidate({ formData }) {
       return parseWithZod(formData, { schema: productSchema });
     },
-
     shouldValidate: "onBlur",
     shouldRevalidate: "onInput",
   });
@@ -57,36 +79,38 @@ export default function ProductCreateRoute() {
             <div className="flex flex-col gap-3">
               <Label>Name</Label>
               <Input type="text" key={fields.name.key} name={fields.name.name} defaultValue={fields.name.initialValue} className="w-full" placeholder="Product Name" />
-
               <p className="text-red-500">{fields.name.errors}</p>
             </div>
             <div className="flex flex-col gap-3">
               <Label>Location</Label>
-              <Input type="text" key={fields.location.key} name={fields.location.name} defaultValue={fields.location.initialValue} className="w-full" placeholder="location.." />
-
+              <Select<CityOption, false> options={cityOptions} value={selectedCity} onChange={(option) => setSelectedCity(option as CityOption | null)} placeholder="Select a city" className="w-full" />
+              <input type="hidden" name="location" value={selectedCity?.value || ""} />
               <p className="text-red-500">{fields.location.errors}</p>
             </div>
             <div className="flex flex-col gap-3">
               <Label>Whatsapp Number</Label>
-              <Input type="text" key={fields.SellerPhone.key} name={fields.SellerPhone.name} defaultValue={fields.SellerPhone.initialValue} className="w-full" placeholder="whatsapp number" />
-
+              <PhoneInput international defaultCountry="TR" value={phoneNumber} onChange={(value: string | undefined) => setPhoneNumber(value || "")} className="w-full" placeholder="Enter phone number" />
+              <input type="hidden" name="SellerPhone" value={phoneNumber || ""} />
               <p className="text-red-500">{fields.SellerPhone.errors}</p>
             </div>
-
             <div className="flex flex-col gap-3">
               <Label>Description</Label>
-              <Textarea key={fields.description.key} name={fields.description.name} defaultValue={fields.description.initialValue} placeholder="Write your description right here..." />
+              <TipTapEditor json={descriptionJson} setJson={setDescriptionJson} />
+              <input type="hidden" name="description" value={JSON.stringify(descriptionJson)} />
               <p className="text-red-500">{fields.description.errors}</p>
             </div>
             <div className="flex flex-col gap-3">
               <Label>Price</Label>
-              <Input key={fields.price.key} name={fields.price.name} defaultValue={fields.price.initialValue} type="string" placeholder="$55" />
+              <div className="flex gap-3">
+                <Input key={fields.price.key} name={fields.price.name} defaultValue={fields.price.initialValue} type="text" placeholder="55" />
+                <Select<CurrencyOption, false> options={currencyOptions} value={selectedCurrency} onChange={(option) => setSelectedCurrency(option as CurrencyOption | null)} placeholder="Select currency" className="w-full" />
+              </div>
+              <input type="hidden" name="currency" value={selectedCurrency?.value || ""} />
               <p className="text-red-500">{fields.price.errors}</p>
             </div>
-
             <div className="flex flex-col gap-3">
               <Label>Status</Label>
-              <Select key={fields.status.key} name={fields.status.name} defaultValue={fields.status.initialValue}>
+              <CustomSelect key={fields.status.key} name={fields.status.name} defaultValue={fields.status.initialValue}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select Status" />
                 </SelectTrigger>
@@ -95,13 +119,12 @@ export default function ProductCreateRoute() {
                   <SelectItem value="published">Published</SelectItem>
                   <SelectItem value="archived">Archived</SelectItem>
                 </SelectContent>
-              </Select>
+              </CustomSelect>
               <p className="text-red-500">{fields.status.errors}</p>
             </div>
-
             <div className="flex flex-col gap-3">
               <Label>Category</Label>
-              <Select key={fields.category.key} name={fields.category.name} defaultValue={fields.category.initialValue}>
+              <CustomSelect key={fields.category.key} name={fields.category.name} defaultValue={fields.category.initialValue}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select Category" />
                 </SelectTrigger>
@@ -112,10 +135,9 @@ export default function ProductCreateRoute() {
                     </SelectItem>
                   ))}
                 </SelectContent>
-              </Select>
+              </CustomSelect>
               <p className="text-red-500">{fields.category.errors}</p>
             </div>
-
             <div className="flex flex-col gap-3">
               <Label>Images</Label>
               <input type="hidden" value={images} key={fields.images.key} name={fields.images.name} defaultValue={fields.images.initialValue as any} />
@@ -124,7 +146,6 @@ export default function ProductCreateRoute() {
                   {images.map((image, index) => (
                     <div key={index} className="relative w-[100px] h-[100px]">
                       <Image height={100} width={100} src={image} alt="Product Image" className="w-full h-full object-cover rounded-lg border" />
-
                       <button onClick={() => handleDelete(index)} type="button" className="absolute -top-3 -right-3 bg-red-500 p-2 rounded-lg text-white">
                         <XIcon className="w-3 h-3" />
                       </button>
@@ -142,7 +163,6 @@ export default function ProductCreateRoute() {
                   }}
                 />
               )}
-
               <p className="text-red-500">{fields.images.errors}</p>
             </div>
           </div>

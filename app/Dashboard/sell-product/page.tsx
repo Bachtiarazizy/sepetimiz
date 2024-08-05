@@ -5,21 +5,18 @@ import prisma from "@/lib/db";
 import ProductCreateRoute from "@/components/form/product-form";
 import VerificationAlert from "@/components/shared/VerificationAlert";
 
-async function getData(userId: string) {
-  const data = await prisma.user.findUnique({
+async function getShopData(userId: string) {
+  const shop = await prisma.shop.findFirst({
     where: {
-      id: userId,
+      userId: userId, // Match shop's userId with the current user's ID
     },
     select: {
-      firstName: true,
-      lastName: true,
-      email: true,
-      isVerified: true,
       id: true,
+      name: true,
     },
   });
 
-  return data;
+  return shop;
 }
 
 export default async function SellProduct() {
@@ -31,13 +28,10 @@ export default async function SellProduct() {
     redirect("/api/auth/login");
   }
 
-  const data = await getData(user.id);
-  if (!data) {
-    redirect("/error-page");
-  }
+  const shop = await getShopData(user.id);
 
-  if (!data.isVerified) {
-    return <VerificationAlert />;
+  if (!shop) {
+    redirect("/Dashboard/shop"); // Redirect to shop creation if no shop exists
   }
 
   return <ProductCreateRoute />;

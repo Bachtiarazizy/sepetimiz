@@ -7,16 +7,19 @@ import Select from "./Select";
 import { Button } from "../ui/button";
 import { productFilterSchema, ProductFilterValues } from "@/lib/zodSchemas";
 
-async function filterJobs(formData: FormData) {
+const validCategories = ["fashion", "electronics", "food", "others", "exchanges", "baggages"] as const;
+
+async function filterProducts(formData: FormData) {
   "use server";
 
   const values = Object.fromEntries(formData.entries());
 
-  const { q, location } = productFilterSchema.parse(values);
+  const { q, location, category } = productFilterSchema.parse(values);
 
   const searchParams = new URLSearchParams({
     ...(q && { q: q.trim() }),
     ...(location && { location }),
+    ...(category && { category }),
   });
 
   redirect(`/?${searchParams.toString()}`);
@@ -36,10 +39,10 @@ const ProductFilterSidebar = async ({ defaultValues }: ProductFilterSidebarProps
     .then((locations) => locations.map(({ location }) => location).filter(Boolean))) as string[];
 
   return (
-    <form action={filterJobs} key={JSON.stringify(defaultValues)} className="space-y-4 w-full">
+    <form action={filterProducts} key={JSON.stringify(defaultValues)} className="space-y-4 w-full">
       <div className="flex flex-col md:flex-row gap-3">
         <div className="flex flex-col w-full md:flex-1">
-          <Input id="q" name="q" placeholder="search product.." defaultValue={defaultValues.q} className="w-full" />
+          <Input id="q" name="q" placeholder="Search product..." defaultValue={defaultValues.q} className="w-full" />
         </div>
         <div className="flex flex-col w-full md:flex-1 md:mt-0">
           <Select id="location" name="location" defaultValue={defaultValues.location || ""} className="w-full">
@@ -47,6 +50,16 @@ const ProductFilterSidebar = async ({ defaultValues }: ProductFilterSidebarProps
             {distinctLocations.map((location) => (
               <option key={location} value={location}>
                 {location}
+              </option>
+            ))}
+          </Select>
+        </div>
+        <div className="flex flex-col w-full md:flex-1 md:mt-0">
+          <Select id="category" name="category" defaultValue={defaultValues.category || ""} className="w-full">
+            <option value="">All categories</option>
+            {validCategories.map((category) => (
+              <option key={category} value={category}>
+                {category}
               </option>
             ))}
           </Select>

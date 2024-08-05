@@ -22,6 +22,7 @@ async function getData({ category }: iAppProps) {
           id: true,
           images: true,
           location: true,
+          currency: true,
         },
         take: 6,
       });
@@ -40,11 +41,12 @@ async function getData({ category }: iAppProps) {
           id: true,
           images: true,
           location: true,
+          currency: true,
         },
         orderBy: {
           createdAt: "desc",
         },
-        take: 10,
+        take: 4,
       });
 
       return {
@@ -64,6 +66,7 @@ async function getData({ category }: iAppProps) {
           price: true,
           images: true,
           location: true,
+          currency: true,
         },
         take: 6,
       });
@@ -85,6 +88,7 @@ async function getData({ category }: iAppProps) {
           price: true,
           images: true,
           location: true,
+          currency: true,
         },
         take: 6,
       });
@@ -124,7 +128,7 @@ async function LoadRows({ category }: iAppProps) {
 
       <div className="grid gird-cols-1 lg:grid-cols-4 sm:grid-cols-2  gap-10 mt-10">
         {data.data.map((product) => (
-          <ProductCard images={product.images} key={product.id} id={product.id} name={product.name} price={product.price} location={product.location} />
+          <ProductCard images={product.images} key={product.id} id={product.id} name={product.name} price={product.price} currency={product.currency} location={product.location} />
         ))}
       </div>
     </>

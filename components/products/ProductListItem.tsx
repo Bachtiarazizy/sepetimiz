@@ -1,20 +1,15 @@
+import { Product } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
 import Link from "next/link";
 
-interface iAppProps {
-  images: string[];
-  name: string;
-  price: string;
-  currency: string; // Add currency to props
-  id: string;
-  location: string;
+interface ProductListItemProps {
+  product: Product;
 }
 
-export function ProductCard({ images, id, price, name, location, currency }: iAppProps) {
-  // Destructure currency
+export default function ProductListItem({ product: { images, id, price, name, location, currency, category } }: ProductListItemProps) {
   return (
     <div className="rounded-lg group relative block overflow-hidden shadow-md">
       <button className="absolute end-4 top-4 z-10 rounded-full bg-white p-1.5 text-gray-900 transition hover:text-gray-900/75">
@@ -51,20 +46,6 @@ export function ProductCard({ images, id, price, name, location, currency }: iAp
           <Link href={`/product/${id}`}>Learn More!</Link>
         </Button>
       </div>
-    </div>
-  );
-}
-
-export function LoadingProductCard() {
-  return (
-    <div className="flex flex-col">
-      <Skeleton className="w-full h-[230px]" />
-      <div className="flex flex-col mt-2 gap-y-2">
-        <Skeleton className="h-4 w-full" />
-        <Skeleton className="w-full h-6" />
-      </div>
-
-      <Skeleton className="w-full h-10 mt-5" />
     </div>
   );
 }

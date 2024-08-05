@@ -19,6 +19,7 @@ import { productSchema } from "@/lib/zodSchemas";
 import { categories } from "@/lib/categories";
 import { UploadDropzone } from "@/lib/Uploadhing";
 import { SubmitButton } from "./Submitbutton";
+import { TipTapEditor } from "./Editor";
 
 interface iAppProps {
   data: {
@@ -48,9 +49,12 @@ export function EditForm({ data }: iAppProps) {
     shouldRevalidate: "onInput",
   });
 
+  const [json, setJson] = useState(data.description ? JSON.parse(data.description) : null);
+
   const handleDelete = (index: number) => {
     setImages(images.filter((_, i) => i !== index));
   };
+
   return (
     <form id={form.id} onSubmit={form.onSubmit} action={action}>
       <input type="hidden" name="productId" value={data.id} />
@@ -78,25 +82,26 @@ export function EditForm({ data }: iAppProps) {
             </div>
             <div className="flex flex-col gap-3">
               <Label>Location</Label>
-              <Input type="text" key={fields.location.key} name={fields.location.name} defaultValue={fields.location.initialValue} className="w-full" placeholder="location.." />
+              <Input type="text" key={fields.location.key} name={fields.location.name} defaultValue={data.location} className="w-full" placeholder="location.." />
 
               <p className="text-red-500">{fields.location.errors}</p>
             </div>
             <div className="flex flex-col gap-3">
               <Label>Whatsapp Number</Label>
-              <Input type="text" key={fields.SellerPhone.key} name={fields.SellerPhone.name} defaultValue={fields.SellerPhone.initialValue} className="w-full" placeholder="whatsapp number" />
+              <Input type="text" key={fields.SellerPhone.key} name={fields.SellerPhone.name} defaultValue={data.SellerPhone} className="w-full" placeholder="whatsapp number" />
 
               <p className="text-red-500">{fields.SellerPhone.errors}</p>
             </div>
 
             <div className="flex flex-col gap-3">
               <Label>Description</Label>
-              <Textarea key={fields.description.key} name={fields.description.name} defaultValue={data.description} placeholder="Write your description right here..." />
+              <input type="hidden" name="description" value={JSON.stringify(json)} />
+              <TipTapEditor json={json} setJson={setJson} />
               <p className="text-red-500">{fields.description.errors}</p>
             </div>
             <div className="flex flex-col gap-3">
               <Label>Price</Label>
-              <Input key={fields.price.key} name={fields.price.name} defaultValue={fields.price.initialValue} type="string" placeholder="$55" />
+              <Input key={fields.price.key} name={fields.price.name} defaultValue={data.price} type="text" placeholder="$55" />
               <p className="text-red-500">{fields.price.errors}</p>
             </div>
 
@@ -134,7 +139,7 @@ export function EditForm({ data }: iAppProps) {
 
             <div className="flex flex-col gap-3">
               <Label>Images</Label>
-              <input type="hidden" value={images} key={fields.images.key} name={fields.images.name} defaultValue={fields.images.initialValue as any} />
+              <input type="hidden" value={images.join(",")} key={fields.images.key} name={fields.images.name} />
               {images.length > 0 ? (
                 <div className="flex gap-5">
                   {images.map((image, index) => (

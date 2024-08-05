@@ -64,5 +64,5 @@ export async function verificationData(prevState: any, formData: FormData) {
     },
   });
 
-  return redirect(`/Dashboard/verification/success`);
+  return redirect(`/verification/success`);
 }

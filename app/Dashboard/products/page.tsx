@@ -12,7 +12,9 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 async function getData(userId: string) {
   const data = await prisma.product.findMany({
     where: {
-      userId: userId,
+      shop: {
+        userId: userId,
+      },
     },
     select: {
       name: true,
