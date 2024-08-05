@@ -45,6 +45,7 @@ async function getData(category: string) {
       name: true,
       price: true,
       location: true,
+      currency: true,
     },
   });
 
@@ -63,7 +64,11 @@ export default async function CategoryPage({ params }: { params: { category: str
     <section className="max-w-full mx-auto px-4 md:px-32 py-6">
       <h1 className="text-xl font-bold mb-6">{capitalizeFirstLetter(params.category)}</h1>
       <div className="grid grid-cols-1 lg:grid-cols-3 sm:grid-cols-2 gap-10 mt-4">
-        {data.length === 0 ? <p>No products found in this category.</p> : data.map((product) => <ProductCard key={product.id} images={product.images} price={product.price} name={product.name} id={product.id} location={product.location} />)}
+        {data.length === 0 ? (
+          <p>No products found in this category.</p>
+        ) : (
+          data.map((product) => <ProductCard key={product.id} images={product.images} price={product.price} currency={product.currency} name={product.name} id={product.id} location={product.location} />)
+        )}
       </div>
     </section>
   );
