@@ -19,7 +19,6 @@ export const verificationSchema = z.object({
   address: z.string().min(10, { message: "Address is required" }),
   email: z.string().min(10, { message: "Email is required" }),
   identityNumber: z.string().min(10, { message: "identityNumber is required" }),
-  status: z.enum(["draft", "published", "archived"]),
   photoUrl: z.array(z.string()).min(1, "At least one image is required"),
   studentDocument: z.array(z.string()).min(1, "At least one image is required"),
   phoneNumber: z.string().min(1, "Phone is required"),

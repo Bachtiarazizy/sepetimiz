@@ -69,6 +69,7 @@
     height: 100%;
     margin: 0;
     padding: 0;
+    scroll-behavior: smooth;
   }
   body {
     @apply bg-background text-foreground flex flex-col min-h-screen;

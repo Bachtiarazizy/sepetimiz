@@ -32,7 +32,7 @@ export function generateMetadata({ searchParams: { q, location, category } }: Pa
       q,
       category: validCategories.includes(category as any) ? (category as any) : undefined,
       location,
-    })} | Sepetimiz`,
+    })} `,
   };
 }
 
@@ -50,7 +50,7 @@ export default function Home({ searchParams: { q, category, location, page } }: 
       <section className="px-8 sm:px-8 md:px-20 lg:px-32  ">
         <ProductRow category="newest" />
       </section>
-      <section className="flex flex-col gap-4 md:flex-row">
+      <section id="products" className="flex mt-12 flex-col gap-8 px-8 sm:px-8 md:px-20 lg:px-32">
         <ProductFilterSidebar defaultValues={filterValues} />
         <ProductResults filterValues={filterValues} page={page ? parseInt(page) : undefined} />
       </section>

@@ -190,6 +190,42 @@ export async function createShop(prevState: unknown, formData: FormData) {
   redirect("/Dashboard/sell-product");
 }
 
+export async function getShopData(shopId: string) {
+  const data = await prisma.shop.findUnique({
+    where: {
+      id: shopId,
+    },
+    select: {
+      name: true,
+      description: true,
+      location: true,
+      owner: {
+        select: {
+          firstName: true,
+          lastName: true,
+        },
+      },
+      products: {
+        select: {
+          id: true,
+          name: true,
+          price: true,
+          currency: true,
+          description: true,
+          location: true,
+          images: true,
+        },
+      },
+    },
+  });
+
+  if (!data) {
+    throw new Error("Shop not found");
+  }
+
+  return data;
+}
+
 export async function handleVerificationForm(prevState: unknown, formData: FormData) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();

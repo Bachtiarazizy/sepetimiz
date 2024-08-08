@@ -1,101 +1,130 @@
 "use client";
 
-import { CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { UploadDropzone } from "@/lib/Uploadhing";
-import { redirect } from "next/navigation";
-import { useEffect, useState } from "react";
+import { verificationSchema } from "@/lib/zodSchemas";
+import { useForm } from "@conform-to/react";
+import { useState } from "react";
 import { useFormState } from "react-dom";
-import { toast } from "sonner";
-
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
+import { parseWithZod } from "@conform-to/zod";
+import { SubmitButton } from "./Submitbutton";
+import { UploadDropzone } from "@/lib/Uploadhing";
+import { XIcon } from "lucide-react";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
 import { Textarea } from "../ui/textarea";
-import { State, verificationData } from "@/actions/verification";
-import { Button } from "../ui/button";
+import { handleVerificationForm } from "@/actions/actions";
+
+interface CityOption {
+  value: string;
+  label: string;
+}
 
 export default function VerificationForm() {
-  const initalState: State = { message: "", status: undefined };
-  const [state, formAction] = useFormState(verificationData, initalState);
-  const [images, setImages] = useState<null | string[]>(null);
+  const [phoneNumber, setPhoneNumber] = useState<string | undefined>("");
+  const [Image, setImage] = useState<string>("");
+  const [ImageDoc, setImageDoc] = useState<string>("");
+  const [lastResult, action] = useFormState(handleVerificationForm, undefined);
+  const [form, fields] = useForm({
+    lastResult,
 
-  useEffect(() => {
-    if (state.status === "success") {
-      toast.success(state.message);
-    } else if (state.status === "error") {
-      toast.error(state.message);
-    }
-  }, [state]);
+    onValidate({ formData }) {
+      return parseWithZod(formData, { schema: verificationSchema });
+    },
+
+    shouldValidate: "onBlur",
+    shouldRevalidate: "onInput",
+  });
+
   return (
-    <form action={formAction}>
-      <CardHeader>
-        <CardTitle>Verication</CardTitle>
-        <CardDescription>Please describe your personal information to start sell your product</CardDescription>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-y-10">
-        <div className="flex flex-col gap-y-2">
-          <Label>Name</Label>
-          <Input name="name" type="text" placeholder="Fullname" required minLength={3} />
-          {state?.errors?.["name"]?.[0] && <p className="text-destructive">{state?.errors?.["name"]?.[0]}</p>}
-        </div>
+    <form id={form.id} onSubmit={form.onSubmit} action={action}>
+      <Card className="mt-5">
+        <CardHeader>
+          <CardTitle>Verification</CardTitle>
+          <CardDescription>Please verify your account to start selling on our platform</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-3">
+              <Label>Name</Label>
+              <Input type="text" key={fields.name.key} name={fields.name.name} defaultValue={fields.name.initialValue} className="w-full" placeholder="Name" />
+              <p className="text-red-500">{fields.name.errors}</p>
+            </div>
+            <div className="flex flex-col gap-3">
+              <Label>Email Address</Label>
+              <Input type="text" key={fields.email.key} name={fields.email.name} defaultValue={fields.email.initialValue} className="w-full" placeholder="Email" />
+              <p className="text-red-500">{fields.email.errors}</p>
+            </div>
+            <div className="flex flex-col gap-3">
+              <Label>Whatsapp Number</Label>
+              <PhoneInput international defaultCountry="TR" value={phoneNumber} onChange={(value: string | undefined) => setPhoneNumber(value || "")} className="w-full" placeholder="Enter phone number" />
+              <input type="hidden" name="phoneNumber" value={phoneNumber || ""} />
+              <p className="text-red-500">{fields.phoneNumber.errors}</p>
+            </div>
+            <div className="flex flex-col gap-3">
+              <Label>Address</Label>
+              <Textarea rows={5} key={fields.address.key} name={fields.address.name} defaultValue={fields.address.initialValue} className="w-full" placeholder="Description" />
+              <p className="text-red-500">{fields.address.errors}</p>
+            </div>
+            <div className="flex flex-col gap-3">
+              <Label>Identity Number</Label>
+              <Input type="text" key={fields.identityNumber.key} name={fields.identityNumber.name} defaultValue={fields.identityNumber.initialValue} className="w-full" placeholder="identity Number" />
+              <p className="text-red-500">{fields.identityNumber.errors}</p>
+            </div>
 
-        <div className="flex flex-col gap-y-2">
-          <Label>Email Address</Label>
-          <Input placeholder="example@gmail.com" type="string" name="email" required min={1} />
-          {state?.errors?.["email"]?.[0] && <p className="text-destructive">{state?.errors?.["email"]?.[0]}</p>}
-        </div>
-        <div className="flex flex-col gap-y-2">
-          <Label>Phone Number</Label>
-          <Input placeholder="+90 544 255 2550" type="string" name="phoneNumber" required min={1} />
-          {state?.errors?.["phoneNumber"]?.[0] && <p className="text-destructive">{state?.errors?.["phoneNumber"]?.[0]}</p>}
-        </div>
-
-        <div className="flex flex-col gap-y-2">
-          <Label>Address</Label>
-          <Textarea name="address" placeholder="Pleae describe your address" required minLength={10} />
-          {state?.errors?.["address"]?.[0] && <p className="text-destructive">{state?.errors?.["address"]?.[0]}</p>}
-        </div>
-
-        <div className="flex flex-col gap-y-2">
-          <Label>Identity Number</Label>
-          <Textarea name="identityNumber" placeholder="Passport or Identity Card" required minLength={10} />
-          {state?.errors?.["identityNumber"]?.[0] && <p className="text-destructive">{state?.errors?.["identityNumber"]?.[0]}</p>}
-        </div>
-
-        <div className="flex flex-col gap-y-2">
-          <input type="hidden" name="photoUrl" value={JSON.stringify(images)} />
-          <Label>Your Photo</Label>
-          <UploadDropzone
-            endpoint="imageUploader"
-            onClientUploadComplete={(res) => {
-              setImages(res.map((item) => item.url));
-              toast.success("Your images have been uploaded");
-            }}
-            onUploadError={(error: Error) => {
-              toast.error("Something went wrong, try again");
-            }}
-          />
-          {state?.errors?.["images"]?.[0] && <p className="text-destructive">{state?.errors?.["images"]?.[0]}</p>}
-        </div>
-
-        <div className="flex flex-col gap-y-2">
-          <input type="hidden" name="studentDocument" value={JSON.stringify(images)} />
-          <Label>Student Document</Label>
-          <UploadDropzone
-            endpoint="imageUploader"
-            onClientUploadComplete={(res) => {
-              setImages(res.map((item) => item.url));
-              toast.success("Your images have been uploaded");
-            }}
-            onUploadError={(error: Error) => {
-              toast.error("Something went wrong, try again");
-            }}
-          />
-          {state?.errors?.["images"]?.[0] && <p className="text-destructive">{state?.errors?.["images"]?.[0]}</p>}
-        </div>
-      </CardContent>
-      <CardFooter className="mt-5">
-        <Button>Submit</Button>
-      </CardFooter>
+            <div className="flex flex-col gap-3">
+              <Label>Your Photo</Label>
+              <input type="hidden" value={Image} key={fields.photoUrl.key} name={fields.photoUrl.name} defaultValue={fields.photoUrl.initialValue as any} />
+              {Image ? (
+                <div className="relative w-[100px] h-[100px]">
+                  <img src={Image} alt="Photo Image" className="w-full h-full object-cover rounded-lg border" />
+                  <button onClick={() => setImage("")} type="button" className="absolute -top-3 -right-3 bg-red-500 p-2 rounded-lg text-white">
+                    <XIcon className="w-3 h-3" />
+                  </button>
+                </div>
+              ) : (
+                <UploadDropzone
+                  endpoint="imageUploader"
+                  onClientUploadComplete={(res) => {
+                    setImage(res[0].url);
+                  }}
+                  onUploadError={() => {
+                    alert("Something went wrong");
+                  }}
+                />
+              )}
+              <p className="text-red-500">{fields.photoUrl.errors}</p>
+            </div>
+            <div className="flex flex-col gap-3">
+              <Label>Photo Document</Label>
+              <input type="hidden" value={ImageDoc} key={fields.studentDocument.key} name={fields.studentDocument.name} defaultValue={fields.studentDocument.initialValue as any} />
+              {ImageDoc ? (
+                <div className="relative w-[100px] h-[100px]">
+                  <img src={ImageDoc} alt="Image Document" className="w-full h-full object-cover rounded-lg border" />
+                  <button onClick={() => setImageDoc("")} type="button" className="absolute -top-3 -right-3 bg-red-500 p-2 rounded-lg text-white">
+                    <XIcon className="w-3 h-3" />
+                  </button>
+                </div>
+              ) : (
+                <UploadDropzone
+                  endpoint="imageUploader"
+                  onClientUploadComplete={(res) => {
+                    setImageDoc(res[0].url);
+                  }}
+                  onUploadError={() => {
+                    alert("Something went wrong");
+                  }}
+                />
+              )}
+              <p className="text-red-500">{fields.studentDocument.errors}</p>
+            </div>
+          </div>
+        </CardContent>
+        <CardFooter>
+          <SubmitButton text="Submit" />
+        </CardFooter>
+      </Card>
     </form>
   );
 }
