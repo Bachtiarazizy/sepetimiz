@@ -12,7 +12,7 @@ interface ProductResultsProps {
 }
 
 export default async function ProductResults({ filterValues, page = 1 }: ProductResultsProps) {
-  const { q, location, category } = filterValues;
+  const { q, location } = filterValues;
 
   const productsPerPage = 8;
   const skip = (page - 1) * productsPerPage;
@@ -29,7 +29,7 @@ export default async function ProductResults({ filterValues, page = 1 }: Product
     : {};
 
   const where: Prisma.ProductWhereInput = {
-    AND: [searchFilter, location ? { location } : {}, category ? { category } : {}, { status: "published" }],
+    AND: [searchFilter, location ? { location } : {}, { status: "published" }],
   };
 
   const productsPromise = prisma.product.findMany({
@@ -60,12 +60,11 @@ interface PaginationProps {
   filterValues: ProductFilterValues;
 }
 
-function Pagination({ currentPage, totalPages, filterValues: { q, location, category } }: PaginationProps) {
+function Pagination({ currentPage, totalPages, filterValues: { q, location } }: PaginationProps) {
   function generatePageLink(page: number) {
     const searchParams = new URLSearchParams({
       ...(q && { q }),
       ...(location && { location }),
-      ...(category && { category }),
       page: page.toString(),
     });
 

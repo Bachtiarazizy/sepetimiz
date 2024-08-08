@@ -3,7 +3,7 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import prisma from "@/lib/db";
-import { productSchema, shopSchema, verificationSchema } from "@/lib/zodSchemas";
+import { shopSchema, productSchema, verificationSchema } from "@/lib/zodSchemas";
 import { parseWithZod } from "@conform-to/zod";
 
 export async function createProduct(prevState: unknown, formData: FormData) {
@@ -24,10 +24,9 @@ export async function createProduct(prevState: unknown, formData: FormData) {
 
   const flattenUrls = submission.value.images.flatMap((urlString) => urlString.split(",").map((url) => url.trim()));
 
-  // Retrieve the shop associated with the user
   const shop = await prisma.shop.findFirst({
     where: {
-      userId: user.id, // Use userId to find the shop
+      userId: user.id,
     },
     select: {
       id: true,
@@ -49,7 +48,7 @@ export async function createProduct(prevState: unknown, formData: FormData) {
       category: submission.value.category,
       location: submission.value.location,
       SellerPhone: submission.value.SellerPhone,
-      shop: { connect: { id: shop.id } }, // Connect to the shop
+      shop: { connect: { id: shop.id } },
     },
   });
 
@@ -74,10 +73,9 @@ export async function editProduct(prevState: any, formData: FormData) {
 
   const flattenUrls = submission.value.images.flatMap((urlString) => urlString.split(",").map((url) => url.trim()));
 
-  // Retrieve the shop associated with the user
   const shop = await prisma.shop.findFirst({
     where: {
-      userId: user.id, // Use userId to find the shop
+      userId: user.id,
     },
     select: {
       id: true,
@@ -127,10 +125,9 @@ export async function deleteProduct(formData: FormData) {
     return redirect("/");
   }
 
-  // Retrieve the shop associated with the user
   const shop = await prisma.shop.findFirst({
     where: {
-      userId: user.id, // Use userId to find the shop
+      userId: user.id,
     },
     select: {
       id: true,
@@ -182,12 +179,54 @@ export async function createShop(prevState: unknown, formData: FormData) {
       name: submission.value.name,
       description: submission.value.description,
       location: submission.value.location,
-      shopImage: submission.value.shopImage, // Ensure this is an array of strings
-      owner: { connect: { id: user.id } }, // Use owner relation
+      shopImage: submission.value.shopImage,
+      owner: { connect: { id: user.id } },
     },
   });
 
   redirect("/Dashboard/sell-product");
+}
+
+export async function updateShop(prevState: unknown, formData: FormData) {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  if (!user) {
+    return redirect("/");
+  }
+
+  const submission = parseWithZod(formData, {
+    schema: shopSchema,
+  });
+
+  if (submission.status !== "success") {
+    return submission.reply();
+  }
+
+  const shopId = formData.get("shopId") as string;
+  const existingShop = await prisma.shop.findUnique({
+    where: {
+      id: shopId,
+    },
+  });
+
+  if (!existingShop) {
+    throw new Error("Shop not found");
+  }
+
+  await prisma.shop.update({
+    where: {
+      id: shopId,
+    },
+    data: {
+      name: submission.value.name,
+      description: submission.value.description,
+      location: submission.value.location,
+      shopImage: submission.value.shopImage,
+    },
+  });
+
+  redirect("/Dashboard/shops");
 }
 
 export async function getShopData(shopId: string) {
@@ -240,7 +279,7 @@ export async function handleVerificationForm(prevState: unknown, formData: FormD
   });
 
   if (submission.status !== "success") {
-    console.error("Validation errors:", submission.error); // Use `submission.error` for errors
+    console.error("Validation errors:", submission.error);
     return submission.reply();
   }
 
@@ -257,7 +296,7 @@ export async function handleVerificationForm(prevState: unknown, formData: FormD
         photoUrl: flattenPhotoUrls,
         studentDocument: flattenStudentDocs,
         phoneNumber: submission.value.phoneNumber,
-        userId: user.id, // Assuming you have a userId field in your verification table
+        userId: user.id,
       },
     });
     console.log("Verification data successfully created");
@@ -266,5 +305,5 @@ export async function handleVerificationForm(prevState: unknown, formData: FormD
     throw error;
   }
 
-  return redirect("/verification/success"); // Adjust the redirection as needed
+  return redirect("/verification/success");
 }

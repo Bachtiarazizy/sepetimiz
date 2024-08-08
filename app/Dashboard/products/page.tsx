@@ -22,6 +22,7 @@ async function getData(userId: string) {
       price: true,
       createdAt: true,
       status: true,
+      currency: true,
       id: true,
     },
     orderBy: {
@@ -69,7 +70,10 @@ export default async function ProductsRoute() {
                   </TableCell>
                   <TableCell>{item.name}</TableCell>
                   <TableCell>{item.status}</TableCell>
-                  <TableCell>{item.price}</TableCell>
+                  <TableCell>
+                    {item.price}
+                    {item.currency}
+                  </TableCell>
                   <TableCell>{new Intl.DateTimeFormat("en-US").format(item.createdAt)}</TableCell>
                   <TableCell className="text-end">
                     <DropdownMenu>

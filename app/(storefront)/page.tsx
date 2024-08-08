@@ -19,27 +19,25 @@ interface PageProps {
 
 const validCategories = ["fashion", "electronics", "food", "others", "exchanges", "baggages"] as const;
 
-function getTitle({ q, category, location }: ProductFilterValues) {
-  const titlePrefix = q ? `${q} Products` : category;
+function getTitle({ q, location }: ProductFilterValues) {
+  const titlePrefix = q ? `${q} products` : q;
   const titleSuffix = location ? ` in ${location}` : "";
 
   return `${titlePrefix}${titleSuffix}`;
 }
 
-export function generateMetadata({ searchParams: { q, location, category } }: PageProps): Metadata {
+export function generateMetadata({ searchParams: { q, location } }: PageProps): Metadata {
   return {
     title: `${getTitle({
       q,
-      category: validCategories.includes(category as any) ? (category as any) : undefined,
       location,
     })} `,
   };
 }
 
-export default function Home({ searchParams: { q, category, location, page } }: PageProps) {
+export default function Home({ searchParams: { q, location, page } }: PageProps) {
   const filterValues: ProductFilterValues = {
     q,
-    category: validCategories.includes(category as any) ? (category as any) : undefined,
     location,
   };
 
@@ -52,7 +50,7 @@ export default function Home({ searchParams: { q, category, location, page } }: 
       </section>
       <section id="products" className="flex mt-12 flex-col gap-8 px-8 sm:px-8 md:px-20 lg:px-32">
         <ProductFilterSidebar defaultValues={filterValues} />
-        <ProductResults filterValues={filterValues} page={page ? parseInt(page) : undefined} />
+        <ProductResults filterValues={filterValues} page={page ? parseInt(page) : 1} />
       </section>
       <section className="px-8 sm:px-8 md:px-20 lg:px-32  mt-20">
         <Reviews />

@@ -8,6 +8,7 @@ import VerificationForm from "@/components/form/VerificationForm";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 async function getData(userId: string) {
   const user = await prisma.user.findUnique({
@@ -54,23 +55,15 @@ export default async function Verification() {
         </Card>
       )}
       {isVerified && (
-        <div className="flex h-screen max-h-screen px-[5%]">
-          <div className="success-img">
-            <section className="flex flex-col items-center">
-              <Image src="/assets/gifs/success.gif" height={300} width={280} alt="success" />
-              <h2 className="header mb-6 max-w-[600px] text-center">
-                Your <span className="text-green-500">appointment request</span> has been successfully submitted!
-              </h2>
-              <p>We&apos;ll be in touch shortly to confirm.</p>
-            </section>
-
-            <Button variant="outline" className="shad-primary-btn" asChild>
-              <Link href={`/`}>Go to HomePage</Link>
-            </Button>
-
-            <p className="copyright">© 2024 Sepetimiz</p>
-          </div>
-        </div>
+        <>
+          <Alert>
+            <AlertTitle className="text-2xl">Verification Completed</AlertTitle>
+            <AlertDescription className="text-sm sm:text-lg">Your account has been successfully verified. You can now proceed to sell products.</AlertDescription>
+          </Alert>
+          <Button variant="outline" className="shad-primary-btn mt-8" asChild>
+            <Link href={`/Dashboard/sell-product`}>Sell Now</Link>
+          </Button>
+        </>
       )}
     </section>
   );

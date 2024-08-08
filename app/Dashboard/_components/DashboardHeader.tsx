@@ -1,7 +1,7 @@
 import React from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Home, LayoutDashboard, LineChart, Package, Package2, PanelLeft, Settings, ShoppingBag, ShoppingCart, User2, Users2 } from "lucide-react";
+import { CircleHelp, Home, LayoutDashboard, LineChart, Menu, Package, Package2, PanelLeft, Settings, ShoppingBag, ShoppingCart, User2, Users2 } from "lucide-react";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -22,7 +22,7 @@ export default function DashboardHeader() {
       <Sheet>
         <SheetTrigger asChild>
           <Button size="icon" variant="outline" className="sm:hidden">
-            <PanelLeft className="h-5 w-5" />
+            <Menu className="h-5 w-5" />
             <span className="sr-only">Toggle Menu</span>
           </Button>
         </SheetTrigger>
@@ -36,25 +36,25 @@ export default function DashboardHeader() {
               <Home className="h-5 w-5" />
               Home
             </Link>
-            <Link href="/Dashboard" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
+            <Link href="/Dashboard/shop" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
               <LayoutDashboard className="h-5 w-5" />
-              Dashboard
-            </Link>
-            <Link href="/Dashboard/sell-product" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
-              <ShoppingCart className="h-5 w-5" />
-              Sell Product
+              My Store
             </Link>
             <Link href="/Dashboard/products" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
               <Package className="h-5 w-5" />
               My Products
+            </Link>
+            <Link href="/Dashboard/sell-product" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
+              <ShoppingCart className="h-5 w-5" />
+              Sell Product
             </Link>
             <Link href="/Dashboard/verification" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
               <User2 className="h-5 w-5" />
               Verification
             </Link>
             <Link href="/customer-service" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
-              <Users2 className="h-5 w-5" />
-              Services
+              <CircleHelp className="h-5 w-5" />
+              Help Center
             </Link>
           </nav>
 

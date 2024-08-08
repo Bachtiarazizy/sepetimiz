@@ -14,12 +14,11 @@ async function filterProducts(formData: FormData) {
 
   const values = Object.fromEntries(formData.entries());
 
-  const { q, location, category } = productFilterSchema.parse(values);
+  const { q, location } = productFilterSchema.parse(values);
 
   const searchParams = new URLSearchParams({
     ...(q && { q: q.trim() }),
     ...(location && { location }),
-    ...(category && { category }),
   });
 
   redirect(`/?${searchParams.toString()}`);
@@ -54,7 +53,7 @@ const ProductFilterSidebar = async ({ defaultValues }: ProductFilterSidebarProps
             ))}
           </Select>
         </div>
-        <div className="flex flex-col w-full md:flex-1 md:mt-0">
+        {/* <div className="flex flex-col w-full md:flex-1 md:mt-0">
           <Select id="category" name="category" defaultValue={defaultValues.category || ""} className="w-full">
             <option value="">All categories</option>
             {validCategories.map((category) => (
@@ -63,7 +62,7 @@ const ProductFilterSidebar = async ({ defaultValues }: ProductFilterSidebarProps
               </option>
             ))}
           </Select>
-        </div>
+        </div> */}
         <Button type="submit" className="">
           Submit
         </Button>
