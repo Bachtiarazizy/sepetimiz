@@ -9,6 +9,27 @@ import { unstable_noStore as noStore } from "next/cache";
 import prisma from "@/lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
+export async function getUserWithRole() {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  if (!user) {
+    throw new Error("Unauthorized");
+  }
+
+  // Fetch user from the database to get role information
+  const userWithRole = await prisma.user.findUnique({
+    where: { id: user.id },
+    select: { id: true, userRole: true }, // Fetch userRole
+  });
+
+  if (!userWithRole) {
+    throw new Error("User not found");
+  }
+
+  return userWithRole;
+}
+
 // Function to fetch user data
 async function getUsers() {
   const data = await prisma.user.findMany({
@@ -30,10 +51,9 @@ async function getUsers() {
 
 export default async function UsersRoute() {
   noStore();
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const userWithRole = await getUserWithRole();
 
-  if (!user) {
+  if (userWithRole.userRole !== "ADMIN") {
     throw new Error("Unauthorized");
   }
 
@@ -78,10 +98,10 @@ export default async function UsersRoute() {
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem asChild>
-                          <Link href={`/Dashboard/users/${user.id}`}>View</Link>
+                          <Link href={`/Admin/users/${user.id}`}>View</Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild>
-                          <Link href={`/Dashboard/users/${user.id}/edit`}>Edit</Link>
+                          <Link href={`/Admin/users/${user.id}/delete`}>Delete</Link>
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>

@@ -31,7 +31,7 @@ function VerificationAlert() {
   }, []);
 
   const handleRedirect = () => {
-    router.push("/verification");
+    router.push("/Dashboard/verification");
   };
   const handleRedirects = () => {
     router.push("/");
