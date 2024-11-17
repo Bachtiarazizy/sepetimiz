@@ -59,6 +59,84 @@
   }
 }
 
+/* Add this to your global.css */
+
+.PhoneInput {
+  /* General layout */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.PhoneInputCountry {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 0.25rem;
+}
+
+.PhoneInputCountrySelect {
+  /* Reset button styles */
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 3rem;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.PhoneInputCountryIcon {
+  width: 1.5rem;
+  height: 1rem;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.PhoneInputInput {
+  /* Match your theme's input styling */
+  flex: 1;
+  border: none;
+  background: none;
+  padding-left: 3.5rem;
+  outline: none;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: hsl(var(--foreground));
+}
+
+.PhoneInputInput::placeholder {
+  color: hsl(var(--muted-foreground));
+}
+
+/* Dark mode support */
+:root[class~="dark"] .PhoneInputInput {
+  color: hsl(var(--foreground));
+}
+
+:root[class~="dark"] .PhoneInputCountryIcon {
+  opacity: 0.8;
+}
+
+/* Focus states */
+.PhoneInput--focus {
+  outline: none;
+  ring: 2px;
+  ring-offset: 2px;
+  ring-color: hsl(var(--ring));
+}
+
+/* Error states - add this class when form has errors */
+.PhoneInput--error {
+  border-color: hsl(var(--destructive));
+}
+
+/* Disabled states */
+.PhoneInput--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 @layer base {
   * {
     @apply border-border;

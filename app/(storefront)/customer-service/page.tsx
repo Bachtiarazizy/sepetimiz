@@ -1,7 +1,7 @@
 import React from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import Faqs from "@/components/hyper-ui/Faqs";
+import Faqs from "@/components/storefront/hyper-ui/Faqs";
 import Link from "next/link";
 import { Textarea } from "@/components/ui/textarea";
 import ContactUs from "@/components/form/ContactUs";

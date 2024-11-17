@@ -57,7 +57,7 @@ export const footerLinks = [
     title: "Contact Us",
     links: [
       { id: 1, name: "sepetimiz.bk@gmail.com", href: "mailto:sepetimiz.bk@gmail.com" },
-      { id: 2, name: "+90 555 444 33 22", href: "tel:+905554443322" },
+      { id: 2, name: "+90 555 444 33 22", href: "tel:+905421793483" },
       { id: 3, name: "Lane, Istanbul, Turkey", href: "#" },
     ],
   },

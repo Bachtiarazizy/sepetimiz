@@ -8,6 +8,25 @@ import { Button } from "@/components/ui/button";
 import { JSONContent } from "@tiptap/react";
 import TipTapRenderer from "@/components/form/TiptapRendered";
 
+interface VerificationDataProps {
+  data: {
+    id: string;
+    name: string;
+    email: string;
+    address: string;
+    identityNumber: string;
+    photoUrl: string[];
+    studentDocument: string[];
+    phoneNumber: string;
+    userId: string;
+    user: {
+      id: string;
+      firstName: string;
+      lastName: string;
+    };
+  };
+}
+
 async function getData(productId: string) {
   const data = await prisma.product.findUnique({
     where: {
