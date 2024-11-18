@@ -15,7 +15,7 @@ model Product {
   currency    String?    @default("IDR")
   isPublished Boolean   @default(false)
   description String?
-  images      String[]
+  images      String?
   categoryId  String?
   category    Category? @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   phone String?
@@ -28,15 +28,15 @@ model Product {
 
 model VerificationData {
   id              String   @id @default(uuid())
-  name            String
-  email           String
-  address         String
-  identityNumber  String
-  photoUrl        String[]
-  studentDocument String[]
-  phoneNumber     String
-  statusId        String
-  userId          String
+  name            String?
+  email           String?
+  address         String?
+  identityNumber  String?
+  photoWithDocument String?
+  photoUrl        String?
+  studentDocument String?
+  phoneNumber     String?
+  isPublished     Boolean  @default(false)
   shopId          String
   shop            Shop     @relation(fields: [shopId], references: [id], onDelete: Cascade)
   createdAt       DateTime @default(now())

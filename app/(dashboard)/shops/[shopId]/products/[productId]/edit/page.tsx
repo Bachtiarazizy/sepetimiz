@@ -45,7 +45,7 @@ export default async function Page({ params }: PageProps) {
     return redirect(`/shops/${params.shopId}/products/create`);
   }
 
-  const requiredFields = [product.name, product.description, product.images.length > 0, product.location, product.price, product.currency, product.categoryId, product.phone];
+  const requiredFields = [product.name, product.description, product.images, product.location, product.price, product.currency, product.categoryId, product.phone];
 
   const totalFields = requiredFields.length;
   const completedFields = requiredFields.filter(Boolean).length;

@@ -10,6 +10,7 @@ import NameForm from "@/app/(dashboard)/shops/_components/shop-name-form";
 import ShopDescriptionForm from "@/app/(dashboard)/shops/_components/shop-description";
 import ShopLocationForm from "@/app/(dashboard)/shops/_components/shop-location";
 import ShopImageForm from "@/app/(dashboard)/shops/_components/shop-image-form";
+import Link from "next/link";
 
 export default async function Page({ params }: { params: { shopId: string } }) {
   const { userId } = await auth();
@@ -30,7 +31,6 @@ export default async function Page({ params }: { params: { shopId: string } }) {
   }
 
   const requiredFields = [shop.name, shop.description, shop.images, shop.location];
-
   const totalFields = requiredFields.length;
   const completedFields = requiredFields.filter(Boolean).length;
 
@@ -38,17 +38,42 @@ export default async function Page({ params }: { params: { shopId: string } }) {
   const completionPercentage = (completedFields / totalFields) * 100;
 
   const isCompleted = requiredFields.every(Boolean);
+  const canPublish = isCompleted && shop.isVerified;
+
+  // Create a custom Banner wrapper component that accepts both the message and a link
+  const VerificationBanner = () => {
+    if (!shop.isPublished) {
+      if (!shop.isVerified) {
+        return (
+          <div className="bg-yellow-100 p-4 border-l-4 border-yellow-500">
+            <div className="flex items-center">
+              <div className="flex-1 text-sm text-yellow-700">
+                <p>
+                  This shop needs verification before it can be published.{" "}
+                  <Link href={`/shops/${params.shopId}/verification/create`} className="font-medium underline text-blue-600 hover:text-blue-800">
+                    Complete verification
+                  </Link>
+                </p>
+              </div>
+            </div>
+          </div>
+        );
+      }
+      return <Banner label="This shop is not published. It will not be visible to buyers." />;
+    }
+    return null;
+  };
 
   return (
     <>
-      {!shop.isPublished && <Banner label="This shop is not published. It will not be visible to buyer." />}
-      <div className="mx-auto  max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
+      <VerificationBanner />
+      <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-y-2">
             <h1 className="text-2xl font-medium">Shop setup</h1>
             <span className="text-sm text-slate-700">{completionText}</span>
           </div>
-          <ShopAction disabled={!isCompleted} shopId={params.shopId} isPublished={shop.isPublished} />
+          <ShopAction disabled={!canPublish} shopId={params.shopId} isPublished={shop.isPublished} />
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 mt-16">

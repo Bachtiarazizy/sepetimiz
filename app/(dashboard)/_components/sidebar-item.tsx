@@ -2,8 +2,8 @@
 
 import { LucideIcon } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-
 import { cn } from "@/lib/utils";
+import { useMemo } from "react";
 
 interface SidebarItemProps {
   icon: LucideIcon;
@@ -15,7 +15,34 @@ export const SidebarItem = ({ icon: Icon, label, href }: SidebarItemProps) => {
   const pathname = usePathname();
   const router = useRouter();
 
-  const isActive = (pathname === "/" && href === "/") || pathname === href || pathname?.startsWith(`${href}/`);
+  const isActive = useMemo(() => {
+    // Extract the current route segments
+    const currentSegments = pathname.split("/").filter(Boolean);
+    const hrefSegments = href.split("/").filter(Boolean);
+
+    // For customer service route - exact match only
+    if (href === "/customer-service") {
+      return pathname === "/customer-service";
+    }
+
+    // For shop detail route (/shops/[shopId])
+    if (hrefSegments.length === 2 && hrefSegments[0] === "shops") {
+      // Only active when exactly at /shops/[shopId]
+      return currentSegments.length === 2 && currentSegments[0] === "shops" && currentSegments[1] === hrefSegments[1];
+    }
+
+    // For products route (/shops/[shopId]/products) and its nested routes
+    if (href.includes("/products")) {
+      return currentSegments.length >= 3 && currentSegments[0] === "shops" && currentSegments[1] === hrefSegments[1] && currentSegments[2] === "products";
+    }
+
+    // For verification route (/shops/[shopId]/verification) and its nested routes
+    if (href.includes("/verification")) {
+      return currentSegments.length >= 3 && currentSegments[0] === "shops" && currentSegments[1] === hrefSegments[1] && currentSegments[2] === "verification";
+    }
+
+    return false;
+  }, [pathname, href]);
 
   const onClick = () => {
     router.push(href);

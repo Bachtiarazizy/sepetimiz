@@ -3,10 +3,17 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import prisma from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
-import { DataTable } from "./_components/data-table";
-import { columns } from "./_components/column";
+import { DataTable } from "../_components/data-table";
+import { columns } from "../_components/column";
 
-const ProductsPage = async () => {
+interface PageProps {
+  params: {
+    shopId: string;
+    productId: string;
+  };
+}
+
+const ProductsPage = async ({ params }: PageProps) => {
   const { userId } = await auth();
   if (!userId) {
     return redirect("/");
@@ -14,7 +21,7 @@ const ProductsPage = async () => {
 
   const products = await prisma.product.findMany({
     where: {
-      userId: userId,
+      shopId: params.shopId,
     },
     orderBy: {
       createdAt: "desc",
@@ -28,7 +35,7 @@ const ProductsPage = async () => {
           <h1 className="text-4xl font-bold">Your Products</h1>
           <p className="text-muted-foreground">Here is list of all your products</p>
         </div>
-        <DataTable columns={columns} data={products} />
+        <DataTable columns={columns} data={products} shopId={params.shopId} />
       </div>
     </>
   );

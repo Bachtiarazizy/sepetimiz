@@ -13,9 +13,17 @@ import { cn } from "@/lib/utils";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  shopId: string; // Memastikan shopId required dan bertipe string
 }
 
-export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({ columns, data, shopId }: DataTableProps<TData, TValue>) {
+  // Validasi shopId
+  React.useEffect(() => {
+    if (!shopId) {
+      console.error("shopId is required but not provided");
+    }
+  }, [shopId]);
+
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
@@ -37,22 +45,32 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     },
   });
 
+  // Membuat URL dengan memastikan shopId ada
+  const createProductUrl = React.useMemo(() => {
+    return shopId ? `/shops/${shopId}/products/create` : "#";
+  }, [shopId]);
+
   return (
     <div>
       <div className="flex items-center py-4">
         <Input placeholder="Filter products..." value={(table.getColumn("title")?.getFilterValue() as string) ?? ""} onChange={(event) => table.getColumn("title")?.setFilterValue(event.target.value)} className="max-w-sm" />
-        <Link href="/dashboard/products" className={cn(buttonVariants({}), "ml-auto flex items-center gap-1")}>
-          <FilePlus2Icon className="h-4 w-4" /> Create
-        </Link>
+        {/* Menambahkan pengecekan shopId sebelum render link */}
+        {shopId && (
+          <Link href={createProductUrl} className={cn(buttonVariants({}), "ml-auto flex items-center gap-1")}>
+            <FilePlus2Icon className="h-4 w-4" /> Create
+          </Link>
+        )}
       </div>
+
+      {/* Rest of the table component remains the same */}
       <div className="rounded-md border bg-background">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return <TableHead key={header.id}>{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}</TableHead>;
-                })}
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id}>{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}</TableHead>
+                ))}
               </TableRow>
             ))}
           </TableHeader>
@@ -60,9 +78,9 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
-                  {row.getVisibleCells().map((cell) => {
-                    return <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>;
-                  })}
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                  ))}
                 </TableRow>
               ))
             ) : (
