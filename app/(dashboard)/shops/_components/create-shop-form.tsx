@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import toast from "react-hot-toast";
 
 const formSchema = z.object({
-  name: z.string().min(1, {
+  title: z.string().min(1, {
     message: "Name is required",
   }),
 });
@@ -26,7 +26,7 @@ export default function CreateShopForm({ userId }: CreateShopFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      title: "",
     },
   });
 
@@ -50,7 +50,7 @@ export default function CreateShopForm({ userId }: CreateShopFormProps) {
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
-          name="name"
+          name="title"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Name of the shop</FormLabel>

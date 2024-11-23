@@ -14,7 +14,7 @@ const MyShopsPage = async () => {
   const { userId } = await auth();
 
   if (!userId) {
-    return redirect("/");
+    return redirect("/sign-in");
   }
 
   const shops = await prisma.shop.findMany({
@@ -101,7 +101,7 @@ const MyShopsPage = async () => {
                 {/* Shop Image */}
                 <div className="relative h-48 overflow-hidden">
                   {shop.images ? (
-                    <img src={shop.images} alt={shop.name} className="w-full h-full object-cover transition-transform group-hover:scale-105" />
+                    <img src={shop.images} alt={shop.title} className="w-full h-full object-cover transition-transform group-hover:scale-105" />
                   ) : (
                     <div className="w-full h-full bg-muted flex items-center justify-center">
                       <Store className="h-12 w-12 text-muted-foreground/50" />
@@ -114,7 +114,7 @@ const MyShopsPage = async () => {
                     {/* Shop Header */}
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
-                        <CardTitle>{shop.name}</CardTitle>
+                        <CardTitle>{shop.title}</CardTitle>
                         <Badge className={cn(verificationStatus.color, "flex items-center gap-1")}>
                           <StatusIcon className="h-3 w-3" />
                           {verificationStatus.label}

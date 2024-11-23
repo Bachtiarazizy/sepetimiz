@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { useState } from "react";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
@@ -9,19 +11,19 @@ import { formatPrice } from "@/lib/format-price";
 // Types
 interface Product {
   id: string;
-  name: string;
+  title: string;
   price: number | null;
-  currency: "IDR" | "USD" | "EUR";
+  currency: "IDR" | "USD" | "TRY";
   description: string | null;
   images: string[];
   location: string | null;
   phone: string | null;
   shop: {
-    name: string;
+    title: string;
     isVerified: boolean;
   };
   category: {
-    name: string;
+    title: string;
   } | null;
 }
 
@@ -29,7 +31,7 @@ interface Product {
 const ProductCard = ({ product }: { product: Product }) => {
   const [currentImage, setCurrentImage] = useState(0);
 
-  const displayPrice = (price: number | null, currency: "IDR" | "USD" | "EUR") => {
+  const displayPrice = (price: number | null, currency: "IDR" | "USD" | "TRY") => {
     if (!price) return "Price on request";
     return formatPrice(price, currency);
   };
@@ -42,7 +44,7 @@ const ProductCard = ({ product }: { product: Product }) => {
             {product.images.map((image, index) => (
               <CarouselItem key={index}>
                 <div className="relative aspect-square">
-                  <img src={image || "/api/placeholder/400/400"} alt={`${product.name} - Image ${index + 1}`} className="object-cover w-full h-full rounded-t-lg" />
+                  <img src={image || "/api/placeholder/400/400"} alt={`${product.title} - Image ${index + 1}`} className="object-cover w-full h-full rounded-t-lg" />
                 </div>
               </CarouselItem>
             ))}
@@ -54,10 +56,10 @@ const ProductCard = ({ product }: { product: Product }) => {
 
       <CardContent className="p-4">
         <div className="flex items-center justify-between mb-2">
-          <h3 className="font-semibold text-lg line-clamp-1">{product.name}</h3>
+          <h3 className="font-semibold text-lg line-clamp-1">{product.title}</h3>
           {product.category && (
             <Badge variant="secondary" className="text-xs">
-              {product.category.name}
+              {product.category.title}
             </Badge>
           )}
         </div>
@@ -70,7 +72,7 @@ const ProductCard = ({ product }: { product: Product }) => {
           <div className="flex items-center gap-2 text-sm text-gray-500">
             <Store className="w-4 h-4" />
             <span className="flex items-center gap-1">
-              {product.shop.name}
+              {product.shop.title}
               {product.shop.isVerified && (
                 <Badge variant="secondary" className="ml-1">
                   Verified

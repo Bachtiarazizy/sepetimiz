@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   try {
     const { userId } = await auth();
-    const { name } = await req.json();
+    const { title } = await req.json();
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -13,14 +13,14 @@ export async function POST(req: Request) {
 
     const shops = await prisma.shop.create({
       data: {
-        name,
+        title,
         userId,
       },
     });
 
     return NextResponse.json(shops);
   } catch (error) {
-    console.log("[NAME]", error);
+    console.log("[TITLE_POST]", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }

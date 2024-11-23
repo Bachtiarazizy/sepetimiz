@@ -2,7 +2,15 @@ import { redirect } from "next/navigation";
 import prisma from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { DataTable } from "../shops/[shopId]/products/_components/data-table";
+import { Product } from "@prisma/client";
 import { columns } from "../shops/[shopId]/products/_components/column";
+
+// Define the ExtendedProduct type to match your data structure
+interface ExtendedProduct extends Product {
+  category: {
+    title: string;
+  } | null;
+}
 
 interface PageProps {
   params: {
@@ -17,14 +25,24 @@ const ProductsPage = async ({ params }: PageProps) => {
     return redirect("/");
   }
 
-  const products = await prisma.product.findMany({
+  // Include category in the prisma query
+  const products = (await prisma.product.findMany({
     where: {
       shopId: params.shopId,
+    },
+    include: {
+      category: {
+        select: {
+          title: true,
+        },
+      },
     },
     orderBy: {
       createdAt: "desc",
     },
-  });
+  })) as ExtendedProduct[];
+
+  const productColumns = columns({ shopId: params.shopId });
 
   return (
     <>
@@ -33,7 +51,7 @@ const ProductsPage = async ({ params }: PageProps) => {
           <h1 className="text-4xl font-bold">Your Products</h1>
           <p className="text-muted-foreground">Here is list of all your products</p>
         </div>
-        <DataTable columns={columns} data={products} shopId={params.shopId} />
+        <DataTable columns={productColumns} data={products} shopId={params.shopId} />
       </div>
     </>
   );

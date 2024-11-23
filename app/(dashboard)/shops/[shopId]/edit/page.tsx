@@ -33,7 +33,7 @@ export default async function Page({ params }: { params: { shopId: string } }) {
     return redirect(`/shops/create`);
   }
 
-  const requiredFields = [shop.name, shop.description, shop.images, shop.location];
+  const requiredFields = [shop.title, shop.description, shop.images, shop.location];
   const totalFields = requiredFields.length;
   const completedFields = requiredFields.filter(Boolean).length;
 

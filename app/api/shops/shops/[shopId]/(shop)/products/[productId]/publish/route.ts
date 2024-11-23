@@ -36,9 +36,9 @@ export async function PATCH(req: Request, { params }: { params: { shopId: string
     }
 
     // Cek apakah semua field penting dari product sudah terisi
-    if (!product.name || !product.description || !product.images || !product.price) {
+    if (!product.title || !product.description || !product.images || !product.price) {
       const missingFields = [];
-      if (!product.name) missingFields.push("name");
+      if (!product.title) missingFields.push("title");
       if (!product.description) missingFields.push("description");
       if (!product.images || product.images.length === 0) missingFields.push("images");
       if (!product.price) missingFields.push("price");

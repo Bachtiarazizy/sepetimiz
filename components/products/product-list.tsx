@@ -2,19 +2,19 @@ import ProductCard from "./product-card";
 
 interface Product {
   id: string;
-  name: string;
+  title: string;
   price: number | null;
-  currency: "IDR" | "USD" | "EUR";
+  currency: "IDR" | "USD" | "TRY";
   description: string | null;
   images: string[];
   location: string | null;
   phone: string | null;
   shop: {
-    name: string;
+    title: string;
     isVerified: boolean;
   };
   category: {
-    name: string;
+    title: string;
   } | null;
 }
 

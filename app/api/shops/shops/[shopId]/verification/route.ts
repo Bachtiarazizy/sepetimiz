@@ -5,13 +5,13 @@ export async function POST(req: Request, { params }: { params: { shopId: string 
   try {
     const { shopId } = params;
     const body = await req.json();
-    const { name } = body;
+    const { title } = body;
 
     if (!shopId) {
       return new NextResponse("Shop ID is required", { status: 400 });
     }
 
-    if (!name) {
+    if (!title) {
       return new NextResponse("Name is required", { status: 400 });
     }
 
@@ -27,7 +27,7 @@ export async function POST(req: Request, { params }: { params: { shopId: string 
 
     const verificationData = await prisma.verificationData.create({
       data: {
-        name,
+        title,
         shopId,
       },
     });

@@ -13,7 +13,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescript
 import { useState, useEffect } from "react";
 
 const formSchema = z.object({
-  name: z.string().min(1, {
+  title: z.string().min(1, {
     message: "Product name is required",
   }),
 });
@@ -27,7 +27,7 @@ export default function CreateProductPage() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      title: "",
     },
   });
 
@@ -106,7 +106,7 @@ export default function CreateProductPage() {
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
-              name="name"
+              name="title"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Product Name</FormLabel>

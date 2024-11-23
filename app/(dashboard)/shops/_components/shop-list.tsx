@@ -64,9 +64,9 @@ const ShopList: React.FC<ShopListProps> = ({ userId }) => {
                 <Pencil className="w-4 h-4" />
               </Link>
               <div className="w-full">
-                {shop.images && <img src={shop.images} alt={shop.name} className="w-full h-48 object-cover" />}
+                {shop.images && <img src={shop.images} alt={shop.title} className="w-full h-48 object-cover" />}
                 <CardContent className="mt-4">
-                  <CardTitle className="mb-2">{shop.name}</CardTitle>
+                  <CardTitle className="mb-2">{shop.title}</CardTitle>
                   <p className="text-gray-600 mb-2">{shop.location}</p>
                   <div className="text-sm text-gray-500">
                     <Preview value={shop.description || ""} />

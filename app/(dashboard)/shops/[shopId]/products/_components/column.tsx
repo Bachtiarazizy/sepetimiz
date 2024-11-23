@@ -1,71 +1,83 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, ClipboardIcon, Edit2, Eye, Trash2 } from "lucide-react";
-import { MoreHorizontal } from "lucide-react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import Link from "next/link";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import toast from "react-hot-toast";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import Link from "next/link";
+import { ColumnDef } from "@tanstack/react-table";
+import { ArrowUpDown, ClipboardIcon, Edit2, Eye, MoreHorizontal, Trash2 } from "lucide-react";
+import toast from "react-hot-toast";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { formatPrice } from "@/lib/format-price";
 import { Product } from "@prisma/client";
 
-export const columns: ColumnDef<Product>[] = [
+// Extend the Prisma Product model to include related category data
+interface ExtendedProduct extends Product {
+  category: {
+    title: string;
+  } | null;
+}
+
+// Props for columns function
+interface ColumnsProps {
+  shopId: string;
+}
+
+export const columns = ({ shopId }: ColumnsProps): ColumnDef<ExtendedProduct>[] => [
   {
-    accessorKey: "name",
-    header: ({ column }) => {
-      return (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-          Product Name <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    accessorKey: "title",
+    header: ({ column }) => (
+      <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+        Product Name <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
     enableHiding: false,
   },
   {
-    accessorKey: "price",
-    header: ({ column }) => {
-      return (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-          Price
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    accessorKey: "category",
+    header: ({ column }) => (
+      <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+        Category <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
     cell: ({ row }) => {
-      const price = parseFloat(row.getValue("price"));
-      const formatted = Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-      }).format(price);
+      const category = row.original.category;
+      return <Badge variant="outline">{category?.title || "Uncategorized"}</Badge>;
+    },
+  },
+  {
+    accessorKey: "price",
+    header: ({ column }) => (
+      <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+        Price <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+    cell: ({ row }) => {
+      const price = row.getValue("price") as number | null;
+      const currency = row.original.currency as "IDR" | "USD" | "TRY";
 
       return (
-        <Badge variant={price === 0 ? "secondary" : "outline"} className={price !== 0 && price !== null ? " bg-transparent border-transparent" : ""}>
+        <Badge variant={price === 0 ? "secondary" : "outline"} className={price !== 0 && price !== null ? "bg-transparent border-transparent" : ""}>
           {price === 0 && "For Free"}
           {price === null && "Undefined"}
-          {price !== 0 && price !== null && <>{formatted}</>}
+          {price !== 0 && price !== null && formatPrice(price, currency)}
         </Badge>
       );
     },
   },
   {
     accessorKey: "isPublished",
-    header: ({ column }) => {
-      return (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-          Published
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    header: ({ column }) => (
+      <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+        Published <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
     cell: ({ row }) => {
-      const isPublished = row.getValue("isPublished") || false;
-      const [isLoading, setIsLoading] = useState(false);
-      const router = useRouter();
+      const isPublished = row.getValue("isPublished") as boolean;
 
       return (
         <Badge variant={isPublished ? "default" : "secondary"}>
@@ -83,17 +95,17 @@ export const columns: ColumnDef<Product>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const course = row.original;
+      const product = row.original;
       const [isLoading, setIsLoading] = useState(false);
       const router = useRouter();
 
       const onDelete = async () => {
         try {
           setIsLoading(true);
-          await axios.delete(`/api/courses/${course.id}`);
-          toast.success("Course Deleted");
+          await axios.delete(`/api/shops/${shopId}/products/${product.id}`);
+          toast.success("Product Deleted");
           router.refresh();
-          router.push(`/dashboard/teacher/courses`);
+          router.push(`/shops/${shopId}/products`);
         } catch {
           toast.error("Something went wrong");
         } finally {
@@ -112,28 +124,28 @@ export const columns: ColumnDef<Product>[] = [
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-[200px]">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem onClick={() => navigator.clipboard.writeText(course.id)}>
+              <DropdownMenuItem onClick={() => navigator.clipboard.writeText(product.id)}>
                 <ClipboardIcon className="w-4 h-4 mr-2" />
-                Copy Course ID
+                Copy Product ID
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <Link href={`/courses/${course.id}`}>
+              <Link href={`/shops/${shopId}/products/${product.id}`}>
                 <DropdownMenuItem>
                   <Eye className="w-4 h-4 mr-2" />
-                  View Course
+                  View Product
                 </DropdownMenuItem>
               </Link>
-              <Link href={`/dashboard/teacher/courses/${course.id}`}>
+              <Link href={`/shops/${shopId}/products/${product.id}/edit`}>
                 <DropdownMenuItem>
                   <Edit2 className="w-4 h-4 mr-2" />
-                  Edit Course Details
+                  Edit Product Details
                 </DropdownMenuItem>
               </Link>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
                 <DialogTrigger className="flex gap-1 items-center w-full">
                   <Trash2 className="w-4 h-4 mr-2" />
-                  Delete Course
+                  Delete Product
                 </DialogTrigger>
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -142,7 +154,7 @@ export const columns: ColumnDef<Product>[] = [
           <DialogContent className="sm:max-w-[425px] border">
             <DialogHeader>
               <DialogTitle>Are you absolutely sure?</DialogTitle>
-              <DialogDescription>This action cannot be undone. This will permanently delete this course and remove its data from our database.</DialogDescription>
+              <DialogDescription>This action cannot be undone. This will permanently delete this product and remove its data from our database.</DialogDescription>
             </DialogHeader>
             <div className="flex w-full gap-2 items-center">
               <DialogClose asChild>
@@ -151,7 +163,7 @@ export const columns: ColumnDef<Product>[] = [
                 </Button>
               </DialogClose>
               <Button className="w-full rounded-md hover:scale-100" variant="destructive" onClick={onDelete} disabled={isLoading}>
-                Delete Course
+                Delete Product
               </Button>
             </div>
           </DialogContent>

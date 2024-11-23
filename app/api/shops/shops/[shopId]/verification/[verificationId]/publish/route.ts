@@ -24,9 +24,9 @@ export async function PATCH(req: Request, { params }: { params: { shopId: string
     }
 
     // Cek apakah semua field penting dari product sudah terisi
-    if (!verification.name || !verification.email || !verification.address || !verification.phoneNumber || !verification.photoUrl) {
+    if (!verification.title || !verification.email || !verification.address || !verification.phoneNumber || !verification.photoUrl) {
       const missingFields = [];
-      if (!verification.name) missingFields.push("name");
+      if (!verification.title) missingFields.push("title");
       if (!verification.email) missingFields.push("email");
       if (!verification.address) missingFields.push("address");
       if (!verification.phoneNumber) missingFields.push("phoneNumber");

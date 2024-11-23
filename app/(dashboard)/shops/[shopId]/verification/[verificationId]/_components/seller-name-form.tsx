@@ -15,14 +15,14 @@ import { useState } from "react";
 
 interface SellerNameFormProps {
   initialData: {
-    name: string;
+    title: string;
   };
   shopId: string;
   verificationId: string;
 }
 
 const formSchema = z.object({
-  name: z.string().min(1, {
+  title: z.string().min(1, {
     message: "Name is required",
   }),
 });
@@ -64,13 +64,13 @@ export default function SellerNameForm({ initialData, shopId, verificationId }: 
           )}
         </Button>
       </div>
-      {!isEditing && <p className="text-sm">{initialData.name}</p>}
+      {!isEditing && <p className="text-sm">{initialData.title}</p>}
       {isEditing && (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
             <FormField
               control={form.control}
-              name="name"
+              name="title"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Name</FormLabel>

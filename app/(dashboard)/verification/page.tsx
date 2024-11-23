@@ -88,7 +88,7 @@ const VerificationPage = async ({ params }: { params: { shopId: string } }) => {
             <CardTitle>Personal Information</CardTitle>
           </CardHeader>
           <CardContent className="grid gap-6 md:grid-cols-2">
-            <VerificationCard label="Full Name" value={verificationData.name} icon={User} />
+            <VerificationCard label="Full Name" value={verificationData.title} icon={User} />
             <VerificationCard label="Email" value={verificationData.email} icon={Mail} />
             <VerificationCard label="Phone Number" value={verificationData.phoneNumber} icon={Phone} />
             <VerificationCard label="Address" value={verificationData.address} icon={MapPin} />

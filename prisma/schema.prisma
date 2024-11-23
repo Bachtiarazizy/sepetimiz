@@ -10,15 +10,15 @@ datasource db {
 
 model Product {
   id          String    @id @default(uuid())
-  name        String
+  title       String
   price       Float?
-  currency    String?    @default("IDR")
+  currency    Currency  @default(IDR) 
   isPublished Boolean   @default(false)
   description String?
   images      String[]
   categoryId  String?
   category    Category? @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  phone String?
+  phone       String?
   location    String?
   shopId      String
   shop        Shop      @relation(fields: [shopId], references: [id], onDelete: Cascade)
@@ -34,7 +34,7 @@ enum VerificationStatus {
 
 model VerificationData {
   id              String   @id @default(uuid())
-  name            String?
+  title            String?
   email           String?
   address         String?
   identityNumber  String?
@@ -51,7 +51,7 @@ model VerificationData {
 }
 model Shop {
   id            String             @id @default(uuid())
-  name          String
+  title          String
   images        String?
   description   String?
   location      String?
@@ -66,7 +66,7 @@ model Shop {
 
 model Category {
   id        String    @id @default(uuid())
-  name      String    @unique
+  title      String    @unique
   products  Product[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -75,5 +75,5 @@ model Category {
 enum Currency {
   IDR
   USD
-  EUR
+  TRY
 }

@@ -21,9 +21,9 @@ export async function PATCH(req: Request, { params }: { params: { shopId: string
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    if (!shop.name || !shop.description || !shop.images || !shop.location) {
+    if (!shop.title || !shop.description || !shop.images || !shop.location) {
       const missingFields = [];
-      if (!shop.name) missingFields.push("name");
+      if (!shop.title) missingFields.push("title");
       if (!shop.description) missingFields.push("description");
       if (!shop.images) missingFields.push("images");
       if (!shop.location) missingFields.push("location");

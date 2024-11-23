@@ -5,7 +5,6 @@ import { ColumnDef, ColumnFiltersState, flexRender, SortingState, VisibilityStat
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { FilePlus2Icon } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";

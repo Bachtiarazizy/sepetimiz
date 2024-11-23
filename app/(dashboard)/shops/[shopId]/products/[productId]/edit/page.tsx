@@ -37,7 +37,7 @@ export default async function Page({ params }: PageProps) {
 
   const categories = await prisma.category.findMany({
     orderBy: {
-      name: "asc",
+      title: "asc",
     },
   });
 
@@ -45,7 +45,7 @@ export default async function Page({ params }: PageProps) {
     return redirect(`/shops/${params.shopId}/products/create`);
   }
 
-  const requiredFields = [product.name, product.description, product.images, product.location, product.price, product.currency, product.categoryId, product.phone];
+  const requiredFields = [product.title, product.description, product.images, product.location, product.price, product.currency, product.categoryId, product.phone];
 
   const totalFields = requiredFields.length;
   const completedFields = requiredFields.filter(Boolean).length;
@@ -82,7 +82,7 @@ export default async function Page({ params }: PageProps) {
               shopId={params.shopId}
               productId={product.id}
             />
-            <ProductCategoryForm initialData={product} shopId={params.shopId} productId={product.id} options={categories.map((category) => ({ value: category.id, label: category.name }))} />
+            <ProductCategoryForm initialData={product} shopId={params.shopId} productId={product.id} options={categories.map((category) => ({ value: category.id, label: category.title }))} />
           </div>
 
           <div className="space-y-6">

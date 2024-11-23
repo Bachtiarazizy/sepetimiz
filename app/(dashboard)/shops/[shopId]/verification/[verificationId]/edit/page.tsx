@@ -38,7 +38,7 @@ export default async function Page({ params }: PageProps) {
 
   const categories = await prisma.category.findMany({
     orderBy: {
-      name: "asc",
+      title: "asc",
     },
   });
 
@@ -46,7 +46,7 @@ export default async function Page({ params }: PageProps) {
     return redirect(`/shops/${params.shopId}/verification/create`);
   }
 
-  const requiredFields = [verification.name, verification.email, verification.address, verification.phoneNumber, verification.identityNumber, verification.studentDocument, verification.photoUrl, verification.photoWithDocument];
+  const requiredFields = [verification.title, verification.email, verification.address, verification.phoneNumber, verification.identityNumber, verification.studentDocument, verification.photoUrl, verification.photoWithDocument];
 
   const totalFields = requiredFields.length;
   const completedFields = requiredFields.filter(Boolean).length;
@@ -72,7 +72,7 @@ export default async function Page({ params }: PageProps) {
               <h2 className="text-xl">Complete Your Information</h2>
             </div>
 
-            <SellerNameForm initialData={{ name: verification.name ?? "" }} shopId={params.shopId} verificationId={verification.id} />
+            <SellerNameForm initialData={{ title: verification.title ?? "" }} shopId={params.shopId} verificationId={verification.id} />
             <SellerEmailForm initialData={{ email: verification.email ?? "" }} shopId={params.shopId} verificationId={verification.id} />
             <SellerAddressForm initialData={{ address: verification.address ?? "" }} shopId={params.shopId} verificationId={verification.id} />
             <SellerPhoneNumberForm initialData={{ phoneNumber: verification.phoneNumber ?? "" }} shopId={params.shopId} verificationId={verification.id} />
