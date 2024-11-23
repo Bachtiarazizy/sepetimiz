@@ -20,7 +20,7 @@ export const Sidebar = () => {
         </Link>
       </div>
       <div className="flex flex-col w-full">
-        <SidebarRoutes shopId={shopId} />
+        <SidebarRoutes />
       </div>
     </div>
   );

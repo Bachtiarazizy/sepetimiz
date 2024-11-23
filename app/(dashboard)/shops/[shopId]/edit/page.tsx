@@ -24,6 +24,9 @@ export default async function Page({ params }: { params: { shopId: string } }) {
       id: params.shopId,
       userId,
     },
+    include: {
+      verifications: true, // Add this line to include verification data
+    },
   });
 
   if (!shop) {
@@ -40,18 +43,20 @@ export default async function Page({ params }: { params: { shopId: string } }) {
   const isCompleted = requiredFields.every(Boolean);
   const canPublish = isCompleted && shop.isVerified;
 
-  // Create a custom Banner wrapper component that accepts both the message and a link
   const VerificationBanner = () => {
+    const hasVerificationData = shop.verifications.length > 0;
+    const verificationData = shop.verifications[0];
+
     if (!shop.isPublished) {
-      if (!shop.isVerified) {
+      if (!hasVerificationData) {
         return (
           <div className="bg-yellow-100 p-4 border-l-4 border-yellow-500">
             <div className="flex items-center">
               <div className="flex-1 text-sm text-yellow-700">
                 <p>
-                  This shop needs verification before it can be published.{" "}
-                  <Link href={`/verification/create`} className="font-medium underline text-blue-600 hover:text-blue-800">
-                    Complete verification
+                  Your shop needs verification before it can be published.{" "}
+                  <Link href={`/shops/${params.shopId}/verification/create`} className="font-medium underline text-blue-600 hover:text-blue-800">
+                    Start verification process
                   </Link>
                 </p>
               </div>
@@ -59,8 +64,53 @@ export default async function Page({ params }: { params: { shopId: string } }) {
           </div>
         );
       }
+
+      if (verificationData.status === "PENDING") {
+        return (
+          <div className="bg-blue-100 p-4 border-l-4 border-blue-500">
+            <div className="flex items-center">
+              <div className="flex-1 text-sm text-blue-700">
+                <p>Verification is currently under review. We'll notify you once it's processed.</p>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      if (verificationData.status === "REJECTED") {
+        return (
+          <div className="bg-red-100 p-4 border-l-4 border-red-500">
+            <div className="flex items-center">
+              <div className="flex-1 text-sm text-red-700">
+                <p>
+                  Your verification was rejected.{" "}
+                  <Link href={`/shops/${params.shopId}/verification/create`} className="font-medium underline text-blue-600 hover:text-blue-800">
+                    Resubmit verification
+                  </Link>
+                </p>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      if (verificationData.status === "APPROVED") {
+        return (
+          <div className="bg-green-100 p-4 border-l-4 border-green-500">
+            <div className="flex items-center">
+              <div className="flex-1 text-sm text-green-700">
+                <p>
+                  Congratulations! Your shop has been verified and is ready to be published. <span className="font-medium">Complete any remaining fields to publish your shop.</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
       return <Banner label="This shop is not published. It will not be visible to buyers." />;
     }
+
     return null;
   };
 
