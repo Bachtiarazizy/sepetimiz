@@ -1,16 +1,10 @@
-"use client";
-
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import NavbarLinks from "./NavbarLinks";
-import { ShoppingBag, Settings } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 import MobileMenu from "./MobileMenu";
-import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/provider/ModeToggle";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { useEffect, useState } from "react";
-import axios from "axios";
 
 export default function Navbar() {
   return (
@@ -38,14 +32,13 @@ export default function Navbar() {
             </SignedOut>
           </div>
 
-          <div className="hidden md:flex gap-4">
+          <div className="hidden md:flex">
             <SignedIn>
-              <Link href="/shops">
-                <Button className="relative">Dashboard</Button>
+              <Link href={`/shops`} className="mr-3">
+                <Button>Dashboard</Button>
               </Link>
+
               <UserButton
-                userProfileMode="modal"
-                afterSignOutUrl="/"
                 appearance={{
                   elements: {
                     avatarBox: "w-10 h-10",
