@@ -21,13 +21,13 @@ export const ourFileRouter = {
     .middleware(() => handleAuth())
     .onUploadComplete(() => {}),
 
-  imageUploader: f({ image: { maxFileSize: "4MB", maxFileCount: 10 } })
+  imageUploader: f({ image: { maxFileSize: "4MB", maxFileCount: 5 } })
     .middleware(() => handleAuth())
     .onUploadComplete(async ({ metadata, file }) => {
-      // This code RUNS ON YOUR SERVER after upload
-      console.log("Upload complete for userId:", metadata.userId);
-      console.log("file url", file.url);
-      // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
+      // Consider adding image processing here if needed
+      // - Ensure square aspect ratio
+      // - Optimize file size
+      // - Generate thumbnails if needed
       return { uploadedBy: metadata.userId };
     }),
 } satisfies FileRouter;
