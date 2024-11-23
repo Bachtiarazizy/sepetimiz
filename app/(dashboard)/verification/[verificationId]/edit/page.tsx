@@ -5,15 +5,15 @@ import { auth } from "@clerk/nextjs/server";
 import { LayoutDashboard, ListChecks } from "lucide-react";
 import { redirect } from "next/navigation";
 import { Banner } from "@/components/ui/banner";
-import SellerNameForm from "../_components/seller-name-form";
-import SellerEmailForm from "../_components/seller-email-form";
-import SellerAddressForm from "../_components/seller-address-form";
-import SellerPhoneNumberForm from "../_components/seller-phone-number-form";
-import SellerIdentityNumberForm from "../_components/seller-identity-number-form";
-import SellerPhotoForm from "../_components/seller-photo-form";
-import SellerPhotoWithDocumentForm from "../_components/seller-photo-with-document-form";
-import StudentDocumentForm from "../_components/seller-student-document-form";
-import { VerificationAction } from "../_components/verification-action";
+import SellerNameForm from "../../_components/seller-name-form";
+import SellerEmailForm from "../../_components/seller-email-form";
+import SellerAddressForm from "../../_components/seller-address-form";
+import SellerPhoneNumberForm from "../../_components/seller-phone-number-form";
+import SellerIdentityNumberForm from "../../_components/seller-identity-number-form";
+import SellerPhotoForm from "../../_components/seller-photo-form";
+import SellerPhotoWithDocumentForm from "../../_components/seller-photo-with-document-form";
+import StudentDocumentForm from "../../_components/seller-student-document-form";
+import { VerificationAction } from "../../_components/verification-action";
 
 interface PageProps {
   params: {
@@ -43,7 +43,7 @@ export default async function Page({ params }: PageProps) {
   });
 
   if (!verification) {
-    return redirect(`/shops/${params.shopId}/verification/create`);
+    return redirect(`verification/create`);
   }
 
   const requiredFields = [verification.name, verification.email, verification.address, verification.phoneNumber, verification.identityNumber, verification.studentDocument, verification.photoUrl, verification.photoWithDocument];

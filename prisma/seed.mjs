@@ -2,17 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const categories = [
-  { name: "Electronics" },
-  { name: "Fashion" },
-  { name: "Books" },
-  { name: "Home Appliances" },
-  { name: "Toys & Games" },
-  { name: "Sports & Outdoors" },
-  { name: "Health & Beauty" },
-  { name: "Automotive" },
-  { name: "Groceries" },
-];
+const categories = [{ name: "Electronics" }, { name: "Fashions" }, { name: "Baggages" }, { name: "Exchanges" }, { name: "Foods" }, { name: "Others" }];
 
 async function main() {
   console.log("Seeding categories...");

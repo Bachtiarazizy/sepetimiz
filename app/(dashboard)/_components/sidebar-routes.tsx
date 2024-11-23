@@ -9,24 +9,24 @@ interface SidebarRoutesProps {
   verificationId?: string;
 }
 
-export const SidebarRoutes = ({ shopId, verificationId }: SidebarRoutesProps) => {
+export const SidebarRoutes = () => {
   const pathname = usePathname();
 
   const sellerRoutes = [
     {
       icon: Layout,
       label: "Shops",
-      href: `/shops/${shopId}`,
+      href: `/shops`,
     },
     {
       icon: List,
       label: "Products",
-      href: `/shops/${shopId}/products`,
+      href: `/products`,
     },
     {
       icon: ShieldCheck,
       label: "Verification",
-      href: `/shops/${shopId}/verification/${verificationId || ""}`,
+      href: `/verification`,
     },
     {
       icon: CircleHelp,

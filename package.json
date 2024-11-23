@@ -10,7 +10,7 @@
     "lint": "next lint",
     "postinstall": "prisma generate",
     "email": "email dev",
-    "seed": "ts-node --transpile-only prisma/seed.ts"
+    "seed": "node prisma/seed.mjs"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.3.4",

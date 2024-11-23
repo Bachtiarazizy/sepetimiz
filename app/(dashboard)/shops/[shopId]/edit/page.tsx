@@ -50,7 +50,7 @@ export default async function Page({ params }: { params: { shopId: string } }) {
               <div className="flex-1 text-sm text-yellow-700">
                 <p>
                   This shop needs verification before it can be published.{" "}
-                  <Link href={`/shops/${params.shopId}/verification/create`} className="font-medium underline text-blue-600 hover:text-blue-800">
+                  <Link href={`/verification/create`} className="font-medium underline text-blue-600 hover:text-blue-800">
                     Complete verification
                   </Link>
                 </p>

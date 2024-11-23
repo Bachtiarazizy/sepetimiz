@@ -1,5 +1,6 @@
 import prisma from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
+import { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -25,34 +26,34 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET(req: Request) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
+    // Dapatkan userId dari Clerk
     const { userId } = await auth();
-    const { searchParams } = new URL(req.url);
-    const name = searchParams.get("name");
-
     if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
+      return res.status(401).json({ error: "Unauthorized" });
     }
 
-    const shops = await prisma.shop.findMany({
-      where: {
-        userId,
+    // Cari toko pertama yang dimiliki pengguna
+    const shop = await prisma.shop.findFirst({
+      where: { userId },
+      select: {
+        id: true,
+        name: true,
+        images: true,
+        description: true,
+        location: true,
         isPublished: true,
-        ...(name && {
-          name: {
-            contains: name,
-          },
-        }),
-      },
-      orderBy: {
-        createdAt: "desc",
+        isVerified: true,
+        createdAt: true,
+        updatedAt: true,
       },
     });
 
-    return NextResponse.json(shops);
+    // Kembalikan data toko, atau null jika tidak ada
+    res.status(200).json(shop || null);
   } catch (error) {
-    console.log("[SHOPS_GET]", error);
-    return new NextResponse("Internal Server Error", { status: 500 });
+    console.error("Error fetching shop data:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 }
