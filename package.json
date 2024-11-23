@@ -13,7 +13,7 @@
     "seed": "node prisma/seed.mjs"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.3.4",
+    "@clerk/nextjs": "^6.5.0",
     "@conform-to/react": "^1.1.5",
     "@conform-to/zod": "^1.1.5",
     "@hookform/resolvers": "^3.6.0",
