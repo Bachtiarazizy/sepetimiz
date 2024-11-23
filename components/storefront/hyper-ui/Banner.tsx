@@ -26,8 +26,9 @@ const Banner = () => {
         <BoxReveal boxColor={"#5046e6"} duration={0.5}>
           <div className="mt-6">
             <p className="text-sm sm:text-base md:text-lg">
-              -&gt; Experience a seamless e-commerce platform. <br />
-              -&gt; Showcasing diverse products and services <span className="font-semibold text-[#5046e6]">talented students</span> pursuing their <span className="font-semibold text-[#5046e6]">dreams abroad.</span>
+              -&gt; Sepetimiz connects Indonesian students across Turkey, providing a safe and trusted platform to showcase their products and services. <br />
+              -&gt; Whether you're a seller looking to grow your business or a customer seeking reliable services, <span className="font-semibold text-[#5046e6]">Sepetimiz is here</span> to{" "}
+              <span className="font-semibold text-[#5046e6]">bridge the gap.</span>
             </p>
           </div>
         </BoxReveal>

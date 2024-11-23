@@ -2,23 +2,23 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const categories = [{ name: "Electronics" }, { name: "Fashions" }, { name: "Baggages" }, { name: "Exchanges" }, { name: "Foods" }, { name: "Others" }];
+const categories = [{ title: "Electronics" }, { title: "Fashions" }, { title: "Baggages" }, { title: "Exchanges" }, { title: "Foods" }, { title: "Others" }];
 
 async function main() {
   console.log("Seeding categories...");
 
   for (const category of categories) {
     const existingCategory = await prisma.category.findUnique({
-      where: { name: category.name },
+      where: { title: category.title },
     });
 
     if (!existingCategory) {
       await prisma.category.create({
         data: category,
       });
-      console.log(`Category ${category.name} created.`);
+      console.log(`Category ${category.title} created.`);
     } else {
-      console.log(`Category ${category.name} already exists.`);
+      console.log(`Category ${category.title} already exists.`);
     }
   }
 

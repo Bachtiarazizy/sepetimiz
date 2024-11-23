@@ -69,7 +69,7 @@ const SearchInput = () => {
       {
         url: pathname,
         query: {
-          name: debouncedValue,
+          title: debouncedValue,
           categoryId: searchParams.get("categoryId"),
         },
       },

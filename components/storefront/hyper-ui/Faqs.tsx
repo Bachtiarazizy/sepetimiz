@@ -1,60 +1,142 @@
-import { ArrowUpRight } from "lucide-react";
+"use client";
 
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Container, Section } from "./craft";
+import React, { useState } from "react";
+import { MessageCircle, Mail, ChevronDown, Users, ShoppingCart, Store, HelpCircle } from "lucide-react";
 
-type FAQItem = {
-  question: string;
-  answer: string;
-  link?: string;
-};
+interface FAQItem {
+  q: string;
+  a: string;
+}
 
-const content: FAQItem[] = [
-  {
-    question: "Lorem ipsum dolor sit amet?",
-    answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    link: "https://google.com",
-  },
-  {
-    question: "Ut enim ad minim veniam?",
-    answer: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  },
-  {
-    question: "Duis aute irure dolor in reprehenderit?",
-    answer: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-  },
-  {
-    question: "Excepteur sint occaecat cupidatat non proident?",
-    answer: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-];
+interface CategoryContent {
+  icon: React.ReactNode;
+  title: string;
+  questions: FAQItem[];
+}
 
-const FAQ = () => {
+interface FAQCategories {
+  [key: string]: CategoryContent;
+}
+
+interface ExpandedItems {
+  [key: string]: boolean;
+}
+
+const FAQSection: React.FC = () => {
+  const [activeCategory, setActiveCategory] = useState<string>("general");
+  const [expandedItems, setExpandedItems] = useState<ExpandedItems>({});
+
+  const faqCategories: FAQCategories = {
+    general: {
+      icon: <HelpCircle className="w-5 h-5" />,
+      title: "General Questions",
+      questions: [
+        {
+          q: "Who can join Sepetimiz?",
+          a: "Sepetimiz is designed for Indonesian students living in Turkey. Whether you're looking to sell or buy, you're welcome to join our community!",
+        },
+        {
+          q: "Does Sepetimiz offer customer protection?",
+          a: "While Sepetimiz does not facilitate transactions, we strive to ensure a safe environment by verifying all sellers and encouraging transparent communication between buyers and sellers.",
+        },
+        {
+          q: "Are there any fees to use Sepetimiz?",
+          a: "No, joining Sepetimiz and listing your products or services is free!",
+        },
+      ],
+    },
+    buyers: {
+      icon: <ShoppingCart className="w-5 h-5" />,
+      title: "For Buyers",
+      questions: [
+        {
+          q: "How can I browse products and services?",
+          a: "You can explore products and services by visiting the 'Explore' section on our website. Use the search bar or browse by categories to find what you're looking for.",
+        },
+        {
+          q: "How do I contact a seller?",
+          a: "Each product or service listing includes a 'Chat with Seller' option. Click on it to start a direct conversation with the seller for more details or to discuss your requirements.",
+        },
+        {
+          q: "Is payment handled on Sepetimiz?",
+          a: "Currently, Sepetimiz does not facilitate direct transactions. Buyers and sellers are encouraged to discuss payment terms directly. Make sure to confirm details before making payments outside the platform.",
+        },
+      ],
+    },
+    sellers: {
+      icon: <Store className="w-5 h-5" />,
+      title: "For Sellers",
+      questions: [
+        {
+          q: "How can I become a seller?",
+          a: "To join as a seller, sign up on our platform, complete your profile, and submit the required documents for verification. Once approved, you can start listing your products or services.",
+        },
+        {
+          q: "What is the seller verification process?",
+          a: "We verify all sellers to ensure they are legitimate Indonesian students in Turkey. You will need to provide proof of student status and valid identification.",
+        },
+        {
+          q: "How do I list my products or services?",
+          a: "After your account is verified, log in, go to the 'My Listings' section, and click 'Add New Listing.' Fill in the details about your product or service, upload high-quality images, and publish your listing.",
+        },
+      ],
+    },
+  };
+
+  const toggleQuestion = (categoryId: string, index: number): void => {
+    setExpandedItems((prev) => ({
+      ...prev,
+      [`${categoryId}-${index}`]: !prev[`${categoryId}-${index}`],
+    }));
+  };
+
   return (
-    <Section>
-      <Container>
-        <h3 className="!mt-0">Frequently Asked Questions</h3>
-        <h4 className="text-muted-foreground">Can&apos;t find the answer you&apos;re looking for? Reach out to our customer support team.</h4>
-        <div className="not-prose mt-4 flex flex-col gap-4 md:mt-8">
-          {content.map((item, index) => (
-            <Accordion key={index} type="single" collapsible>
-              <AccordionItem value={item.question}>
-                <AccordionTrigger className="text-left">{item.question}</AccordionTrigger>
-                <AccordionContent className="text-base md:w-3/4">
-                  {item.answer}
-                  {item.link && (
-                    <a href={item.link} className="mt-2 flex w-full items-center opacity-60 transition-all hover:opacity-100">
-                      Learn more <ArrowUpRight className="ml-1" size="16" />
-                    </a>
-                  )}
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          ))}
+    <div className="bg-background py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* FAQ Section */}
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-foreground sm:text-4xl mb-8">Frequently Asked Questions</h2>
+
+          {/* Category Tabs */}
+          <div className="flex flex-wrap justify-center gap-4 mb-12">
+            {Object.entries(faqCategories).map(([id, category]) => (
+              <button
+                key={id}
+                onClick={() => setActiveCategory(id)}
+                className={`flex items-center gap-2 px-6 py-3 rounded-full transition-all duration-300
+                  ${activeCategory === id ? "bg-primary text-primary-foreground shadow-lg" : "bg-card text-muted-foreground hover:bg-primary/10"}`}
+              >
+                {category.icon}
+                <span>{category.title}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* FAQ Accordion */}
+          <div className="max-w-3xl mx-auto">
+            {faqCategories[activeCategory].questions.map((faq, index) => (
+              <div key={index} className="mb-4 bg-card rounded-[--radius] border overflow-hidden transition-all duration-300 hover:shadow-md">
+                <button onClick={() => toggleQuestion(activeCategory, index)} className="w-full px-6 py-4 text-left flex items-center justify-between gap-4">
+                  <span className="font-medium">{faq.q}</span>
+                  <ChevronDown
+                    className={`w-5 h-5 text-muted-foreground transition-transform duration-300
+                      ${expandedItems[`${activeCategory}-${index}`] ? "rotate-180" : ""}`}
+                  />
+                </button>
+
+                <div
+                  className={`px-6 transition-all duration-300 overflow-hidden
+                    ${expandedItems[`${activeCategory}-${index}`] ? "pb-4 max-h-40" : "max-h-0"}`}
+                >
+                  <p className="text-muted-foreground">{faq.a}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </Container>
-    </Section>
+      </div>
+    </div>
   );
 };
 
-export default FAQ;
+export default FAQSection;

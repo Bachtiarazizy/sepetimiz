@@ -2,9 +2,7 @@ import ProductList from "@/components/products/product-list";
 import Categories from "@/components/search/categories";
 import SearchInput from "@/components/search/search-input";
 import prisma from "@/lib/db";
-import { auth } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
-import { Product, Category, Shop, Currency } from "@prisma/client";
+import { Product, Category, Shop } from "@prisma/client";
 
 interface SearchPageProps {
   searchParams: {
@@ -18,9 +16,9 @@ type ProductWithRelations = Product & {
   shop: Shop;
 };
 
-async function getProducts(params: { userId: string; title?: string; categoryId?: string }): Promise<ProductWithRelations[]> {
+async function getProducts(params: { title?: string; categoryId?: string }): Promise<ProductWithRelations[]> {
   try {
-    const { userId, title, categoryId } = params;
+    const { title, categoryId } = params;
     const searchQuery = title?.trim();
 
     const products = await prisma.product.findMany({
@@ -30,9 +28,6 @@ async function getProducts(params: { userId: string; title?: string; categoryId?
           OR: [{ title: { contains: searchQuery, mode: "insensitive" } }, { description: { contains: searchQuery, mode: "insensitive" } }],
         }),
         ...(categoryId && { categoryId }),
-        shop: {
-          userId: userId,
-        },
       },
       include: {
         category: true,
@@ -51,27 +46,18 @@ async function getProducts(params: { userId: string; title?: string; categoryId?
 }
 
 const SearchPage = async ({ searchParams }: SearchPageProps) => {
-  const { userId } = await auth();
-
-  if (!userId) {
-    return redirect("/");
-  }
-
   const [categories, products] = await Promise.all([
     prisma.category.findMany({
       orderBy: {
         title: "asc",
       },
     }),
-    getProducts({
-      userId,
-      ...searchParams,
-    }),
+    getProducts(searchParams),
   ]);
 
   return (
     <>
-      <div className="px-6 pt-6 md:hidden md:mb-0 block">
+      <div className="px-6 pt-6 ">
         <SearchInput />
       </div>
       <Categories items={categories} />
