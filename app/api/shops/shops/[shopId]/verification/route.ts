@@ -1,19 +1,23 @@
 import prisma from "@/lib/db";
 import { NextResponse } from "next/server";
 
-export async function POST(req: Request) {
+export async function POST(req: Request, { params }: { params: { shopId: string } }) {
   try {
+    const { shopId } = params;
     const body = await req.json();
-    const { name, shopId } = body; // Add shopId to destructuring
+    const { name } = body;
 
-    if (!name || !shopId) {
-      // Check for both name and shopId
-      return new NextResponse("Name and Shop ID are required", { status: 400 });
+    if (!shopId) {
+      return new NextResponse("Shop ID is required", { status: 400 });
+    }
+
+    if (!name) {
+      return new NextResponse("Name is required", { status: 400 });
     }
 
     const shop = await prisma.shop.findUnique({
       where: {
-        id: shopId, // Now using the passed shopId
+        id: shopId,
       },
     });
 
@@ -24,13 +28,13 @@ export async function POST(req: Request) {
     const verificationData = await prisma.verificationData.create({
       data: {
         name,
-        shopId, // Using the passed shopId
+        shopId,
       },
     });
 
     return NextResponse.json(verificationData);
   } catch (error) {
-    console.log("[VERIFICATION_POST]", error);
+    console.log("[PRODUCTS_POST]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
