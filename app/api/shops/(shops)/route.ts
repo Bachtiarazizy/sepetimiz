@@ -29,7 +29,7 @@ export async function GET(req: Request) {
   try {
     const { userId } = await auth();
     const { searchParams } = new URL(req.url);
-    const name = searchParams.get("name");
+    const title = searchParams.get("title");
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -39,9 +39,9 @@ export async function GET(req: Request) {
       where: {
         userId,
         isPublished: true,
-        ...(name && {
-          name: {
-            contains: name,
+        ...(title && {
+          title: {
+            contains: title,
           },
         }),
       },
