@@ -2,13 +2,13 @@
 
 import React from "react";
 import { useState } from "react";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Phone, Store } from "lucide-react";
+import { MapPin, Phone, Store, CheckCircle2 } from "lucide-react";
 import { formatPrice } from "@/lib/format-price";
+import { Preview } from "../provider/preview";
 
-// Types
 interface Product {
   id: string;
   title: string;
@@ -27,7 +27,6 @@ interface Product {
   } | null;
 }
 
-// ProductCard Component
 const ProductCard = ({ product }: { product: Product }) => {
   const [currentImage, setCurrentImage] = useState(0);
 
@@ -37,66 +36,68 @@ const ProductCard = ({ product }: { product: Product }) => {
   };
 
   return (
-    <Card className="w-full bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
+    <Card className="group w-full bg-card hover:bg-accent/5 transition-all duration-300 overflow-hidden">
       <CardHeader className="p-0">
         <Carousel className="w-full">
           <CarouselContent>
             {product.images.map((image, index) => (
               <CarouselItem key={index}>
-                <div className="relative aspect-square">
-                  <img src={image || "/api/placeholder/400/400"} alt={`${product.title} - Image ${index + 1}`} className="object-cover w-full h-full rounded-t-lg" />
+                <div className="relative aspect-square overflow-hidden">
+                  <img src={image || "/api/placeholder/400/400"} alt={`${product.title} - Image ${index + 1}`} className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105" />
                 </div>
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+          <CarouselPrevious className="opacity-0 group-hover:opacity-100 transition-opacity" />
+          <CarouselNext className="opacity-0 group-hover:opacity-100 transition-opacity" />
         </Carousel>
       </CardHeader>
 
-      <CardContent className="p-4">
-        <div className="flex items-center justify-between mb-2">
-          <h3 className="font-semibold text-lg line-clamp-1">{product.title}</h3>
-          {product.category && (
-            <Badge variant="secondary" className="text-xs">
-              {product.category.title}
-            </Badge>
-          )}
+      <CardContent className="p-6 space-y-4">
+        <div className="space-y-2">
+          <div className="flex items-start justify-between gap-2">
+            <h3 className="font-semibold text-lg text-card-foreground line-clamp-2">{product.title}</h3>
+            {product.category && (
+              <Badge variant="secondary" className="shrink-0">
+                {product.category.title}
+              </Badge>
+            )}
+          </div>
+          <p className="text-2xl font-bold text-primary">{displayPrice(product.price, product.currency)}</p>
         </div>
 
-        <p className="text-xl font-bold text-primary mb-2">{displayPrice(product.price, product.currency)}</p>
+        {product.description && (
+          <div className="text-muted-foreground text-sm max-h-24 overflow-hidden">
+            <Preview value={product.description} />
+          </div>
+        )}
 
-        {product.description && <p className="text-gray-600 text-sm line-clamp-2 mb-3">{product.description}</p>}
-
-        <div className="space-y-2">
-          <div className="flex items-center gap-2 text-sm text-gray-500">
-            <Store className="w-4 h-4" />
-            <span className="flex items-center gap-1">
+        <div className="pt-2 border-t border-border space-y-3">
+          <div className="flex items-center gap-2 text-sm text-card-foreground">
+            <Store className="w-4 h-4 text-muted-foreground" />
+            <span className="flex items-center gap-2">
               {product.shop.title}
-              {product.shop.isVerified && (
-                <Badge variant="secondary" className="ml-1">
-                  Verified
-                </Badge>
-              )}
+              {product.shop.isVerified && <CheckCircle2 className="w-4 h-4 text-primary" />}
             </span>
           </div>
 
           {product.location && (
-            <div className="flex items-center gap-2 text-sm text-gray-500">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground hover:text-card-foreground transition-colors">
               <MapPin className="w-4 h-4" />
               <span>{product.location}</span>
             </div>
           )}
 
           {product.phone && (
-            <div className="flex items-center gap-2 text-sm text-gray-500">
+            <a href={`https://wa.me/${product.phone}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-card-foreground transition-colors">
               <Phone className="w-4 h-4" />
               <span>{product.phone}</span>
-            </div>
+            </a>
           )}
         </div>
       </CardContent>
     </Card>
   );
 };
+
 export default ProductCard;

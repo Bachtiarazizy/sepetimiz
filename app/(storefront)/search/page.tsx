@@ -1,8 +1,11 @@
+import React from "react";
 import ProductList from "@/components/products/product-list";
 import Categories from "@/components/search/categories";
 import SearchInput from "@/components/search/search-input";
 import prisma from "@/lib/db";
 import { Product, Category, Shop } from "@prisma/client";
+import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 interface SearchPageProps {
   searchParams: {
@@ -56,15 +59,32 @@ const SearchPage = async ({ searchParams }: SearchPageProps) => {
   ]);
 
   return (
-    <>
-      <div className="px-6 pt-6 ">
-        <SearchInput />
+    <div className="min-h-screen bg-background">
+      <div className="max-w-7xl mx-auto">
+        {/* Search Section */}
+        <div className="px-4 sm:px-6 lg:px-8 pt-6 space-y-4">
+          <div className="backdrop-blur-sm bg-background/80 rounded-lg p-4 shadow-sm">
+            <SearchInput />
+          </div>
+
+          {/* Categories Section */}
+          <div className="bg-background/50 rounded-lg p-2">
+            <Categories items={categories} />
+          </div>
+        </div>
+
+        {/* Products Grid Section */}
+        <div className="px-4 sm:px-6 lg:px-8 py-6">
+          <div className={cn("bg-secondary rounded-lg shadow-lg", "min-h-[calc(100vh-12rem)]", "transition-all duration-300 ease-in-out", "overflow-hidden")}>
+            <div className="p-6">
+              <div className="grid gap-6">
+                <ProductList products={products} />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <Categories items={categories} />
-      <div className="px-6 overflow-y-scroll bg-secondary mx-0 md:mx-auto py-6 rounded-none md:h-[calc(100vh-170px)] md:rounded-none md:rounded-bl-3xl md:mt-1 md:rounded-tl-xl container">
-        <ProductList products={products} />
-      </div>
-    </>
+    </div>
   );
 };
 
