@@ -1,10 +1,10 @@
 "use client";
 
 import { Product } from "@prisma/client";
-import { DataTable } from "../../shops/[shopId]/products/_components/data-table";
 import { columns } from "../../shops/[shopId]/products/_components/column";
+import { DataTable } from "../../shops/[shopId]/products/_components/data-table";
 
-// Import atau definisikan ExtendedProduct interface
+// Define ExtendedProduct interface
 interface ExtendedProduct extends Product {
   category: {
     title: string;
@@ -17,14 +17,11 @@ interface ProductsPageProps {
 }
 
 export default function ProductsPage({ products, shopId }: ProductsPageProps) {
-  // Pass shopId to columns function to generate the columns configuration
   const productColumns = columns({ shopId });
 
   return (
-    <div className="flex-col">
-      <div className="flex-1 space-y-4 p-8 pt-6">
-        <DataTable data={products} columns={productColumns} shopId={shopId} />
-      </div>
+    <div>
+      <DataTable data={products} columns={productColumns} shopId={shopId} />
     </div>
   );
 }
