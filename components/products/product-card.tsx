@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { MapPin, Phone, Store, CheckCircle2 } from "lucide-react";
 import { formatPrice } from "@/lib/format-price";
 import { Preview } from "../provider/preview";
+import Link from "next/link";
 
 interface Product {
   id: string;
@@ -19,6 +20,7 @@ interface Product {
   location: string | null;
   phone: string | null;
   shop: {
+    id: string;
     title: string;
     isVerified: boolean;
   };
@@ -35,28 +37,35 @@ const ProductCard = ({ product }: { product: Product }) => {
     return formatPrice(price, currency);
   };
 
+  const productUrl = `/shops/${product.shop.id}/products/${product.id}`;
+  const shopUrl = `/shops/${product.shop.id}`;
+
   return (
     <Card className="group w-full bg-card hover:bg-accent/5 transition-all duration-300 overflow-hidden">
-      <CardHeader className="p-0">
-        <Carousel className="w-full">
-          <CarouselContent>
-            {product.images.map((image, index) => (
-              <CarouselItem key={index}>
-                <div className="relative aspect-square overflow-hidden">
-                  <img src={image || "/api/placeholder/400/400"} alt={`${product.title} - Image ${index + 1}`} className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105" />
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="opacity-0 group-hover:opacity-100 transition-opacity" />
-          <CarouselNext className="opacity-0 group-hover:opacity-100 transition-opacity" />
-        </Carousel>
-      </CardHeader>
+      <Link href={productUrl} className="cursor-pointer">
+        <CardHeader className="p-0">
+          <Carousel className="w-full">
+            <CarouselContent>
+              {product.images.map((image, index) => (
+                <CarouselItem key={index}>
+                  <div className="relative aspect-square overflow-hidden">
+                    <img src={image || "/api/placeholder/400/400"} alt={`${product.title} - Image ${index + 1}`} className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105" />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="opacity-0 group-hover:opacity-100 transition-opacity" />
+            <CarouselNext className="opacity-0 group-hover:opacity-100 transition-opacity" />
+          </Carousel>
+        </CardHeader>
+      </Link>
 
       <CardContent className="p-6 space-y-4">
         <div className="space-y-2">
           <div className="flex items-start justify-between gap-2">
-            <h3 className="font-semibold text-lg text-card-foreground line-clamp-2">{product.title}</h3>
+            <Link href={productUrl} className="hover:underline">
+              <h3 className="font-semibold text-lg text-card-foreground line-clamp-2">{product.title}</h3>
+            </Link>
             {product.category && (
               <Badge variant="secondary" className="shrink-0">
                 {product.category.title}
@@ -73,13 +82,15 @@ const ProductCard = ({ product }: { product: Product }) => {
         )}
 
         <div className="pt-2 border-t border-border space-y-3">
-          <div className="flex items-center gap-2 text-sm text-card-foreground">
-            <Store className="w-4 h-4 text-muted-foreground" />
-            <span className="flex items-center gap-2">
-              {product.shop.title}
-              {product.shop.isVerified && <CheckCircle2 className="w-4 h-4 text-primary" />}
-            </span>
-          </div>
+          <Link href={shopUrl} className="block">
+            <div className="flex items-center gap-2 text-sm text-card-foreground hover:text-primary transition-colors">
+              <Store className="w-4 h-4 text-muted-foreground" />
+              <span className="flex items-center gap-2">
+                {product.shop.title}
+                {product.shop.isVerified && <CheckCircle2 className="w-4 h-4 text-primary" />}
+              </span>
+            </div>
+          </Link>
 
           {product.location && (
             <div className="flex items-center gap-2 text-sm text-muted-foreground hover:text-card-foreground transition-colors">

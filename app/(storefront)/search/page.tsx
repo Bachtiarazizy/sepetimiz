@@ -5,7 +5,6 @@ import SearchInput from "@/components/search/search-input";
 import prisma from "@/lib/db";
 import { Product, Category, Shop } from "@prisma/client";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
 
 interface SearchPageProps {
   searchParams: {

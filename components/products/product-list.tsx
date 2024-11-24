@@ -10,6 +10,7 @@ interface Product {
   location: string | null;
   phone: string | null;
   shop: {
+    id: string; // Ensure this matches the ProductCard structure
     title: string;
     isVerified: boolean;
   };
