@@ -1,32 +1,16 @@
-import { redirect } from "next/navigation";
+// app/(dashboard)/shops/[shopId]/products/page.tsx
+
 import prisma from "@/lib/db";
-import { auth } from "@clerk/nextjs/server";
-import { DataTable } from "../shops/[shopId]/products/_components/data-table";
-import { Product } from "@prisma/client";
-import { columns } from "../shops/[shopId]/products/_components/column";
+import ProductsPage from "./_components/product-page";
 
-// Define the ExtendedProduct type to match your data structure
-interface ExtendedProduct extends Product {
-  category: {
-    title: string;
-  } | null;
-}
-
-interface PageProps {
+interface ProductsPageProps {
   params: {
     shopId: string;
-    productId: string;
   };
 }
 
-const ProductsPage = async ({ params }: PageProps) => {
-  const { userId } = await auth();
-  if (!userId) {
-    return redirect("/");
-  }
-
-  // Include category in the prisma query
-  const products = (await prisma.product.findMany({
+export default async function ProductsPageServer({ params }: ProductsPageProps) {
+  const products = await prisma.product.findMany({
     where: {
       shopId: params.shopId,
     },
@@ -37,24 +21,7 @@ const ProductsPage = async ({ params }: PageProps) => {
         },
       },
     },
-    orderBy: {
-      createdAt: "desc",
-    },
-  })) as ExtendedProduct[];
+  });
 
-  const productColumns = columns({ shopId: params.shopId });
-
-  return (
-    <>
-      <div className="p-6 md:p-12 bg-secondary/50 text-secondary-foreground min-h-[calc(100vh-80px)] md:rounded-tl-3xl">
-        <div className="flex flex-col mb-8 gap-2">
-          <h1 className="text-4xl font-bold">Your Products</h1>
-          <p className="text-muted-foreground">Here is list of all your products</p>
-        </div>
-        <DataTable columns={productColumns} data={products} shopId={params.shopId} />
-      </div>
-    </>
-  );
-};
-
-export default ProductsPage;
+  return <ProductsPage products={products} shopId={params.shopId} />;
+}
