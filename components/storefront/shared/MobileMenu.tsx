@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, ChevronDown } from "lucide-react";
+import { Menu } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
@@ -17,50 +17,53 @@ export default function MobileMenu() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline" size="icon">
-          <Menu className="w-4 h-4" />
+        <Button variant="ghost" size="icon" className="hover:bg-primary/25 transition-colors">
+          <Menu className="w-5 h-5 text-primary" />
         </Button>
       </SheetTrigger>
-      <SheetContent className="flex flex-col justify-between" side="left">
+      <SheetContent className="flex flex-col justify-between bg-background border-r border-primary/20" side="left">
         <div>
-          <ModeToggle />
-          <div className="mt-5 flex space-y-1 flex-col">
+          <div className="flex justify-between items-center">
+            <ModeToggle />
+          </div>
+          <nav className="mt-8 flex flex-col gap-2">
             {NavLinks.map((item) => (
               <Link
                 href={item.href}
                 key={item.id}
                 className={cn(
-                  "relative px-4 py-2 font-medium rounded-lg transition-all duration-300 ease-in-out",
-                  "group hover:text-primary",
-                  "before:absolute before:inset-0 before:rounded-lg before:bg-primary/10 before:scale-x-0 before:opacity-0 before:transition-transform before:duration-300 group-hover:before:scale-x-100 group-hover:before:opacity-100",
-                  pathname === item.href ? "text-primary bg-primary/10 before:scale-x-100 before:opacity-100" : "text-muted-foreground"
+                  "relative px-4 py-3 font-medium rounded-lg transition-all duration-300",
+                  "hover:bg-primary/10 hover:text-primary",
+                  "group flex items-center",
+                  pathname === item.href ? "text-primary bg-primary/15 shadow-sm" : "text-muted-foreground"
                 )}
               >
-                <span className="relative z-10 flex items-center gap-2">
+                <span className="relative flex items-center gap-3">
                   {item.name}
-                  <span className={cn("h-1 w-1 rounded-full bg-primary transition-all duration-300", pathname === item.href ? "opacity-100" : "opacity-0 group-hover:opacity-100")} />
+                  {pathname === item.href && <span className="absolute right-0 w-1 h-1 rounded-full bg-primary animate-pulse" />}
                 </span>
-                <div className={cn("absolute bottom-0 left-0 h-0.5 w-full transform bg-primary transition-transform duration-300 ease-out", pathname === item.href ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100")} />
               </Link>
             ))}
-          </div>
+          </nav>
         </div>
 
-        <div className="flex flex-col mt-4 space-y-2">
+        <div className="flex flex-col gap-4 mb-8">
           <SignedOut>
-            <SignInButton />
+            <SignInButton>
+              <Button className="w-full bg-primary hover:bg-primary/90">Sign In</Button>
+            </SignInButton>
           </SignedOut>
           <SignedIn>
-            <div className="flex flex-row gap-2">
+            <div className="flex items-center gap-4">
               <UserButton
                 appearance={{
                   elements: {
-                    avatarBox: "w-10 h-10",
+                    avatarBox: "w-10 h-10 border-2 border-primary/20",
                   },
                 }}
               />
-              <Link href={`/shops`} className="mr-3">
-                <Button>Dashboard</Button>
+              <Link href="/dashboard/shops" className="flex-1">
+                <Button className="w-full bg-primary hover:bg-primary/90">Dashboard</Button>
               </Link>
             </div>
           </SignedIn>

@@ -1,8 +1,6 @@
 export const NavLinks = [
   { href: "/", id: 0, name: "Home" },
   { href: "/about-us", id: 1, name: "About us" },
-  { href: "/search", id: 2, name: "Find Product" },
-  { href: "/shops", id: 3, name: "Sell Your Product" },
   { href: "/customer-service", id: 4, name: "Customer Service" },
 ];
 
@@ -23,15 +21,6 @@ export const footerLinks = [
       { id: 2, name: "Our Team", href: "/about-us" },
       { id: 3, name: "Our Values", href: "/about-us" },
       { id: 4, name: "Contact Us", href: "/customer-service" },
-    ],
-  },
-  {
-    title: "Our Services",
-    links: [
-      { id: 1, name: "Sell on sepetimiz", href: "Dashboard/sell-product" },
-      { id: 2, name: "Buy Products", href: "/products/all" },
-      { id: 3, name: "Affiliate program", href: "/customer-service" },
-      { id: 4, name: "Advertise your store", href: "/customer-service" },
     ],
   },
   {

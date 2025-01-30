@@ -2,15 +2,17 @@
   "name": "sepetimiz-app",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate",
-    "email": "email dev",
-    "seed": "node prisma/seed.mjs"
+    "email": "email dev"
+  },
+  "type": "module",
+  "prisma": {
+    "seed": "node prisma/seed.js"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.5.0",

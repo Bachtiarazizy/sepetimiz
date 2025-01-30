@@ -8,16 +8,18 @@ import { ModeToggle } from "@/components/provider/ModeToggle";
 
 export default function Navbar() {
   return (
-    <nav className="w-full justify-between flex items-center px-4 md:px-20 mx-auto py-4 sm:py-5 lg:py-5 border-b">
-      <div className="md:col-span-3 pr-8">
+    <nav className="w-full justify-between flex items-center px-4 md:px-20 mx-auto py-4 sm:py-5 lg:py-8 border-b shadow-sm bg-background">
+      <div className="md:col-span-3 pr-20">
         <Link href="/">
-          <div className="text-2xl font-semibold flex flex-row items-center gap-2">
+          <div className="text-2xl font-semibold flex flex-row items-center gap-2 text-primary">
             <ShoppingBag />
             <span className="text-base md:text-xl">Sepetimiz</span>
           </div>
         </Link>
       </div>
-      <NavbarLinks />
+      <div>
+        <NavbarLinks />
+      </div>
 
       <div className="flex items-center gap-x-2 ms-auto md:col-span-3">
         <div className="hidden md:flex">
@@ -27,15 +29,15 @@ export default function Navbar() {
           <div className="hidden md:flex">
             <SignedOut>
               <SignInButton mode="modal">
-                <Button variant="outline">Sign In</Button>
+                <Button variant="secondary">Sign In</Button>
               </SignInButton>
             </SignedOut>
           </div>
 
           <div className="hidden md:flex">
             <SignedIn>
-              <Link href={`/shops`} className="mr-3">
-                <Button>Dashboard</Button>
+              <Link href={`/dashboard/shops`} className="mr-3">
+                <Button variant="outline">Dashboard</Button>
               </Link>
 
               <UserButton
