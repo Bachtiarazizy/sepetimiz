@@ -46,7 +46,7 @@ export function DataTable<TData, TValue>({ columns, data, shopId }: DataTablePro
 
   // Membuat URL dengan memastikan shopId ada
   const createProductUrl = React.useMemo(() => {
-    return shopId ? `/shops/${shopId}/products/create` : "#";
+    return shopId ? `/dashboard/shops/${shopId}/products/create` : "#";
   }, [shopId]);
 
   return (

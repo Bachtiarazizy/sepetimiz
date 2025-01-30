@@ -1,10 +1,10 @@
 import { footerLinks } from "@/constant";
 import Link from "next/link";
-import React from "react";
+import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="w-full border-t rounded-t-xl shadow-md bg-background">
+    <footer className="w-full border-t rounded-t-xl shadow-md bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="mx-auto px-4 pb-8 pt-16 sm:px-6 lg:px-8 lg:pt-20">
         <div className="grid grid-cols-1 gap-x-12 gap-y-12 lg:grid-cols-3">
           {/* Brand Section */}
@@ -21,24 +21,24 @@ const Footer = () => {
             </p>
 
             {/* Social Links */}
-            {/* <ul className="flex justify-center gap-6 sm:justify-start md:gap-8">
-              {[
-                // ... (social links remain the same, just update the colors)
-              ].map((social) => (
-                <li key={social.name}>
-                  <Link href={social.href} rel="noreferrer" target="_blank" className="group transition-transform hover:scale-110 duration-300 block">
-                    <span className="sr-only">{social.name}</span>
-                    <svg className="h-6 w-6 text-primary-foreground/80 transition-colors group-hover:text-primary-foreground" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      {social.icon}
-                    </svg>
-                  </Link>
-                </li>
-              ))}
-            </ul> */}
+            <div className="flex gap-4 mt-2">
+              <Link href="#" className="text-primary/80 hover:text-primary transform hover:scale-110 transition-all duration-300">
+                <Facebook className="w-5 h-5" />
+              </Link>
+              <Link href="#" className="text-primary/80 hover:text-primary transform hover:scale-110 transition-all duration-300">
+                <Instagram className="w-5 h-5" />
+              </Link>
+              <Link href="#" className="text-primary/80 hover:text-primary transform hover:scale-110 transition-all duration-300">
+                <Twitter className="w-5 h-5" />
+              </Link>
+              <Link href="#" className="text-primary/80 hover:text-primary transform hover:scale-110 transition-all duration-300">
+                <Youtube className="w-5 h-5" />
+              </Link>
+            </div>
           </div>
 
           {/* Links Sections */}
-          <div className="grid grid-cols-1 gap-8  md:grid-cols-3 lg:col-span-2">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3 lg:col-span-2">
             {footerLinks.map((section) => (
               <div key={section.title} className="flex flex-col">
                 <h4 className="font-bold text-primary mb-4 text-sm uppercase tracking-wider">{section.title}</h4>

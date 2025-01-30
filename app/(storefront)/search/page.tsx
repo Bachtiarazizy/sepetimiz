@@ -1,90 +1,117 @@
-import React from "react";
-import ProductList from "@/components/products/product-list";
-import Categories from "@/components/search/categories";
-import SearchInput from "@/components/search/search-input";
+// app/search/page.tsx
+import { redirect } from "next/navigation";
 import prisma from "@/lib/db";
-import { Product, Category, Shop } from "@prisma/client";
-import { cn } from "@/lib/utils";
+import ProductCard from "@/components/products/product-card";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 interface SearchPageProps {
   searchParams: {
-    title?: string;
-    categoryId?: string;
+    q?: string;
+    category?: string;
   };
 }
 
-type ProductWithRelations = Product & {
-  category: Category | null;
-  shop: Shop;
-};
+export default async function SearchPage({ searchParams }: SearchPageProps) {
+  const query = searchParams.q?.trim();
+  const category = searchParams.category;
 
-async function getProducts(params: { title?: string; categoryId?: string }): Promise<ProductWithRelations[]> {
-  try {
-    const { title, categoryId } = params;
-    const searchQuery = title?.trim();
-
-    const products = await prisma.product.findMany({
-      where: {
-        isPublished: true,
-        ...(searchQuery && {
-          OR: [{ title: { contains: searchQuery, mode: "insensitive" } }, { description: { contains: searchQuery, mode: "insensitive" } }],
-        }),
-        ...(categoryId && { categoryId }),
-      },
-      include: {
-        category: true,
-        shop: true,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-
-    return products;
-  } catch (error) {
-    console.error("[PRODUCTS_GET]", error);
-    return [];
+  // If no search query or category, redirect to products page
+  if (!query && !category) {
+    redirect("/products");
   }
-}
 
-const SearchPage = async ({ searchParams }: SearchPageProps) => {
-  const [categories, products] = await Promise.all([
-    prisma.category.findMany({
-      orderBy: {
-        title: "asc",
+  const products = await prisma.product.findMany({
+    where: {
+      isPublished: true,
+      shop: {
+        isPublished: true,
       },
-    }),
-    getProducts(searchParams),
-  ]);
+      AND: [
+        // Category filter
+        category
+          ? {
+              category: {
+                title: {
+                  equals: category,
+                  mode: "insensitive",
+                },
+              },
+            }
+          : {},
+        // Search query filter
+        query
+          ? {
+              OR: [
+                {
+                  title: {
+                    contains: query,
+                    mode: "insensitive",
+                  },
+                },
+                {
+                  description: {
+                    contains: query,
+                    mode: "insensitive",
+                  },
+                },
+                {
+                  shop: {
+                    title: {
+                      contains: query,
+                      mode: "insensitive",
+                    },
+                  },
+                },
+              ],
+            }
+          : {},
+      ],
+    },
+    include: {
+      category: {
+        select: {
+          title: true,
+        },
+      },
+      shop: {
+        select: {
+          id: true,
+          title: true,
+          isVerified: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  // Generate appropriate page title and description
+  const pageTitle = category && query ? `${category} - "${query}"` : category ? category : query ? `Search: ${query}` : "Search Results";
+
+  const pageDescription = category && query ? `Search results for "${query}" in ${category.toLowerCase()}` : category ? `Browse our collection of ${category.toLowerCase()} products` : `Search results for "${query}"`;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="py-8 px-4 md:px-6 bg-background">
       <div className="max-w-7xl mx-auto">
-        {/* Search Section */}
-        <div className="px-4 sm:px-6 lg:px-8 pt-6 space-y-4">
-          <div className="backdrop-blur-sm bg-background/80 rounded-lg p-4 shadow-sm">
-            <SearchInput />
-          </div>
-
-          {/* Categories Section */}
-          <div className="bg-background/50 rounded-lg p-2">
-            <Categories items={categories} />
-          </div>
+        <div className="mb-8">
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground">{pageTitle}</h1>
+          <p className="text-muted-foreground mt-2">{pageDescription}</p>
         </div>
 
-        {/* Products Grid Section */}
-        <div className="px-4 sm:px-6 lg:px-8 py-6">
-          <div className={cn("bg-secondary rounded-lg shadow-lg", "min-h-[calc(100vh-12rem)]", "transition-all duration-300 ease-in-out", "overflow-hidden")}>
-            <div className="p-6">
-              <div className="grid gap-6">
-                <ProductList products={products} />
-              </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+          {products.length === 0 && (
+            <div className="col-span-full text-center py-12">
+              <p className="text-muted-foreground">No products found for your search.</p>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
   );
-};
-
-export default SearchPage;
+}

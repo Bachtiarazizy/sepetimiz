@@ -1,11 +1,6 @@
-import Link from "next/link";
 import React from "react";
-import { Button } from "../../ui/button";
 import TypingAnimation from "../magicui/typing-animation";
 import BoxReveal from "../magicui/box-reveal";
-import AnimatedShinyText from "../magicui/animated-shiny-text";
-import { ArrowRightIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
 import RetroGrid from "../magicui/retro-grid";
 
 const Banner = () => {

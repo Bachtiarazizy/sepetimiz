@@ -10,8 +10,9 @@ import { usePathname } from "next/navigation";
 import { NavLinks } from "@/constant";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { ModeToggle } from "@/components/provider/ModeToggle";
+import SearchBars from "@/components/search/search-bars";
 
-export default function MobileMenu() {
+export default function MobileMenu({}) {
   const pathname = usePathname();
 
   return (
@@ -26,6 +27,12 @@ export default function MobileMenu() {
           <div className="flex justify-between items-center">
             <ModeToggle />
           </div>
+
+          {/* Search Bar */}
+          <div className="mt-6">
+            <SearchBars />
+          </div>
+
           <nav className="mt-8 flex flex-col gap-2">
             {NavLinks.map((item) => (
               <Link

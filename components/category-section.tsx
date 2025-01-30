@@ -59,7 +59,7 @@ export default function CategorySection() {
   ];
 
   const handleCategoryClick = (slug: string) => {
-    router.push(`/products?category=${slug}`);
+    router.push(`/search?category=${slug}`);
   };
 
   return (

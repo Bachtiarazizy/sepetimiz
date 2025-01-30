@@ -105,7 +105,7 @@ export const columns = ({ shopId }: ColumnsProps): ColumnDef<ExtendedProduct>[] 
           await axios.delete(`/api/shops/${shopId}/products/${product.id}`);
           toast.success("Product Deleted");
           router.refresh();
-          router.push(`/dashboard/shops/${shopId}/products`);
+          router.push(`/dashboard/products`);
         } catch {
           toast.error("Something went wrong");
         } finally {
@@ -129,7 +129,7 @@ export const columns = ({ shopId }: ColumnsProps): ColumnDef<ExtendedProduct>[] 
                 Copy Product ID
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <Link href={`/dashboard/shops/${shopId}/products/${product.id}`}>
+              <Link href={`/shops/${shopId}/products/${product.id}`}>
                 <DropdownMenuItem>
                   <Eye className="w-4 h-4 mr-2" />
                   View Product

@@ -9,14 +9,13 @@ export default function NavbarLinks() {
   const pathname = usePathname();
 
   return (
-    <nav className="hidden md:flex justify-center items-center col-span-6 gap-3">
+    <nav className="flex items-center gap-8">
       {NavLinks.map((item) => (
-        <Link href={item.href} key={item.id} className={cn("relative px-4 py-2 font-medium rounded-lg transition-all duration-300", "group hover:text-primary", pathname === item.href ? "text-primary" : "text-primary/70")}>
-          <span className="relative z-10 flex items-center gap-2">
+        <Link href={item.href} key={item.id} className={cn("relative px-3 py-1.5 text-sm font-medium transition-colors", "hover:text-primary", pathname === item.href ? "text-primary" : "text-muted-foreground")}>
+          <span className="relative">
             {item.name}
-            {pathname === item.href && <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />}
+            {pathname === item.href && <span className="absolute -bottom-4 left-0 h-0.5 w-full bg-primary" />}
           </span>
-          <div className={cn("absolute inset-0 rounded-lg transition-all duration-300 ease-out", "bg-primary/0 group-hover:bg-primary/20", pathname === item.href ? "bg-primary/20" : "")} />
         </Link>
       ))}
     </nav>

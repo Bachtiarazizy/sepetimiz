@@ -1,7 +1,9 @@
-"use client";
-
+// products/page.tsx
 import prisma from "@/lib/db";
 import ProductCard from "@/components/products/product-card";
+
+export const dynamic = "force-dynamic"; // Add this if you need real-time data
+export const revalidate = 0; // Or set a specific revalidation time in seconds
 
 export default async function ProductsPage({ searchParams }: { searchParams: { category?: string } }) {
   const category = searchParams.category;
@@ -12,7 +14,6 @@ export default async function ProductsPage({ searchParams }: { searchParams: { c
       shop: {
         isPublished: true,
       },
-      // Only apply category filter if category is provided
       ...(category && {
         category: {
           title: {
