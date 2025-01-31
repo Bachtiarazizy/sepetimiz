@@ -1,18 +1,18 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { Laptop, ShoppingBag, Briefcase, DollarSign, Utensils, HeartHandshake, MoreHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function CategorySection() {
   const router = useRouter();
+
   const categories = [
     {
       name: "Electronics",
       icon: Laptop,
       description: "Gadgets & Tech",
-      color: "bg-blue-500/10",
+      color: "from-blue-500/20",
       iconColor: "text-blue-500",
       slug: "electronics",
     },
@@ -20,7 +20,7 @@ export default function CategorySection() {
       name: "Fashions",
       icon: ShoppingBag,
       description: "Clothing & Accessories",
-      color: "bg-pink-500/10",
+      color: "from-pink-500/20",
       iconColor: "text-pink-500",
       slug: "fashions",
     },
@@ -28,7 +28,7 @@ export default function CategorySection() {
       name: "Baggages",
       icon: Briefcase,
       description: "Bags & Luggage",
-      color: "bg-purple-500/10",
+      color: "from-purple-500/20",
       iconColor: "text-purple-500",
       slug: "baggages",
     },
@@ -36,7 +36,7 @@ export default function CategorySection() {
       name: "Exchanges",
       icon: DollarSign,
       description: "Currency Exchange",
-      color: "bg-green-500/10",
+      color: "from-green-500/20",
       iconColor: "text-green-500",
       slug: "exchanges",
     },
@@ -44,7 +44,7 @@ export default function CategorySection() {
       name: "Foods",
       icon: Utensils,
       description: "Indonesian Cuisine",
-      color: "bg-red-500/10",
+      color: "from-red-500/20",
       iconColor: "text-red-500",
       slug: "foods",
     },
@@ -52,7 +52,7 @@ export default function CategorySection() {
       name: "Services",
       icon: HeartHandshake,
       description: "Student Services",
-      color: "bg-amber-500/10",
+      color: "from-amber-500/20",
       iconColor: "text-amber-500",
       slug: "others",
     },
@@ -71,13 +71,16 @@ export default function CategorySection() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {categories.map((category) => {
+          {categories.map((category, index) => {
             const Icon = category.icon;
             return (
               <button
                 key={category.slug}
                 onClick={() => handleCategoryClick(category.slug)}
-                className={`group relative flex flex-col items-center justify-center p-6 rounded-xl ${category.color} transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer`}
+                className={`group relative flex flex-col items-center justify-center p-6 rounded-xl
+                  bg-gradient-to-br ${category.color} to-transparent
+                  backdrop-blur-sm backdrop-saturate-150 border border-white/10
+                  shadow-lg cursor-pointer`}
               >
                 <div className={`mb-3 ${category.iconColor}`}>
                   <Icon className="w-8 h-8 md:w-10 md:h-10" />

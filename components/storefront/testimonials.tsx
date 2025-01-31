@@ -32,8 +32,9 @@ export default function Testimonials() {
   ];
 
   return (
-    <section className="py-12 sm:py-16 bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+    <section className="py-12 sm:py-16 relative overflow-hidden">
+      <div className="absolute inset-0 bg-background/80 backdrop-blur-[2px]" />
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 z-10">
         <div className="text-center mb-10">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">Student Success Stories</h2>
           <p className="text-muted-foreground text-sm sm:text-base">Hear from our community of student entrepreneurs</p>
@@ -41,10 +42,14 @@ export default function Testimonials() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {testimonials.map((testimonial, index) => (
-            <Card key={index} className="bg-background">
+            <Card
+              key={index}
+              className="bg-background/40 backdrop-blur-sm backdrop-saturate-150 border border-white/10
+                  shadow-lg cursor-pointer transition-all duration-300"
+            >
               <CardContent className="p-6">
                 <div className="flex items-center gap-2 mb-4">
-                  <img src={testimonial.image} alt={testimonial.name} className="w-12 h-12 rounded-full" />
+                  <img src={testimonial.image} alt={testimonial.name} className="w-12 h-12 rounded-full ring-2 ring-primary/10" />
                   <div>
                     <h3 className="font-semibold text-foreground">{testimonial.name}</h3>
                     <p className="text-sm text-muted-foreground">{testimonial.role}</p>
@@ -56,7 +61,7 @@ export default function Testimonials() {
                   ))}
                 </div>
                 <p className="text-muted-foreground text-sm">{testimonial.quote}</p>
-                <Badge variant="secondary" className="mt-4">
+                <Badge variant="secondary" className="mt-4 bg-secondary/50 backdrop-blur-sm">
                   {testimonial.university}
                 </Badge>
               </CardContent>

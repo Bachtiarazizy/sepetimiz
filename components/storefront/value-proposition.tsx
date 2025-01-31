@@ -1,6 +1,5 @@
 import { CreditCard, Shield, Users } from "lucide-react";
-import React from "react";
-import { Card, CardContent } from "../ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function ValueProposition() {
   const features = [
@@ -22,8 +21,9 @@ export default function ValueProposition() {
   ];
 
   return (
-    <section className="py-12 sm:py-16 bg-accent/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+    <section className="py-12 sm:py-16 relative overflow-hidden">
+      <div className="absolute inset-0 bg-accent/10 backdrop-blur-[2px]" />
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 z-10">
         <div className="text-center mb-10">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">Why Choose StudentMarket</h2>
           <p className="text-muted-foreground text-sm sm:text-base">The trusted marketplace for student entrepreneurs</p>
@@ -31,13 +31,18 @@ export default function ValueProposition() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {features.map((feature, index) => (
-            <Card key={index} className="bg-background">
-              <CardContent className="p-6 text-center">
-                <div className="mb-4 inline-flex p-3 bg-primary/10 rounded-lg text-primary">{feature.icon}</div>
-                <h3 className="font-semibold text-lg mb-2">{feature.title}</h3>
-                <p className="text-muted-foreground text-sm">{feature.description}</p>
-              </CardContent>
-            </Card>
+            <div key={index}>
+              <Card
+                className="bg-background/60 backdrop-blur-sm backdrop-saturate-150 border border-white/10
+                  shadow-lg cursor-pointer transition-all duration-300"
+              >
+                <CardContent className="p-6 text-center">
+                  <div className="mb-4 inline-flex p-3 bg-primary/5 backdrop-blur-sm rounded-lg text-primary">{feature.icon}</div>
+                  <h3 className="font-semibold text-lg mb-2">{feature.title}</h3>
+                  <p className="text-muted-foreground text-sm">{feature.description}</p>
+                </CardContent>
+              </Card>
+            </div>
           ))}
         </div>
       </div>

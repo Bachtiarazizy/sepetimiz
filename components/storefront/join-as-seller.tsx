@@ -5,7 +5,10 @@ import { Button } from "../ui/button";
 
 export default function JoinAsSeller() {
   return (
-    <section className="py-12 sm:py-16 bg-primary text-primary-foreground dark:bg-black dark:text-primary">
+    <section
+      className="py-12 sm:py-16 bg-primary text-primary-foreground backdrop-blur-sm backdrop-saturate-150 border border-white/10
+                  shadow-lg cursor-pointer dark:bg-black dark:text-primary"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div>
