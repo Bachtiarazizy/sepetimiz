@@ -66,7 +66,9 @@ export default async function Navbar() {
 
               {/* Center - Search Bar */}
               <div className="flex-1 flex justify-center">
-                <div className="w-full max-w-xl hidden sm:block">{/* <SearchBar categories={categories} /> */}</div>
+                <div className="w-full max-w-xl hidden sm:block">
+                  <SearchBar categories={categories} />
+                </div>
               </div>
 
               {/* Right - Auth & Controls */}

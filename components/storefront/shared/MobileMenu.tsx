@@ -29,9 +29,9 @@ export default function MobileMenu({}) {
           </div>
 
           {/* Search Bar */}
-          <div className="mt-6">
+          {/* <div className="mt-6">
             <SearchBars />
-          </div>
+          </div> */}
 
           <nav className="mt-8 flex flex-col gap-2">
             {NavLinks.map((item) => (
