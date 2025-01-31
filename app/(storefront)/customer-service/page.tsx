@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { MessageCircle, Mail, ChevronDown, Users, ShoppingCart, Store, HelpCircle, Shield, BookOpen } from "lucide-react";
+import React, { Suspense, useState } from "react";
+import { MessageCircle, Mail, ChevronDown, Users, ShoppingCart, Store, HelpCircle, Shield, CreditCard, Clock, BookOpen } from "lucide-react";
 
 interface FAQItem {
   q: string;
@@ -37,10 +37,112 @@ const FAQSection: React.FC = () => {
           q: "Who can join Sepetimiz?",
           a: "Sepetimiz is designed for Indonesian students living in Turkey. Whether you're looking to sell or buy, you're welcome to join our community!",
         },
-        // ... rest of the general questions
+        {
+          q: "Does Sepetimiz offer customer protection?",
+          a: "While Sepetimiz does not facilitate transactions, we strive to ensure a safe environment by verifying all sellers and encouraging transparent communication between buyers and sellers.",
+        },
+        {
+          q: "Are there any fees to use Sepetimiz?",
+          a: "No, joining Sepetimiz and listing your products or services is free!",
+        },
+        {
+          q: "How do I report an issue?",
+          a: "You can report issues through our support email or by using the 'Report' button on any listing. Our team typically responds within 24 hours.",
+        },
+        {
+          q: "Is Sepetimiz available in other countries?",
+          a: "Currently, Sepetimiz operates exclusively in Turkey, focusing on serving the Indonesian student community here.",
+        },
       ],
     },
-    // ... rest of the categories with their questions
+    buyers: {
+      icon: <ShoppingCart className="w-5 h-5" />,
+      title: "For Buyers",
+      description: "Information about purchasing and interacting with sellers",
+      questions: [
+        {
+          q: "How can I browse products and services?",
+          a: "You can explore products and services by visiting the 'Explore' section on our website. Use the search bar or browse by categories to find what you're looking for.",
+        },
+        {
+          q: "How do I contact a seller?",
+          a: "Each product or service listing includes a 'Chat with Seller' option. Click on it to start a direct conversation with the seller for more details or to discuss your requirements.",
+        },
+        {
+          q: "Is payment handled on Sepetimiz?",
+          a: "Currently, Sepetimiz does not facilitate direct transactions. Buyers and sellers are encouraged to discuss payment terms directly. Make sure to confirm details before making payments outside the platform.",
+        },
+        {
+          q: "Can I leave reviews for sellers?",
+          a: "Yes, after completing a transaction, you can rate and review your experience with the seller. This helps maintain quality and trust in our community.",
+        },
+        {
+          q: "What should I do if I'm unsatisfied with a purchase?",
+          a: "First, communicate with the seller directly to resolve the issue. If needed, contact our support team for mediation assistance.",
+        },
+      ],
+    },
+    sellers: {
+      icon: <Store className="w-5 h-5" />,
+      title: "For Sellers",
+      description: "Guidance for setting up and managing your shop",
+      questions: [
+        {
+          q: "How can I become a seller?",
+          a: "To join as a seller, sign up on our platform, complete your profile, and submit the required documents for verification. Once approved, you can start listing your products or services.",
+        },
+        {
+          q: "What is the seller verification process?",
+          a: "We verify all sellers to ensure they are legitimate Indonesian students in Turkey. You will need to provide proof of student status and valid identification.",
+        },
+        {
+          q: "How do I list my products or services?",
+          a: "After your account is verified, log in, go to the 'My Listings' section, and click 'Add New Listing.' Fill in the details about your product or service, upload high-quality images, and publish your listing.",
+        },
+        {
+          q: "How can I promote my listings?",
+          a: "You can share your listings on social media, participate in our featured sellers program, and maintain good ratings to increase visibility.",
+        },
+        {
+          q: "What are the best practices for successful selling?",
+          a: "Use high-quality photos, provide detailed descriptions, respond promptly to inquiries, and maintain transparent communication with buyers.",
+        },
+      ],
+    },
+    safety: {
+      icon: <Shield className="w-5 h-5" />,
+      title: "Safety & Security",
+      description: "Important information about platform safety and security",
+      questions: [
+        {
+          q: "How does Sepetimiz verify users?",
+          a: "We verify all users through their student ID and government-issued identification. For sellers, we also verify their enrollment status.",
+        },
+        {
+          q: "What safety measures are in place?",
+          a: "We implement user verification, secure messaging, rating systems, and community guidelines to ensure a safe environment.",
+        },
+        {
+          q: "How can I maintain account security?",
+          a: "Use a strong password, enable two-factor authentication, and never share your login credentials with others.",
+        },
+      ],
+    },
+    // payments: {
+    //   icon: <CreditCard className="w-5 h-5" />,
+    //   title: "Payments & Pricing",
+    //   description: "Details about payment processes and pricing guidelines",
+    //   questions: [
+    //     {
+    //       q: "What payment methods are recommended?",
+    //       a: "While we don't process payments, we recommend secure payment methods like bank transfers or in-person cash payments.",
+    //     },
+    //     {
+    //       q: "How should I price my items?",
+    //       a: "Research similar items, consider your costs, and set competitive prices. Be transparent about any additional fees.",
+    //     },
+    //   ],
+    // },
   };
 
   const toggleQuestion = (categoryId: string, index: number): void => {

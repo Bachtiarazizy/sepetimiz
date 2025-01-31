@@ -2,39 +2,28 @@ import prisma from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
+// File: /app/api/shops/[shopId]/products/[productId]/unpublish/route.ts
 export async function PATCH(req: Request, { params }: { params: { shopId: string; productId: string } }) {
   try {
     const { userId } = await auth();
 
-    // Cek apakah user sudah login
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    // Cek apakah shop terkait dengan user
-    const shop = await prisma.shop.findUnique({
+    const product = await prisma.product.update({
       where: {
-        id: params.shopId,
-        userId,
-      },
-    });
-
-    if (!shop) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
-
-    const unpublishedShop = await prisma.shop.update({
-      where: {
-        id: params.shopId,
+        id: params.productId,
+        shopId: params.shopId,
       },
       data: {
         isPublished: false,
       },
     });
 
-    return NextResponse.json(unpublishedShop);
+    return NextResponse.json(product);
   } catch (error) {
-    console.error("[SHOP_UNPUBLISH]", error);
+    console.error("[PRODUCT_UNPUBLISH]", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }

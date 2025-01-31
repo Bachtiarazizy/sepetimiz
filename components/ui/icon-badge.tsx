@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 const backgroundVariants = cva("inline-flex items-center justify-center rounded-full ", {
   variants: {
     variant: {
-      default: "bg-primary ",
+      default: "bg-secondary",
       success: "bg-success ",
       destructive: "bg-destructive",
     },

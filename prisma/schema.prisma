@@ -42,6 +42,7 @@ model VerificationData {
   photoWithDocument String?
   photoUrl        String?
   studentDocument String?
+  studentDocumentOriginalName String?
   phoneNumber     String?
   status          VerificationStatus @default(PENDING)
   isPublished     Boolean  @default(false)
@@ -50,6 +51,7 @@ model VerificationData {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }
+
 model Shop {
   id            String             @id @default(uuid())
   title          String

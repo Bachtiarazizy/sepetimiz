@@ -12,11 +12,10 @@ export const Sidebar = () => {
   return (
     <div className="h-full border-r flex flex-col overflow-y-auto bg-background shadow-sm">
       <div className="p-6">
-        <Link href="/" className="flex items-center w-full transition-all hover:opacity-70 py-1">
-          <div className="text-2xl font-semibold flex flex-row items-center gap-2">
-            <ShoppingBag />
-            <span className="text-base md:text-xl">Sepetimiz</span>
-          </div>
+        <Link href="https://sepetimiz.vercel.app" className="flex items-center space-x-2">
+          <ShoppingBag className="h-6 w-6 text-primary" />
+          <span className="font-bold text-xl">Sepetimiz</span>
+          <span className="ml-2 text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded-full">Beta</span>
         </Link>
       </div>
       <div className="flex flex-col w-full">

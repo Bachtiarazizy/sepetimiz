@@ -1,6 +1,5 @@
 import { auth } from "@clerk/nextjs/server";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
-import { UploadThingError } from "uploadthing/server";
 
 const f = createUploadthing();
 
@@ -14,13 +13,6 @@ export const ourFileRouter = {
   Image: f({ image: { maxFileSize: "4MB", maxFileCount: 1 } })
     .middleware(() => handleAuth())
     .onUploadComplete(() => {}),
-  Attachment: f(["text", "image", "video", "audio", "pdf"])
-    .middleware(() => handleAuth())
-    .onUploadComplete(() => {}),
-  Video: f({ video: { maxFileSize: "8GB", maxFileCount: 1 } })
-    .middleware(() => handleAuth())
-    .onUploadComplete(() => {}),
-
   imageUploader: f({ image: { maxFileSize: "4MB", maxFileCount: 5 } })
     .middleware(() => handleAuth())
     .onUploadComplete(async ({ metadata, file }) => {
@@ -29,6 +21,14 @@ export const ourFileRouter = {
       // - Optimize file size
       // - Generate thumbnails if needed
       return { uploadedBy: metadata.userId };
+    }),
+  studentDocument: f({ pdf: { maxFileSize: "8MB", maxFileCount: 1 } })
+    .middleware(() => handleAuth())
+    .onUploadComplete(async ({ metadata, file }) => {
+      return {
+        uploadedBy: metadata.userId,
+        filename: file.name,
+      };
     }),
 } satisfies FileRouter;
 

@@ -62,7 +62,6 @@
 /* Add this to your global.css */
 
 .PhoneInput {
-  /* General layout */
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -76,7 +75,6 @@
 }
 
 .PhoneInputCountrySelect {
-  /* Reset button styles */
   position: absolute;
   top: 0;
   left: 0;
@@ -94,7 +92,6 @@
 }
 
 .PhoneInputInput {
-  /* Match your theme's input styling */
   flex: 1;
   border: none;
   background: none;
@@ -109,7 +106,6 @@
   color: hsl(var(--muted-foreground));
 }
 
-/* Dark mode support */
 :root[class~="dark"] .PhoneInputInput {
   color: hsl(var(--foreground));
 }
@@ -118,7 +114,6 @@
   opacity: 0.8;
 }
 
-/* Focus states */
 .PhoneInput--focus {
   outline: none;
   ring: 2px;
@@ -126,12 +121,10 @@
   ring-color: hsl(var(--ring));
 }
 
-/* Error states - add this class when form has errors */
 .PhoneInput--error {
   border-color: hsl(var(--destructive));
 }
 
-/* Disabled states */
 .PhoneInput--disabled {
   opacity: 0.5;
   cursor: not-allowed;

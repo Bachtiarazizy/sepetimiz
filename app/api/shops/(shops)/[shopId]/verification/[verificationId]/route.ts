@@ -2,7 +2,6 @@ import prisma from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
-// DELETE a product
 export async function DELETE(req: Request, { params }: { params: { verificationId: string } }) {
   try {
     const { userId } = await auth();
@@ -38,7 +37,6 @@ export async function DELETE(req: Request, { params }: { params: { verificationI
   }
 }
 
-// PATCH (Update) a product
 export async function PATCH(req: Request, { params }: { params: { verificationId: string } }) {
   try {
     const { userId } = await auth();
@@ -48,25 +46,11 @@ export async function PATCH(req: Request, { params }: { params: { verificationId
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const verification = await prisma.verificationData.findFirst({
-      where: {
-        id: params.verificationId,
-        shop: {
-          userId: userId,
-        },
-      },
-    });
-
-    if (!verification) {
-      return new NextResponse("Unauthorized or verification not found", { status: 401 });
-    }
-
     const updatedVerification = await prisma.verificationData.update({
-      where: {
-        id: params.verificationId,
-      },
+      where: { id: params.verificationId },
       data: {
-        ...values,
+        studentDocument: values.studentDocument,
+        studentDocumentOriginalName: values.studentDocumentOriginalName,
         updatedAt: new Date(),
       },
     });
@@ -77,7 +61,3 @@ export async function PATCH(req: Request, { params }: { params: { verificationId
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
-
-// CREATE a verification
-
-// GET a single verification

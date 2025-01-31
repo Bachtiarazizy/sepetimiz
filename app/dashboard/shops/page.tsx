@@ -71,7 +71,7 @@ const MyShopsPage = async () => {
   const StatusIcon = verificationStatus.icon;
 
   return (
-    <div className="min-h-[calc(100vh-80px)] bg-secondary/50 p-6 md:p-12 md:rounded-tl-3xl">
+    <div className="min-h-[calc(100vh-80px)] bg-secondary/50 p-6 md:p-12">
       <div className="max-w-6xl mx-auto space-y-8">
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div>
@@ -102,7 +102,7 @@ const MyShopsPage = async () => {
             )}
 
             {/* Edit Button */}
-            <Link href={`/dashboard/shops/${shop.id}/edit`} className="absolute top-4 right-4 p-2 bg-background/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10 hover:bg-background">
+            <Link href={`/dashboard/shops/${shop.id}/edit`} className="absolute top-4 right-4 p-2 bg-background/80 rounded-full transition-opacity z-10 hover:bg-background">
               <Pencil className="w-4 h-4" />
             </Link>
           </div>

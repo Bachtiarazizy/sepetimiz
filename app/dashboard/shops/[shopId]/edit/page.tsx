@@ -50,7 +50,7 @@ export default async function Page({ params }: { params: { shopId: string } }) {
     if (!shop.isPublished) {
       if (!hasVerificationData) {
         return (
-          <div className="bg-yellow-100 p-4 border-l-4 border-yellow-500">
+          <div className="bg-yellow-100 p-4 border-l-4 border-blue-500">
             <div className="flex items-center">
               <div className="flex-1 text-sm text-yellow-700">
                 <p>

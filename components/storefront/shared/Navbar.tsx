@@ -15,8 +15,6 @@ export default async function Navbar() {
     <>
       {/* Top Bar - Not Sticky */}
       <div className="hidden sm:block w-full bg-primary/5">
-        {" "}
-        {/* Hide on mobile */}
         <div className="max-w-screen-xl mx-auto">
           <div className="flex h-10 items-center justify-between px-4 sm:px-6 text-sm">
             {/* Contact Information */}
@@ -57,18 +55,20 @@ export default async function Navbar() {
           <nav>
             <div className="flex h-16 items-center px-4 sm:px-6">
               {/* Left - Logo */}
-              <div className="w-40">
+              <div className="flex-shrink-0 w-auto">
+                {" "}
                 <Link href="/" className="flex items-center space-x-2">
                   <ShoppingBag className="h-6 w-6 text-primary" />
                   <span className="font-bold text-xl">Sepetimiz</span>
+                  <span className="ml-2 text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded-full">Beta</span>
                 </Link>
               </div>
 
-              {/* Center - Search Bar */}
-              <div className="flex-1 flex justify-center">
-                <div className="w-full max-w-xl hidden sm:block">{/* <SearchBar categories={categories} /> */}</div>
+              <div className="flex-1 flex justify-center items-center ">
+                <div className="w-full max-w-xl hidden sm:block">
+                  <NavbarLinks />
+                </div>
               </div>
-
               {/* Right - Auth & Controls */}
               <div className="w-40 flex items-center justify-end gap-4">
                 <div className="hidden sm:flex items-center gap-4">
@@ -105,15 +105,6 @@ export default async function Navbar() {
               </div>
             </div>
           </nav>
-        </div>
-      </div>
-
-      {/* Navigation Links Section - Not Sticky */}
-      <div className="bg-background border-b">
-        <div className="max-w-screen-xl mx-auto">
-          <div className="hidden lg:flex h-12 items-center justify-center px-4 sm:px-6">
-            <NavbarLinks />
-          </div>
         </div>
       </div>
     </>

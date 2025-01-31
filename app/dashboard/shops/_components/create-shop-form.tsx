@@ -38,7 +38,7 @@ export default function CreateShopForm({ userId }: CreateShopFormProps) {
         ...values,
         userId,
       });
-      router.push(`/shops/${response.data.id}/edit`);
+      router.push(`/dashboard/shops/${response.data.id}/edit`);
       toast.success("Shop created");
     } catch {
       toast.error("Something went wrong");

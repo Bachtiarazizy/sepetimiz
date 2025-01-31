@@ -9,7 +9,7 @@ export default function NavbarLinks() {
   const pathname = usePathname();
 
   return (
-    <nav className="flex items-center gap-8">
+    <nav className="flex items-center justify-center gap-8">
       {NavLinks.map((item) => (
         <Link href={item.href} key={item.id} className={cn("relative px-3 py-1.5 text-sm font-medium transition-colors", "hover:text-primary", pathname === item.href ? "text-primary" : "text-muted-foreground")}>
           <span className="relative">

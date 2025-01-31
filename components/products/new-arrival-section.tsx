@@ -52,8 +52,10 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
           >
             <CarouselContent>
               {products.map((product) => (
-                <CarouselItem key={product.id} className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 pl-4 first:pl-0">
-                  <ProductCard product={product} />
+                <CarouselItem key={product.id} className="basis-1/2 sm:basis-1/2 md:basis-1/3 lg:basis-1/4 pl-4 first:pl-0">
+                  <div className="h-full">
+                    <ProductCard product={product} />
+                  </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
@@ -64,7 +66,7 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
           </Carousel>
         </div>
 
-        <Link href="/products" className="sm:hidden block mt-6">
+        <Link href="/shops" className="sm:hidden block mt-6">
           <Button className="w-full">View All Products</Button>
         </Link>
       </div>

@@ -1,47 +1,46 @@
-import React from "react";
-import { Users, ShieldCheck, MessageCircle, Package, Target } from "lucide-react";
+import React, { Suspense } from "react";
+import { Users, ShieldCheck, MessageCircle, Package, Target, Heart } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
-// Values and features arrays can stay at the component level since they're static
-const values = [
-  {
-    title: "Community",
-    icon: <Users className="h-8 w-8 mb-4" />,
-    description: "We foster a collaborative ecosystem where Indonesian students in Turkey unite, support each other's growth, and build thriving businesses together.",
-  },
-  {
-    title: "Trust",
-    icon: <ShieldCheck className="h-8 w-8 mb-4" />,
-    description: "Our comprehensive verification system and transparent communication channels establish a foundation of trust and reliability.",
-  },
-  {
-    title: "Empowerment",
-    icon: <Target className="h-8 w-8 mb-4" />,
-    description: "We equip Indonesian students with essential resources, mentorship, and community support to excel in their entrepreneurial endeavors.",
-  },
-  {
-    title: "Innovation",
-    icon: <Package className="h-8 w-8 mb-4" />,
-    description: "Through continuous platform enhancement and market analysis, we create new opportunities for Indonesian students to succeed in Turkey.",
-  },
-];
+const AboutUs = () => {
+  const values = [
+    {
+      title: "Community",
+      icon: <Users className="h-8 w-8 mb-4" />,
+      description: "We foster a collaborative ecosystem where Indonesian students in Turkey unite, support each other's growth, and build thriving businesses together.",
+    },
+    {
+      title: "Trust",
+      icon: <ShieldCheck className="h-8 w-8 mb-4" />,
+      description: "Our comprehensive verification system and transparent communication channels establish a foundation of trust and reliability.",
+    },
+    {
+      title: "Empowerment",
+      icon: <Target className="h-8 w-8 mb-4" />,
+      description: "We equip Indonesian students with essential resources, mentorship, and community support to excel in their entrepreneurial endeavors.",
+    },
+    {
+      title: "Innovation",
+      icon: <Package className="h-8 w-8 mb-4" />,
+      description: "Through continuous platform enhancement and market analysis, we create new opportunities for Indonesian students to succeed in Turkey.",
+    },
+  ];
 
-const features = [
-  {
-    title: "Verified Excellence",
-    description: "Every seller undergoes thorough verification, ensuring authenticity and maintaining the highest standards of service quality.",
-  },
-  {
-    title: "Seamless Communication",
-    description: "Our integrated messaging system enables real-time collaboration between sellers and buyers for personalized solutions.",
-  },
-  {
-    title: "Curated Marketplace",
-    description: "Discover an expertly curated selection of authentic Indonesian products, services, and creative works from talented student entrepreneurs.",
-  },
-];
+  const features = [
+    {
+      title: "Verified Excellence",
+      description: "Every seller undergoes thorough verification, ensuring authenticity and maintaining the highest standards of service quality.",
+    },
+    {
+      title: "Seamless Communication",
+      description: "Our integrated messaging system enables real-time collaboration between sellers and buyers for personalized solutions.",
+    },
+    {
+      title: "Curated Marketplace",
+      description: "Discover an expertly curated selection of authentic Indonesian products, services, and creative works from talented student entrepreneurs.",
+    },
+  ];
 
-export default function AboutUs() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -54,8 +53,8 @@ export default function AboutUs() {
           }}
         />
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <h1 className="text-7xl font-bold mb-6 text-secondary">Sepetimiz</h1>
-          <p className="text-2xl mb-8 text-secondary/90">Empowering Indonesian Student Entrepreneurs in Turkey</p>
+          <h1 className="text-7xl font-bold mb-6 text-secondary dark:text-primary">Sepetimiz</h1>
+          <p className="text-2xl mb-8 text-secondary/90 dark:text-primary">Empowering Indonesian Student Entrepreneurs in Turkey</p>
           <button className="bg-primary text-primary-foreground px-8 py-4 rounded-md font-semibold hover:bg-primary/90 transition-all">Join Our Community</button>
         </div>
       </section>
@@ -85,14 +84,14 @@ export default function AboutUs() {
           }}
         />
         <div className="relative z-10 max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-16 text-center text-secondary">Our Core Values</h2>
+          <h2 className="text-4xl font-bold mb-16 text-center text-secondary dark:text-primary">Our Core Values</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => (
-              <Card key={index} className="backdrop-blur-lg bg-card/5 border-border hover:bg-card/10 transition-all duration-300">
-                <CardContent className="p-6">
-                  <div className="flex justify-center text-secondary">{value.icon}</div>
-                  <h3 className="text-xl font-semibold mb-4 text-secondary">{value.title}</h3>
-                  <p className="text-secondary/80">{value.description}</p>
+              <Card key={index} className="backdrop-blur-lg bg-card/5 border-border dark:border-primary hover:bg-card/10 transition-all duration-300">
+                <CardContent className="p-6 text-center">
+                  <div className="flex justify-center text-secondary dark:text-primary">{value.icon}</div>
+                  <h3 className="text-xl font-semibold mb-4 text-secondary dark:text-primary">{value.title}</h3>
+                  <p className="text-secondary/80 dark:text-primary">{value.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -127,10 +126,10 @@ export default function AboutUs() {
           }}
         />
         <div className="relative z-10 max-w-4xl mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-12 text-center text-secondary">Our Journey</h2>
+          <h2 className="text-4xl font-bold mb-12 text-center text-secondary dark:text-primary">Our Journey</h2>
           <Card className="backdrop-blur-lg bg-card/5 border-border">
             <CardContent className="p-8">
-              <p className="text-xl text-secondary leading-relaxed">
+              <p className="text-xl text-secondary leading-relaxed dark:text-primary">
                 Born from the collective vision of Indonesian students in Turkey, Sepetimiz emerged as a solution to the unique challenges faced by student entrepreneurs. What began as a small initiative has evolved into a thriving
                 marketplace, connecting talented individuals with opportunities across Turkey. Our platform represents the culmination of dedication, innovation, and community spirit.
               </p>
@@ -152,4 +151,6 @@ export default function AboutUs() {
       </section>
     </div>
   );
-}
+};
+
+export default AboutUs;

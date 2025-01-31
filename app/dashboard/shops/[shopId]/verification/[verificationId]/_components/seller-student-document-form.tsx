@@ -1,21 +1,19 @@
 "use client";
-
 import * as z from "zod";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
-import { File, ImageIcon, Loader2, Pencil, PlusCircle, X } from "lucide-react";
+import { File, Loader2, Pencil, PlusCircle } from "lucide-react";
 import { useState } from "react";
 import { FileUpload } from "@/components/ui/file-upload";
-import Image from "next/image";
 
 interface StudentDocumentFormProps {
   initialData: {
-    studentDocument: string;
+    studentDocument?: string;
+    studentDocumentOriginalName?: string;
   };
   shopId: string;
   verificationId: string;
@@ -23,20 +21,21 @@ interface StudentDocumentFormProps {
 
 const formSchema = z.object({
   studentDocument: z.string().min(1, {
-    message: "Image is required",
+    message: "Document is required",
   }),
+  studentDocumentOriginalName: z.string().optional(),
 });
 
 export default function StudentDocumentForm({ initialData, shopId, verificationId }: StudentDocumentFormProps) {
   const [isEditing, setIsEditing] = useState(false);
   const toggleEdit = () => setIsEditing((current) => !current);
-  const [deleteingId, setDeleteingId] = useState<string | null>(null);
 
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       studentDocument: initialData?.studentDocument || "",
+      studentDocumentOriginalName: initialData?.studentDocumentOriginalName || "",
     },
   });
 
@@ -62,38 +61,39 @@ export default function StudentDocumentForm({ initialData, shopId, verificationI
           {!isEditing && !initialData?.studentDocument && (
             <>
               <PlusCircle className="h-4 w-4 mr-2" />
-              Add File
+              Add Document
             </>
           )}
           {!isEditing && initialData?.studentDocument && (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Edit File
+              Edit Document
             </>
           )}
         </Button>
       </div>
-      {!isEditing &&
-        (!initialData.studentDocument ? (
-          <div className="flex items-center justify-center h-60 bg-slate-200 dark:bg-slate-900 rounded-md">
-            <ImageIcon className="h-10 w-10 text-slate-500" />
-          </div>
-        ) : (
-          <div className="relative aspect-video mt-2">
-            <Image alt="Upload" fill src={initialData.studentDocument} className="object-cover rounded-md" />
-          </div>
-        ))}
+      {!isEditing && initialData.studentDocument && (
+        <div className="flex items-center p-3 w-full bg-slate-200 dark:bg-slate-900 rounded-md">
+          <File className="h-6 w-6 text-blue-500 mr-2" />
+          <a href={initialData.studentDocument} target="_blank" rel="noopener noreferrer" className="text-sm">
+            {initialData.studentDocumentOriginalName || "Student Document"}
+          </a>
+        </div>
+      )}
       {isEditing && (
         <div>
           <FileUpload
-            endpoint="Image"
-            onChange={(url) => {
+            endpoint="studentDocument"
+            onChange={(url, originalName) => {
               if (url) {
-                onSubmit({ studentDocument: url });
+                onSubmit({
+                  studentDocument: url,
+                  studentDocumentOriginalName: originalName,
+                });
               }
             }}
           />
-          <div className="text-xs text-muted-foreground mt-4">add anything that proves your student status</div>
+          <div className="text-xs text-muted-foreground mt-4">Upload a document that proves your student status</div>
         </div>
       )}
     </div>
