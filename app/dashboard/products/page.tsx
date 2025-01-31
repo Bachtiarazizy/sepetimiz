@@ -1,3 +1,6 @@
+// Add this export statement at the top of the file to force dynamic rendering
+export const dynamic = "force-dynamic";
+
 import prisma from "@/lib/db";
 import ProductsPage from "./_components/product-page";
 import { Heading } from "@/components/ui/heading";
@@ -25,7 +28,7 @@ export default async function ProductsPageServer() {
     const { userId } = await auth();
 
     if (!userId) {
-      return redirect("/");
+      redirect("/");
     }
 
     // First find the shop associated with the current user
