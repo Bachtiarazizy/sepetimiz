@@ -162,28 +162,28 @@ const FAQSection: React.FC = () => {
 
           {/* Contact Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-            <div className="p-6 bg-card rounded-lg border border-border transition-all duration-300 hover:shadow-lg">
+            <div className="p-6 bg-card rounded-lg border border-border transition-all duration-300 hover:shadow-lg dark:bg-gradient-to-tr dark:from-slate-500/20 dark:border-white/10 dark:bg-transparent">
               <Mail className="w-8 h-8 text-primary mx-auto mb-4" />
               <h3 className="font-semibold text-lg mb-2 text-card-foreground">Email Support</h3>
               <p className="text-muted-foreground">support@sepetimiz.com</p>
               <p className="text-sm text-muted-foreground mt-2">24/7 Support</p>
             </div>
 
-            <div className="p-6 bg-card rounded-lg border border-border transition-all duration-300 hover:shadow-lg">
+            <div className="p-6 bg-card rounded-lg border border-border transition-all duration-300 hover:shadow-lg dark:bg-gradient-to-tr dark:from-slate-500/20 dark:border-white/10 dark:bg-transparent">
               <MessageCircle className="w-8 h-8 text-primary mx-auto mb-4" />
               <h3 className="font-semibold text-lg mb-2 text-card-foreground">Live Chat</h3>
               <p className="text-muted-foreground">Available 9AM-6PM</p>
               <p className="text-sm text-muted-foreground mt-2">Quick Responses</p>
             </div>
 
-            <div className="p-6 bg-card rounded-lg border border-border transition-all duration-300 hover:shadow-lg">
+            <div className="p-6 bg-card rounded-lg border border-border transition-all duration-300 hover:shadow-lg dark:bg-gradient-to-tr dark:from-slate-500/20 dark:border-white/10 dark:bg-transparent">
               <Users className="w-8 h-8 text-primary mx-auto mb-4" />
               <h3 className="font-semibold text-lg mb-2 text-card-foreground">Community</h3>
               <p className="text-muted-foreground">Join Our Forum</p>
               <p className="text-sm text-muted-foreground mt-2">Learn from Others</p>
             </div>
 
-            <div className="p-6 bg-card rounded-lg border border-border transition-all duration-300 hover:shadow-lg">
+            <div className="p-6 bg-card rounded-lg border border-border transition-all duration-300 hover:shadow-lg dark:bg-gradient-to-tr dark:from-slate-500/20 dark:border-white/10 dark:bg-transparent">
               <BookOpen className="w-8 h-8 text-primary mx-auto mb-4" />
               <h3 className="font-semibold text-lg mb-2 text-card-foreground">Resources</h3>
               <p className="text-muted-foreground">Guides & Tutorials</p>

@@ -6,16 +6,19 @@ export default function ValueProposition() {
     {
       icon: <Shield className="w-6 h-6" />,
       title: "Verified Sellers",
+      color: "dark:from-slate-500/20",
       description: "All student sellers are verified through their academic institutions",
     },
     {
       icon: <Users className="w-6 h-6" />,
       title: "Direct Connection",
+      color: "dark:from-slate-500/20",
       description: "Connect directly with student entrepreneurs across Indonesia",
     },
     {
       icon: <CreditCard className="w-6 h-6" />,
       title: "Secure Transactions",
+      color: "dark:from-slate-500/20",
       description: "Safe and protected payment process for every purchase",
     },
   ];
@@ -33,8 +36,8 @@ export default function ValueProposition() {
           {features.map((feature, index) => (
             <div key={index}>
               <Card
-                className="bg-background/60 backdrop-blur-sm backdrop-saturate-150 border border-white/10
-                  shadow-lg cursor-pointer transition-all duration-300"
+                className={`bg-background dark:bg-gradient-to-tr ${feature.color} dark:border-white/10 dark:bg-transparent backdrop-blur-sm backdrop-saturate-150 border border-white/10
+                  shadow-lg cursor-pointer transition-all duration-300`}
               >
                 <CardContent className="p-6 text-center">
                   <div className="mb-4 inline-flex p-3 bg-primary/5 backdrop-blur-sm rounded-lg text-primary">{feature.icon}</div>

@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { Laptop, ShoppingBag, Briefcase, DollarSign, Utensils, HeartHandshake, MoreHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -12,48 +11,48 @@ export default function CategorySection() {
       name: "Electronics",
       icon: Laptop,
       description: "Gadgets & Tech",
-      color: "from-blue-500/20",
-      iconColor: "text-blue-500",
+      color: "dark:from-slate-500/20",
+      iconColor: "text-slate-500",
       slug: "electronics",
     },
     {
       name: "Fashions",
       icon: ShoppingBag,
       description: "Clothing & Accessories",
-      color: "from-pink-500/20",
-      iconColor: "text-pink-500",
+      color: "dark:from-slate-500/20",
+      iconColor: "text-slate-500",
       slug: "fashions",
     },
     {
       name: "Baggages",
       icon: Briefcase,
       description: "Bags & Luggage",
-      color: "from-purple-500/20",
-      iconColor: "text-purple-500",
+      color: "dark:from-slate-500/20",
+      iconColor: "text-slate-500",
       slug: "baggages",
     },
     {
       name: "Exchanges",
       icon: DollarSign,
       description: "Currency Exchange",
-      color: "from-green-500/20",
-      iconColor: "text-green-500",
+      color: "dark:from-slate-500/20",
+      iconColor: "text-slate-500",
       slug: "exchanges",
     },
     {
       name: "Foods",
       icon: Utensils,
       description: "Indonesian Cuisine",
-      color: "from-red-500/20",
-      iconColor: "text-red-500",
+      color: "dark:from-slate-500/20",
+      iconColor: "text-slate-500",
       slug: "foods",
     },
     {
       name: "Services",
       icon: HeartHandshake,
       description: "Student Services",
-      color: "from-amber-500/20",
-      iconColor: "text-amber-500",
+      color: "dark:from-slate-500/20",
+      iconColor: "text-slate-500",
       slug: "others",
     },
   ];
@@ -78,9 +77,9 @@ export default function CategorySection() {
                 key={category.slug}
                 onClick={() => handleCategoryClick(category.slug)}
                 className={`group relative flex flex-col items-center justify-center p-6 rounded-xl
-                  bg-gradient-to-br ${category.color} to-transparent
-                  backdrop-blur-sm backdrop-saturate-150 border border-white/10
-                  shadow-lg cursor-pointer`}
+                  bg-white dark:bg-gradient-to-br ${category.color} dark:to-transparent
+                  backdrop-blur-sm backdrop-saturate-150 border border-slate-200 dark:border-white/10
+                  shadow-lg cursor-pointer hover:bg-slate-50 dark:bg-transparent`}
               >
                 <div className={`mb-3 ${category.iconColor}`}>
                   <Icon className="w-8 h-8 md:w-10 md:h-10" />

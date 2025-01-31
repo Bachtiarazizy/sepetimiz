@@ -1,9 +1,35 @@
+"use client";
+
 import React from "react";
+import { useKeenSlider } from "keen-slider/react";
+import "keen-slider/keen-slider.min.css";
 import { Card, CardContent } from "../ui/card";
 import { Star } from "lucide-react";
 import { Badge } from "../ui/badge";
 
 export default function Testimonials() {
+  const [sliderRef] = useKeenSlider({
+    loop: true,
+    slides: {
+      perView: 1,
+      spacing: 16,
+    },
+    breakpoints: {
+      "(min-width: 768px)": {
+        slides: {
+          perView: 2,
+          spacing: 16,
+        },
+      },
+      "(min-width: 1024px)": {
+        slides: {
+          perView: 3,
+          spacing: 16,
+        },
+      },
+    },
+  });
+
   const testimonials = [
     {
       name: "Sarah Wijaya",
@@ -29,6 +55,30 @@ export default function Testimonials() {
       quote: "The platform made it easy to start my small business and reach students across Indonesia.",
       rating: 5,
     },
+    {
+      name: "Ahmad Rahman",
+      role: "Marketing Student",
+      university: "Diponegoro University",
+      image: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=64&h=64&fit=crop",
+      quote: "Through StudentMarket, I've learned practical marketing skills and built a loyal customer base.",
+      rating: 5,
+    },
+    {
+      name: "Maya Sari",
+      role: "Fashion Design Student",
+      university: "ESMOD Jakarta",
+      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=64&h=64&fit=crop",
+      quote: "As a fashion student, I found the perfect platform to showcase and sell my designs to fellow students.",
+      rating: 5,
+    },
+    {
+      name: "Dian Kusuma",
+      role: "Computer Science Student",
+      university: "Telkom University",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=64&h=64&fit=crop",
+      quote: "The platform's tech community has been invaluable for networking and growing my freelance business.",
+      rating: 5,
+    },
   ];
 
   return (
@@ -40,32 +90,33 @@ export default function Testimonials() {
           <p className="text-muted-foreground text-sm sm:text-base">Hear from our community of student entrepreneurs</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+        <div ref={sliderRef} className="keen-slider">
           {testimonials.map((testimonial, index) => (
-            <Card
-              key={index}
-              className="bg-background/40 backdrop-blur-sm backdrop-saturate-150 border border-white/10
-                  shadow-lg cursor-pointer transition-all duration-300"
-            >
-              <CardContent className="p-6">
-                <div className="flex items-center gap-2 mb-4">
-                  <img src={testimonial.image} alt={testimonial.name} className="w-12 h-12 rounded-full ring-2 ring-primary/10" />
-                  <div>
-                    <h3 className="font-semibold text-foreground">{testimonial.name}</h3>
-                    <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+            <div key={index} className="keen-slider__slide">
+              <Card
+                className={`bg-background/40 backdrop-blur-sm backdrop-saturate-150 border border-white/10
+                  shadow-lg cursor-pointer transition-all duration-300 dark:bg-gradient-to-tr dark:from-slate-500/20 dark:border-white/10 dark:bg-transparent h-full`}
+              >
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-2 mb-4">
+                    <img src={testimonial.image} alt={testimonial.name} className="w-12 h-12 rounded-full ring-2 ring-primary/10" />
+                    <div>
+                      <h3 className="font-semibold text-foreground">{testimonial.name}</h3>
+                      <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                    </div>
                   </div>
-                </div>
-                <div className="flex gap-1 mb-3">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-primary text-primary" />
-                  ))}
-                </div>
-                <p className="text-muted-foreground text-sm">{testimonial.quote}</p>
-                <Badge variant="secondary" className="mt-4 bg-secondary/50 backdrop-blur-sm">
-                  {testimonial.university}
-                </Badge>
-              </CardContent>
-            </Card>
+                  <div className="flex gap-1 mb-3">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-primary text-primary" />
+                    ))}
+                  </div>
+                  <p className="text-muted-foreground text-sm">{testimonial.quote}</p>
+                  <Badge variant="secondary" className="mt-4 bg-secondary/50 backdrop-blur-sm">
+                    {testimonial.university}
+                  </Badge>
+                </CardContent>
+              </Card>
+            </div>
           ))}
         </div>
       </div>

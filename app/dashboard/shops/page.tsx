@@ -9,6 +9,8 @@ import { FilePlus2Icon, Pencil, MapPin, Calendar, Shield, ShieldCheck, ShieldX, 
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { format } from "date-fns";
+import { driver } from "driver.js";
+import "driver.js/dist/driver.css";
 
 const MyShopsPage = async () => {
   const { userId } = await auth();

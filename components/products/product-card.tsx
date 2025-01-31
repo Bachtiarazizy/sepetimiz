@@ -29,9 +29,9 @@ const ProductCard = ({ product }: { product: Product }) => {
   return (
     <Card className="group w-full h-full rounded-lg overflow-hidden bg-card hover:bg-accent/5 transition-all duration-300">
       <Link href={productUrl} className="block h-full">
-        <CardHeader className="p-0 h-0 pb-[100%] relative">
-          <img src={product.images[0] || "/api/placeholder/400/400"} alt={product.title} className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
-        </CardHeader>
+        <div className="aspect-square relative w-full overflow-hidden">
+          <img src={product.images[0] || "/api/placeholder/400/400"} alt={product.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+        </div>
 
         <CardContent className="p-4 space-y-3">
           <div className="flex items-start justify-between gap-2">

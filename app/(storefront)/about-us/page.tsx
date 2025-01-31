@@ -1,6 +1,9 @@
 import React, { Suspense } from "react";
 import { Users, ShieldCheck, MessageCircle, Package, Target, Heart } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { MarqueeDemo } from "@/components/storefront/Animation/Marquee";
+import { BentoDemo } from "@/components/storefront/Animation/BentoDemo";
+import { AnimatedListDemo } from "@/components/storefront/Animation/AnimatedListDemo";
 
 const AboutUs = () => {
   const values = [
@@ -63,7 +66,7 @@ const AboutUs = () => {
       <section className="py-24 bg-secondary/10">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-4xl font-bold mb-12 text-center text-foreground">Our Mission</h2>
-          <Card className="shadow-lg border border-border">
+          <Card className="shadow-lg border border-border dark:bg-gradient-to-tr dark:from-slate-500/20 dark:border-white/10 dark:bg-transparent">
             <CardContent className="p-8">
               <p className="text-xl text-card-foreground leading-relaxed">
                 At Sepetimiz, we bridge the gap between academic pursuit and entrepreneurial success. Our platform enables Indonesian students in Turkey to showcase their talents, build sustainable businesses, and create meaningful
@@ -105,7 +108,7 @@ const AboutUs = () => {
           <h2 className="text-4xl font-bold mb-16 text-center text-foreground">Why Choose Sepetimiz?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <Card key={index} className="hover:shadow-xl transition-all duration-300 border border-border bg-card">
+              <Card key={index} className="hover:shadow-xl transition-all duration-300 border border-border bg-card dark:bg-gradient-to-tr dark:from-slate-500/20 dark:border-white/10 dark:bg-transparent">
                 <CardContent className="p-8">
                   <h3 className="text-xl font-semibold mb-4 text-card-foreground">{feature.title}</h3>
                   <p className="text-muted-foreground">{feature.description}</p>

@@ -19,17 +19,11 @@ export default async function Navbar() {
           <div className="flex h-10 items-center justify-between px-4 sm:px-6 text-sm">
             {/* Contact Information */}
             <div className="flex items-center gap-6">
-              <div className="flex items-center gap-2">
-                <Phone className="h-4 w-4" />
-                <span>+1 234 567 890</span>
-              </div>
               <div className="hidden sm:flex items-center gap-2">
-                <Mail className="h-4 w-4" />
-                <span>contact@sepetimiz.com</span>
-              </div>
-              <div className="hidden md:flex items-center gap-2">
-                <MapPin className="h-4 w-4" />
-                <span>123 Store Street, City</span>
+                <Link href={"mailto:sepetimiz.bk@gmail.com"} className="flex items-center gap-2 hover:text-primary">
+                  <Mail className="h-4 w-4" />
+                  <span>sepetimiz.bk@gmail.com</span>
+                </Link>
               </div>
             </div>
 
