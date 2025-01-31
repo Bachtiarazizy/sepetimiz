@@ -1,5 +1,3 @@
-"use client";
-
 import { getNewArrivals } from "@/actions/new-arrivals";
 import CategorySection from "@/components/category-section";
 import NewArrivals from "@/components/products/new-arrival-section";

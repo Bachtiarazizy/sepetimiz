@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState } from "react";
 import { MessageCircle, Mail, ChevronDown, Users, ShoppingCart, Store, HelpCircle, Shield, BookOpen } from "lucide-react";
 
