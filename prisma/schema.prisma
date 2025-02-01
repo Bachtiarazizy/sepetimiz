@@ -60,7 +60,7 @@ model Shop {
   location      String?
   isPublished   Boolean           @default(false)
   isVerified    Boolean           @default(false)
-  userId        String
+  userId        String //clerk UserID
   products      Product[]
   verifications VerificationData[]
   createdAt     DateTime          @default(now())
