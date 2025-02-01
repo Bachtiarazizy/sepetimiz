@@ -130,7 +130,7 @@ export default async function Page({ params }: { params: { shopId: string } }) {
           <div>
             <div className="flex items-center gap-x-2">
               <IconBadge icon={LayoutDashboard} />
-              <h2 className="text-xl"> Customize your course</h2>
+              <h2 className="text-xl"> Customize your Shop</h2>
             </div>
 
             <NameForm initialData={shop} shopId={shop.id} />
