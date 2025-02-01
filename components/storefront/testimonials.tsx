@@ -34,7 +34,7 @@ export default function Testimonials() {
     {
       name: "Sarah Wijaya",
       role: "UI Design Student",
-      university: "University of Indonesia",
+      university: "Cankaya University",
       image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=64&h=64&fit=crop",
       quote: "StudentMarket helped me turn my design skills into a profitable business while studying.",
       rating: 5,
@@ -42,7 +42,7 @@ export default function Testimonials() {
     {
       name: "Budi Santoso",
       role: "Engineering Student",
-      university: "Bandung Institute of Technology",
+      university: "Middle East Technical University",
       image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=64&h=64&fit=crop",
       quote: "I've found amazing opportunities to showcase my tech projects and connect with real customers.",
       rating: 5,
@@ -50,7 +50,7 @@ export default function Testimonials() {
     {
       name: "Rina Putri",
       role: "Business Student",
-      university: "Gadjah Mada University",
+      university: "Hacettepe University",
       image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=64&h=64&fit=crop",
       quote: "The platform made it easy to start my small business and reach students across Indonesia.",
       rating: 5,
@@ -58,7 +58,7 @@ export default function Testimonials() {
     {
       name: "Ahmad Rahman",
       role: "Marketing Student",
-      university: "Diponegoro University",
+      university: "Gazi University",
       image: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=64&h=64&fit=crop",
       quote: "Through StudentMarket, I've learned practical marketing skills and built a loyal customer base.",
       rating: 5,
@@ -66,7 +66,7 @@ export default function Testimonials() {
     {
       name: "Maya Sari",
       role: "Fashion Design Student",
-      university: "ESMOD Jakarta",
+      university: "Koc University",
       image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=64&h=64&fit=crop",
       quote: "As a fashion student, I found the perfect platform to showcase and sell my designs to fellow students.",
       rating: 5,
@@ -74,7 +74,7 @@ export default function Testimonials() {
     {
       name: "Dian Kusuma",
       role: "Computer Science Student",
-      university: "Telkom University",
+      university: "Istanbul Technical University",
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=64&h=64&fit=crop",
       quote: "The platform's tech community has been invaluable for networking and growing my freelance business.",
       rating: 5,
